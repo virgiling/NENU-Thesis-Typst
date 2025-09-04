@@ -3,10 +3,11 @@
 
 #import "@preview/numbly:0.1.0": numbly
 #import "@preview/cuti:0.2.1": fakebold
-#import "@preview/fletcher:0.5.1" as fletcher: node, edge
 #import "@preview/i-figured:0.2.4"
 #import "@preview/lovelace:0.3.0": *
 #import "@preview/cetz:0.3.1"
+
+// #import "../fonts/fonts.typ": font-family, font-size
 
 #let font-size = (
   初号: 42pt,
@@ -31,7 +32,15 @@
 #let font-family = (
   // 宋体，属于「有衬线字体」，一般可以等同于英文中的 Serif Font
   // 这一行分别是「新罗马体（有衬线英文字体）」、「思源宋体（简体）」、「思源宋体」、「宋体（Windows）」、「宋体（MacOS）」
-  宋体: ("Times New Roman", "Source Han Serif SC", "Source Han Serif", "Noto Serif CJK SC", "SimSun", "Songti SC", "STSongti"),
+  宋体: (
+    "Times New Roman",
+    "Source Han Serif SC",
+    "Source Han Serif",
+    "Noto Serif CJK SC",
+    "SimSun",
+    "Songti SC",
+    "STSongti",
+  ),
   // 黑体，属于「无衬线字体」，一般可以等同于英文中的 Sans Serif Font
   // 这一行分别是「Arial（无衬线英文字体）」、「思源黑体（简体）」、「思源黑体」、「黑体（Windows）」、「黑体（MacOS）」
   黑体: ("Arial", "Source Han Sans SC", "Source Han Sans", "Noto Sans CJK SC", "SimHei", "Heiti SC", "STHeiti"),
@@ -41,7 +50,17 @@
   仿宋: ("Times New Roman", "FangSong", "FangSong SC", "STFangSong", "FZFangSong-Z02S"),
   // 等宽字体，用于代码块环境，一般可以等同于英文中的 Monospaced Font
   // 这一行分别是「Courier New（Windows 等宽英文字体）」、「思源等宽黑体（简体）」、「思源等宽黑体」、「黑体（Windows）」、「黑体（MacOS）」
-  等宽: ("Courier New", "Menlo", "IBM Plex Mono", "Source Han Sans HW SC", "Source Han Sans HW", "Noto Sans Mono CJK SC", "SimHei", "Heiti SC", "STHeiti"),
+  等宽: (
+    "Courier New",
+    "Menlo",
+    "IBM Plex Mono",
+    "Source Han Sans HW SC",
+    "Source Han Sans HW",
+    "Noto Sans Mono CJK SC",
+    "SimHei",
+    "Heiti SC",
+    "STHeiti",
+  ),
 )
 
 // 中文缩进
@@ -95,7 +114,6 @@
   title: (school: "东北师范大学", type: "研究生学位论文开题报告"),
   author_info: (:),
 ) = {
-
   set align(center)
   set text(size: font-size.二号, font: font-family.黑体)
   v(4em)
@@ -104,31 +122,29 @@
   set text(size: font-size.三号, font: font-family.楷体)
   v(3.5em)
 
-  par(
-    justify: true,
-    grid(
-      columns: (.35fr, 1fr),
-      row-gutter: 1.3em,
-      column-gutter: 0em,
-      align: (center, left),
-      distr("论文题目", w: 7em), [：#author_info.title],
-      distr("报告人姓名", w: 7em), [：#author_info.name],
-      distr("研究方向", w: 7em), [：#author_info.direction],
-      distr("学科专业", w: 7em), [：#author_info.major],
-      distr("年级", w: 7em), [：#author_info.grade],
-      distr("学历层次", w: 7em),
-      [：博士生 #checkbox(checked: author_info.level == "博士生")
-        #h(1em)硕士生 #checkbox(checked: author_info.level == "硕士生")],
 
-      distr("学位类型", w: 7em),
-      [
-        ：学术学位 #checkbox(checked: author_info.type == "学术学位")
-        #h(1em)专业学位 #checkbox(checked: author_info.type == "专业学位")
-      ],
+  grid(
+    columns: (.35fr, 1fr),
+    row-gutter: 1.3em,
+    column-gutter: 0em,
+    align: (center, left),
+    distr("论文题目", w: 7em), [：#author_info.title],
+    distr("报告人姓名", w: 7em), [：#author_info.name],
+    distr("研究方向", w: 7em), [：#author_info.direction],
+    distr("学科专业", w: 7em), [：#author_info.major],
+    distr("年级", w: 7em), [：#author_info.grade],
+    distr("学历层次", w: 7em),
+    [：博士生 #checkbox(checked: author_info.level == "博士生")
+      #h(1em)硕士生 #checkbox(checked: author_info.level == "硕士生")],
 
-      distr("指导教师", w: 7em), [：#author_info.supervisor],
-      distr("培养单位", w: 7em), [：#author_info.unit],
-    ),
+    distr("学位类型", w: 7em),
+    [
+      ：学术学位 #checkbox(checked: author_info.type == "学术学位")
+      #h(1em)专业学位 #checkbox(checked: author_info.type == "专业学位")
+    ],
+
+    distr("指导教师", w: 7em), [：#author_info.supervisor],
+    distr("培养单位", w: 7em), [：#author_info.unit],
   )
   set align(left)
   pagebreak()
@@ -180,8 +196,34 @@
       "{1}.{2}.{3}",
     ),
   )
-  show heading: it => {
-
+  show heading.where(level: 1): it => {
+    let title = it.body.text.split("（").first()
+    let content = it.body.text.split("（").last()
+    if title == "参考文献" {
+      content = none
+    }
+    // TODO 优化这部分显示
+    v(0.5em)
+    [
+      #fake-par
+      #set par(leading: 1em, first-line-indent: 0em)
+      #if it.level == 1 {
+        text(font: font-family.黑体, size: font-size.三号)[
+          #fakebold[#counter(heading).display() #title]
+        ]
+        if content != none {
+          text(font: font-family.楷体, size: font-size.四号)[
+            （#content
+          ]
+        }
+      } else {
+        text(font: font-family.黑体, size: font-size.小三)[
+          #counter(heading).display() #title
+        ]
+      }
+    ]
+  }
+    show heading.where(level: 2): it => {
     let title = it.body.text.split("（").first()
     let content = it.body.text.split("（").last()
     if title == "参考文献" {
@@ -249,11 +291,9 @@
 }
 
 // [!FIXME] 增加 dx, dy 偏移量参数，使得签名能够放在恰当的位置上
-#let sign(sign_image: none, date: datetime) = {
+#let teacher-sign(sign_image: none, date: datetime) = {
   place(right + bottom)[
-    指导教师签字：#h(5em) #box(
-      sign_image, height: 1.15em
-    ) \
+    指导教师签字：#h(5em) #box(sign_image, height: 1.15em) \
     #datetime-display-cn-declare(date)
     #h(3em)
   ]
@@ -290,15 +330,15 @@
       inset: 10pt,
       align: center,
       table.cell(colspan: 3)[审查小组意见],
-      table.cell(colspan: 3)[开题报告审查小组成员名单],[姓 名],[职 称],[工 作 单 位],
-      ..teacher_table_rows
+      table.cell(colspan: 3)[开题报告审查小组成员名单], [姓 名], [职 称], [工 作 单 位],
+      ..teacher_table_rows,
     )
     #set table(stroke: (x, y) => {
       (top: 0.5pt, bottom: 0.5pt, left: 0.5pt, right: 0.5pt)
     })
     #v(-1.2em)
     #table(
-      columns: (4fr)
+      columns: 4fr
     )[
       #v(1em)
       #set text(weight: "bold")
@@ -311,11 +351,9 @@
         inset: 10pt,
         stroke: none,
         align: left,
-        [合格，修改后可以进入学位论文写作阶段],
-        [#box(width: 10pt, height: 10pt, stroke: 0.5pt)],
+        [合格，修改后可以进入学位论文写作阶段], [#box(width: 10pt, height: 10pt, stroke: 0.5pt)],
 
-        [ 不合格，需再次进行学位论文开题报告],
-        [#box(width: 10pt, height: 10pt, stroke: 0.5pt)],
+        [ 不合格，需再次进行学位论文开题报告], [#box(width: 10pt, height: 10pt, stroke: 0.5pt)],
       )
 
       #v(15em)
@@ -385,7 +423,7 @@
 
 
 //! 在这里填入自己的签名文件路径
-#sign(
+#teacher-sign(
   // image("sign.svg", height: 2em),
   date: datetime.today(),
 )

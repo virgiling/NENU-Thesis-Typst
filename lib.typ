@@ -1,134 +1,255 @@
-#import "layout/document.typ": doc
-#import "fonts/fonts.typ": font-size, font-family
+// 南京大学学位论文模板 modern-nju-thesis
+// Author: https://github.com/OrangeX4
+// Repo: https://github.com/nju-lug/modern-nju-thesis
+// 在线模板可能不会更新得很及时，如果需要最新版本，请关注 Repo
+
+#import "layouts/doc.typ": doc
+#import "layouts/preface.typ": preface
+#import "layouts/mainmatter.typ": mainmatter
+#import "layouts/appendix.typ": appendix
+#import "pages/fonts-display-page.typ": fonts-display-page
 #import "pages/bachelor-cover.typ": bachelor-cover
-#import "pages/bachelor-declare.typ": bachelor-declare
-#import "pages/bachelor-abstract.typ": bachelor-abstract
-#import "pages/toc-page.typ": toc
-#import "layout/mainmatter.typ": mainmatter
-#import "pages/reference.typ": nenu-bibliography
-#import "pages/ackonwledge.typ": acknowledgement
-#import "@preview/anti-matter:0.1.1": fence
+#import "pages/master-cover.typ": master-cover
+#import "pages/bachelor-decl-page.typ": bachelor-decl-page
+#import "pages/master-decl-page.typ": master-decl-page
+#import "pages/abstract.typ": abstract
+#import "pages/abstract-en.typ": abstract-en
+#import "pages/bachelor-outline-page.typ": bachelor-outline-page
+#import "pages/list-of-figures.typ": list-of-figures
+#import "pages/list-of-tables.typ": list-of-tables
+#import "pages/notation.typ": notation
+#import "pages/acknowledgement.typ": acknowledgement
+#import "utils/custom-cuti.typ": *
+#import "utils/bilingual-bibliography.typ": bilingual-bibliography
+#import "utils/custom-numbering.typ": custom-numbering
+#import "utils/custom-heading.typ": active-heading, current-heading, heading-display
+#import "@preview/i-figured:0.2.4": show-equation, show-figure
+#import "utils/style.typ": 字体, 字号
 #import "@preview/kouhu:0.1.0": kouhu
 #import "@preview/codly:1.1.1": *
 #import "@preview/codly-languages:0.1.1": *
 
+
+#let indent = h(2em)
+
+// 使用函数闭包特性，通过 `thesis` 函数类进行全局信息配置，然后暴露出拥有了全局配置的、具体的 `layouts` 和 `templates` 内部函数。
 #let thesis(
-  // TODO 新增 "master" 和 "phd" 类型
-  thesis-type: "bachelor",
-  // TODO 新增学位类型的选项（只在硕士和博士学位生效）
-  degree: "academic",
-  // TODO 双面模式，在封面与封底插入空白页
-  two-side: false,
-  // 参考文献函数
-  bibliography: none,
-  // 字体
-  fonts: (:),
-  // 额外信息
+  doctype: "bachelor", // "bachelor" | "master" | "doctor" | "postdoc"，文档类型，默认为本科生 bachelor
+  degree: "academic", // "academic" | "professional"，学位类型，默认为学术型 academic
+  nl-cover: false, // TODO: 是否使用国家图书馆封面，默认关闭
+  twoside: false, // 双面模式，会加入空白页，便于打印
+  anonymous: false, // 盲审模式
+  bibliography: none, // 原来的参考文献函数
+  fonts: (:), // 字体，应传入「宋体」、「黑体」、「楷体」、「仿宋」、「等宽」
   info: (:),
-  // 关键词
-  keywords-cn: (),
-  keywords-en: (),
 ) = {
-  fonts = font-family + fonts
+  // 默认参数
+  fonts = 字体 + fonts
   info = (
     (
-      title: "毕业论文中文题目",
-      title-en: "毕业论文英文题目",
-      student-id: "123456",
+      title: "基于 Typst 的东北师范大学学位论文模板",
+      title-en: "NENU Thesis Template for Typst",
+      grade: "20XX",
+      student-id: "1234567890",
       author: "张三",
-      department: "信息科学与技术学院",
-      major: "计算机科学与技术",
-      supervisor: "李四",
+      author-en: "Zhang San",
+      department: "某学院",
+      department-en: "XX Department",
+      major: "某专业",
+      major-en: "XX Major",
+      field: "某方向",
+      field-en: "XX Field",
+      supervisor: ("李四", "教授"),
+      supervisor-en: "Professor Li Si",
+      supervisor-ii: (),
+      supervisor-ii-en: "",
       submit-date: datetime.today(),
-    ) + info
+      // 以下为研究生项
+      defend-date: datetime.today(),
+      confer-date: datetime.today(),
+      bottom-date: datetime.today(),
+      chairman: "某某某 教授",
+      reviewer: ("某某某 教授", "某某某 教授"),
+      clc: "O643.12",
+      udc: "544.4",
+      secret-level: "公开",
+      supervisor-contact: "南京大学 江苏省南京市栖霞区仙林大道163号",
+      email: "xyz@smail.nju.edu.cn",
+      school-code: "10200",
+      degree: auto,
+      degree-en: auto,
+    )
+      + info
   )
 
-  (
-    thesis-type: thesis-type,
+  return (
+    // 将传入参数再导出
+    doctype: doctype,
     degree: degree,
-    two-side: two-side,
+    nl-cover: nl-cover,
+    twoside: twoside,
+    anonymous: anonymous,
     fonts: fonts,
     info: info,
-    //TODO 分发更多函数
+    // 页面布局
     doc: (..args) => {
       doc(
         ..args,
         info: info + args.named().at("info", default: (:)),
-        thesis-type: thesis-type,
       )
     },
-    mainmatter: (..args) => {
-      mainmatter(..args)
-    },
-    fence: (..args) => {
-      fence(..args)
-    },
-    cover: (..args) => {
-      if thesis-type == "bachelor" {
-        bachelor-cover(
-          two-side: two-side,
-          fonts: fonts + args.named().at("fonts", default: (:)),
-          info: info + args.named().at("info", default: (:)),
-          ..args,
-        )
-      } else {
-        panic("Not Implemented Yet!")
-      }
-    },
-    declare: (..args) => {
-      if thesis-type == "bachelor" {
-        bachelor-declare(
-          two-side: two-side,
-          fonts: fonts + args.named().at("fonts", default: (:)),
-          ..args,
-        )
-        counter(page).update(0)
-      } else {
-        panic("Not Implemented Yet!")
-      }
-    },
-    abstract-cn: (..args) => {
-      if thesis-type == "bachelor" {
-        bachelor-abstract(
-          two-side: two-side,
-          fonts: fonts + args.named().at("fonts", default: (:)),
-          display-lang: "cn",
-          keywords: keywords-cn,
-          ..args,
-        )
-      } else {
-        panic("Not Implemented Yet!")
-      }
-    },
-    abstract-en: (..args) => {
-      if thesis-type == "bachelor" {
-        bachelor-abstract(
-          two-side: two-side,
-          fonts: fonts + args.named().at("fonts", default: (:)),
-          display-lang: "en",
-          keywords: keywords-en,
-          ..args,
-        )
-      } else {
-        panic("Not Implemented Yet!")
-      }
-    },
-    toc: (..args) => {
-      toc(
-        two-side: two-side,
-        fonts: fonts + args.named().at("fonts", default: (:)),
+    preface: (..args) => {
+      preface(
+        twoside: twoside,
         ..args,
       )
     },
-    nenu-bibliography: (..args) => {
-      nenu-bibliography(
+    mainmatter: (..args) => {
+      if doctype == "master" or doctype == "doctor" {
+        mainmatter(
+          twoside: twoside,
+          display-header: true,
+          ..args,
+          fonts: fonts + args.named().at("fonts", default: (:)),
+        )
+      } else {
+        mainmatter(
+          twoside: twoside,
+          ..args,
+          fonts: fonts + args.named().at("fonts", default: (:)),
+        )
+      }
+    },
+    appendix: (..args) => {
+      appendix(
+        ..args,
+      )
+    },
+    // 字体展示页
+    fonts-display-page: (..args) => {
+      fonts-display-page(
+        twoside: twoside,
+        ..args,
+        fonts: fonts + args.named().at("fonts", default: (:)),
+      )
+    },
+    // 封面页，通过 type 分发到不同函数
+    cover: (..args) => {
+      if doctype == "master" or doctype == "doctor" {
+        master-cover(
+          doctype: doctype,
+          degree: degree,
+          nl-cover: nl-cover,
+          anonymous: anonymous,
+          twoside: twoside,
+          ..args,
+          fonts: fonts + args.named().at("fonts", default: (:)),
+          info: info + args.named().at("info", default: (:)),
+        )
+      } else if doctype == "postdoc" {
+        panic("postdoc has not yet been implemented.")
+      } else {
+        bachelor-cover(
+          anonymous: anonymous,
+          twoside: twoside,
+          ..args,
+          fonts: fonts + args.named().at("fonts", default: (:)),
+          info: info + args.named().at("info", default: (:)),
+        )
+      }
+    },
+    // 声明页，通过 type 分发到不同函数
+    decl-page: (..args) => {
+      if doctype == "master" or doctype == "doctor" {
+        master-decl-page(
+          anonymous: anonymous,
+          twoside: twoside,
+          ..args,
+          fonts: fonts + args.named().at("fonts", default: (:)),
+        )
+      } else if doctype == "postdoc" {
+        panic("postdoc has not yet been implemented.")
+      } else {
+        bachelor-decl-page(
+          anonymous: anonymous,
+          twoside: twoside,
+          ..args,
+          fonts: fonts + args.named().at("fonts", default: (:)),
+          info: info + args.named().at("info", default: (:)),
+        )
+      }
+    },
+    // 中文摘要页，通过 type 分发到不同函数
+    abstract: (..args) => {
+      if doctype == "postdoc" {
+        panic("postdoc has not yet been implemented.")
+      } else {
+        abstract(
+          anonymous: anonymous,
+          twoside: twoside,
+          ..args,
+          fonts: fonts + args.named().at("fonts", default: (:)),
+          info: info + args.named().at("info", default: (:)),
+        )
+      }
+    },
+    // 英文摘要页，通过 type 分发到不同函数
+    abstract-en: (..args) => {
+      if doctype == "postdoc" {
+        panic("postdoc has not yet been implemented.")
+      } else {
+        abstract-en(
+          anonymous: anonymous,
+          twoside: twoside,
+          ..args,
+          fonts: fonts + args.named().at("fonts", default: (:)),
+          info: info + args.named().at("info", default: (:)),
+        )
+      }
+    },
+    // 目录页
+    outline-page: (..args) => {
+      bachelor-outline-page(
+        twoside: twoside,
+        ..args,
+        fonts: fonts + args.named().at("fonts", default: (:)),
+      )
+    },
+    // 插图目录页
+    list-of-figures: (..args) => {
+      list-of-figures(
+        twoside: twoside,
+        ..args,
+        fonts: fonts + args.named().at("fonts", default: (:)),
+      )
+    },
+    // 表格目录页
+    list-of-tables: (..args) => {
+      list-of-tables(
+        twoside: twoside,
+        ..args,
+        fonts: fonts + args.named().at("fonts", default: (:)),
+      )
+    },
+    // 符号表页
+    notation: (..args) => {
+      notation(
+        twoside: twoside,
+        ..args,
+      )
+    },
+    // 参考文献页
+    bilingual-bibliography: (..args) => {
+      bilingual-bibliography(
         bibliography: bibliography,
         ..args,
       )
     },
+    // 致谢页
     acknowledgement: (..args) => {
       acknowledgement(
-        two-side: two-side,
+        anonymous: anonymous,
+        twoside: twoside,
         ..args,
       )
     },

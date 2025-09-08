@@ -7,61 +7,7 @@
 #import "@preview/lovelace:0.3.0": *
 #import "@preview/cetz:0.3.1"
 
-// #import "../fonts/fonts.typ": font-family, font-size
-
-#let font-size = (
-  初号: 42pt,
-  小初: 36pt,
-  一号: 26pt,
-  小一: 24pt,
-  二号: 22pt,
-  小二: 18pt,
-  三号: 16pt,
-  小三: 15pt,
-  四号: 14pt,
-  中四: 13pt,
-  小四: 12pt,
-  五号: 10.5pt,
-  小五: 9pt,
-  六号: 7.5pt,
-  小六: 6.5pt,
-  七号: 5.5pt,
-  小七: 5pt,
-)
-
-#let font-family = (
-  // 宋体，属于「有衬线字体」，一般可以等同于英文中的 Serif Font
-  // 这一行分别是「新罗马体（有衬线英文字体）」、「思源宋体（简体）」、「思源宋体」、「宋体（Windows）」、「宋体（MacOS）」
-  宋体: (
-    "Times New Roman",
-    "Source Han Serif SC",
-    "Source Han Serif",
-    "Noto Serif CJK SC",
-    "SimSun",
-    "Songti SC",
-    "STSongti",
-  ),
-  // 黑体，属于「无衬线字体」，一般可以等同于英文中的 Sans Serif Font
-  // 这一行分别是「Arial（无衬线英文字体）」、「思源黑体（简体）」、「思源黑体」、「黑体（Windows）」、「黑体（MacOS）」
-  黑体: ("Arial", "Source Han Sans SC", "Source Han Sans", "Noto Sans CJK SC", "SimHei", "Heiti SC", "STHeiti"),
-  // 楷体
-  楷体: ("Times New Roman", "KaiTi", "Kaiti SC", "STKaiti", "FZKai-Z03S"),
-  // 仿宋
-  仿宋: ("Times New Roman", "FangSong", "FangSong SC", "STFangSong", "FZFangSong-Z02S"),
-  // 等宽字体，用于代码块环境，一般可以等同于英文中的 Monospaced Font
-  // 这一行分别是「Courier New（Windows 等宽英文字体）」、「思源等宽黑体（简体）」、「思源等宽黑体」、「黑体（Windows）」、「黑体（MacOS）」
-  等宽: (
-    "Courier New",
-    "Menlo",
-    "IBM Plex Mono",
-    "Source Han Sans HW SC",
-    "Source Han Sans HW",
-    "Noto Sans Mono CJK SC",
-    "SimHei",
-    "Heiti SC",
-    "STHeiti",
-  ),
-)
+#import "../utils/style.typ": fonts_family, fonts_size
 
 // 中文缩进
 #let indent = h(2em)
@@ -115,11 +61,11 @@
   author_info: (:),
 ) = {
   set align(center)
-  set text(size: font-size.二号, font: font-family.黑体)
+  set text(size: fonts_size.二号, font: fonts_family.黑体)
   v(4em)
   fakebold[#title.school #v(.5em) #title.type]
 
-  set text(size: font-size.三号, font: font-family.楷体)
+  set text(size: fonts_size.三号, font: fonts_family.楷体)
   v(3.5em)
 
 
@@ -156,13 +102,13 @@
 
   [
     #set align(center)
-    #set text(size: font-size.三号, font: font-family.楷体)
+    #set text(size: fonts_size.三号, font: fonts_family.楷体)
     #set par(leading: 1em)
     #fakebold[撰写说明]
   ]
 
   v(1em)
-  set text(size: font-size.四号)
+  set text(size: fonts_size.四号)
   set par(leading: 1.5em, first-line-indent: 2em, spacing: 1.5em, justify: true)
   [
     1.文献综述应基于选题领域内具有代表性的文献进行，需满足一定的字数要求。博士生：文科不得少于10000字，理科不得少于6000字。硕士生：文科不得少于5000字，理科不得少于3000字。
@@ -187,7 +133,7 @@
 
 #let doc(it) = {
   set page(margin: (top: 2cm, bottom: 2cm, left: 2.5cm, right: 2.5cm))
-  set text(size: font-size.小四, font: font-family.宋体, lang: "zh")
+  set text(size: fonts_size.小四, font: fonts_family.宋体, lang: "zh")
   set par(leading: 1em, first-line-indent: 2em, justify: true)
   set heading(
     numbering: numbly(
@@ -208,22 +154,22 @@
       #fake-par
       #set par(leading: 1em, first-line-indent: 0em)
       #if it.level == 1 {
-        text(font: font-family.黑体, size: font-size.三号)[
+        text(font: fonts_family.黑体, size: fonts_size.三号)[
           #fakebold[#counter(heading).display() #title]
         ]
         if content != none {
-          text(font: font-family.楷体, size: font-size.四号)[
+          text(font: fonts_family.楷体, size: fonts_size.四号)[
             （#content
           ]
         }
       } else {
-        text(font: font-family.黑体, size: font-size.小三)[
+        text(font: fonts_family.黑体, size: fonts_size.小三)[
           #counter(heading).display() #title
         ]
       }
     ]
   }
-    show heading.where(level: 2): it => {
+  show heading.where(level: 2): it => {
     let title = it.body.text.split("（").first()
     let content = it.body.text.split("（").last()
     if title == "参考文献" {
@@ -235,16 +181,16 @@
       #fake-par
       #set par(leading: 1em, first-line-indent: 0em)
       #if it.level == 1 {
-        text(font: font-family.黑体, size: font-size.三号)[
+        text(font: fonts_family.黑体, size: fonts_size.三号)[
           #fakebold[#counter(heading).display() #title]
         ]
         if content != none {
-          text(font: font-family.楷体, size: font-size.四号)[
+          text(font: fonts_family.楷体, size: fonts_size.四号)[
             （#content
           ]
         }
       } else {
-        text(font: font-family.黑体, size: font-size.小三)[
+        text(font: fonts_family.黑体, size: fonts_size.小三)[
           #counter(heading).display() #title
         ]
       }
@@ -260,7 +206,7 @@
   show figure.where(kind: table): set figure.caption(position: top)
   set figure.caption(separator: " ")
   show figure.caption: fakebold
-  show figure.caption: set text(font: font-family.宋体, size: font-size.五号)
+  show figure.caption: set text(font: fonts_family.宋体, size: fonts_size.五号)
 
   //! 4. 公式编号
   show math.equation.where(block: true): i-figured.show-equation
@@ -281,7 +227,7 @@
   ]
   assert(bibliography != none, message: "bibliography 函数不能为空")
 
-  set text(lang: "zh", size: font-size.小四, font: font-family.宋体)
+  set text(lang: "zh", size: fonts_size.小四, font: fonts_family.宋体)
 
   bibliography(
     title: none,

@@ -1,19 +1,17 @@
-#import "../utils/style.typ": 字体, 字号
-#import "../utils/distr.typ": v-distr
+#import "../utils/style.typ": fonts_family, fonts_size
+#import "../utils/distribute-text.typ": v-distr
 
 #let committee(
   info: (:),
   fonts: (),
 ) = {
-  let font-family = 字体
-  let font-size = 字号
-  fonts = font-family + fonts
+  fonts = fonts_family + fonts
   let long_cell_height = 3em
   let cell_height = 2.7em
   let title_font = fonts.黑体
-  let title_size = font-size.三号
+  let title_size = fonts_size.三号
   let cell_font = fonts.宋体
-  let cell_size = font-size.小四
+  let cell_size = fonts_size.小四
   let weight_style = "bold"
   let num_reviewers = info.reviewers.len()
   let num_committee_members = info.committee-members.len()

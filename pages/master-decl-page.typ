@@ -1,28 +1,48 @@
-#import "../utils/style.typ": 字体, 字号
-#import "../utils/distr.typ": distr
+#import "../utils/style.typ": fonts_family, fonts_size
+#import "../utils/distribute-text.typ": distr
 
 #let declare(
   info: (:),
   fonts: (),
 ) = {
-  let font-family = 字体
-  let font-size = 字号
-  fonts = font-family + fonts
+  fonts = fonts_family + fonts
   let originality-title-font = fonts.宋体
-  let originality-title-size = font-size.三号
+  let originality-title-size = fonts_size.三号
   let originality-content-font = fonts.宋体
-  let originality-content-size = font-size.小四
+  let originality-content-size = fonts_size.小四
+
+  let box-inset = 0.5em
+  let box-stroke = 0.5pt + black
+
+  let small-box-height = 1.5em
+  let small-box-width = 7em
+  let small-box-stroke = 0.5pt + black
+
+  let par_indent = 2em
+  let par_leading = 1.5em
+
+  let pad-x = 2em
+
+  set pad(x: pad-x)
+
+  set grid(
+    align: center + horizon,
+    inset: 0pt,
+    columns: (0.7fr, 1fr) * 2,
+  )
+
   box(
-    stroke: 0.5pt + black,
+    stroke: box-stroke,
     height: 100%,
     width: 100%,
+    inset: box-inset,
   )[
     #set text(
       font: originality-content-font,
       size: originality-content-size,
     )
-    #set par(first-line-indent: 2em, leading: 1.5em)
-    #set box(height: 1.5em, width: 7em, stroke: (bottom: 0.5pt + black))
+    #set par(first-line-indent: par_indent, leading: par_leading)
+    #set box(height: small-box-height, width: small-box-width, stroke: (bottom: small-box-stroke))
 
     #text(font: originality-title-font, size: originality-title-size, weight: "bold")[
       #v(3em)
@@ -34,8 +54,18 @@
     #text()[
       本人郑重声明：所提交的学位论文是本人在导师指导下独立进行研究工作所取得的成果。据我所知，除了特别加以标注和致谢的地方外，论文中不包含其他人已经发表或撰写过的研究成果。对本人的研究做出重要贡献的个人和集体，均已在文中作了明确的说明。本声明的法律结果由本人承担。
 
-      论文作者签名：#box()[#info.author-sign]
-      #h(2em)日期：#box()[#info.originality-datetime]
+      #pad(
+        grid(
+          column-gutter: 0pt,
+          grid.cell()[#distr("论文作者签名：")],
+          grid.cell()[#box()[#info.author-sign]],
+          grid.cell()[#distr("日期：")],
+          grid.cell()[#box()[#info.originality-datetime]
+          ],
+        ),
+      )
+
+
     ]
 
     #v(10em)
@@ -57,20 +87,22 @@
 
       （保密的学位论文在解密后适用本授权书）
 
-      #pad(x: 2em)[
+      #pad()[
         #grid(
-          columns: (0.7fr, 1fr) * 2,
-          inset: 0pt,
-          // stroke: 0.5pt + black,
-          align: center + horizon,
-          [#distr("论文作者签名：")], [#box()[#info.author-sign]], [#distr("指导教师签名：")], [#box()[#info.supervisor-sign]],
-          [#distr("日期：")], [#box()[#info.author-originality-datetime]], [#distr("日期：")], [#box()[#info.supervisor-originality-datetime]],
+          [#distr("论文作者签名：")],
+          [#box()[#info.author-sign]],
+          [#distr("指导教师签名：")],
+          [#box()[#info.supervisor-sign]],
+
+          [#distr("日期：")],
+          [#box()[#info.author-originality-datetime]],
+          [#distr("日期：")],
+          [#box()[#info.supervisor-originality-datetime]],
         )
       ]
     ]
   ]
 }
-
 
 #declare(
   fonts: (:),

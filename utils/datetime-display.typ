@@ -10,5 +10,5 @@
 
 // 显示英文日期
 #let datetime-en-display(date) = {
-  date.display("[month repr:short] [day], [year]")
+  date.display("[year], [month]")
 }

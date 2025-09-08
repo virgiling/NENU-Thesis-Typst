@@ -1,5 +1,5 @@
 #import "../utils/custom-cuti.typ": fakebold
-#import "../utils/style.typ": 字体, 字号
+#import "../utils/style.typ": fonts_family, fonts_size
 #import "../utils/double-underline.typ": double-underline
 #import "../utils/invisible-heading.typ": invisible-heading
 
@@ -23,7 +23,7 @@
   body,
 ) = {
   // 1.  默认参数
-  fonts = 字体 + fonts
+  fonts = fonts_family + fonts
 
   // 2.  正式渲染
   pagebreak(weak: true, to: if twoside { "odd" })
@@ -33,14 +33,14 @@
     #invisible-heading(level: 1, outlined: outlined, outline-title)
 
     #align(center)[
-      #set text(font: fonts.黑体, size: 字号.三号, weight: "bold")
+      #set text(font: fonts.黑体, size: fonts_size.三号, weight: "bold")
       #set par(leading: leading)
       #v(48pt)
       #fakebold(base-weight: "regular")[#outline-title]
       #v(24pt)
     ]
 
-    #set text(font: fonts.宋体, size: 字号.小四)
+    #set text(font: fonts.宋体, size: fonts_size.小四)
     #set par(leading: leading, justify: true, spacing: spacing, first-line-indent: (amount: 2em, all: true))
 
     #body

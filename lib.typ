@@ -1,7 +1,6 @@
-// 南京大学学位论文模板 modern-nju-thesis
-// Author: https://github.com/OrangeX4
-// Repo: https://github.com/nju-lug/modern-nju-thesis
-// 在线模板可能不会更新得很及时，如果需要最新版本，请关注 Repo
+//! @Title: 东北师范大学大学学位论文模板
+//! @Author: https://github.com/virgiling
+//! @Repo: https://github.com/virgiling/NENU-Thesis-Typst
 
 #import "layouts/doc.typ": doc
 #import "layouts/preface.typ": preface
@@ -24,7 +23,7 @@
 #import "utils/custom-numbering.typ": custom-numbering
 #import "utils/custom-heading.typ": active-heading, current-heading, heading-display
 #import "@preview/i-figured:0.2.4": show-equation, show-figure
-#import "utils/style.typ": 字体, 字号
+#import "utils/style.typ": fonts_family, fonts_size
 #import "@preview/kouhu:0.1.0": kouhu
 #import "@preview/codly:1.1.1": *
 #import "@preview/codly-languages:0.1.1": *
@@ -44,7 +43,7 @@
   info: (:),
 ) = {
   // 默认参数
-  fonts = 字体 + fonts
+  fonts = fonts_family + fonts
   info = (
     (
       title: "基于 Typst 的东北师范大学学位论文模板",

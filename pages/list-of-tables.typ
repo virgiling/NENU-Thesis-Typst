@@ -1,6 +1,6 @@
 #import "@preview/i-figured:0.1.0"
 #import "../utils/invisible-heading.typ": invisible-heading
-#import "../utils/style.typ": 字号, 字体
+#import "../utils/style.typ": fonts_family, fonts_size
 
 // 表格目录生成
 #let list-of-tables(
@@ -14,16 +14,16 @@
   title-text-args: auto,
   // 字体与字号
   font: auto,
-  size: 字号.小四,
+  size: fonts_size.小四,
   // 垂直间距
   above: 14pt,
   below: 14pt,
   ..args,
 ) = {
   // 1.  默认参数
-  fonts = 字体 + fonts
+  fonts = fonts_family + fonts
   if title-text-args == auto {
-    title-text-args = (font: fonts.宋体, size: 字号.三号, weight: "bold")
+    title-text-args = (font: fonts.宋体, size: fonts_size.三号, weight: "bold")
   }
   // 字体与字号
   if font == auto {

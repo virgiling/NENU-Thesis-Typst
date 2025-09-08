@@ -1,62 +1,72 @@
 #import "../utils/invisible-heading.typ": invisible-heading
 #import "../utils/style.typ": fonts_family, fonts_size
 
-// 本科生目录生成
-#let bachelor-outline-page(
+//! 目录
+//! 目录为学位论文各章节标题的顺序列表。目录另起一页，每行均由标题名称和页码组成，列至三级标题。目录从中文摘要开始，至论文结束。目录标题要求简明扼要，概括阐述内容的重点，无标点符号。
+//! 1. 标题: 黑体，三号，居中无缩进，“目录”二字中间空2个汉字字符或4个半角空格，大纲级别一级，段前48磅，段后24磅，1.5倍行距。
+//! 编码规则：“摘要”至“符号和缩略语说明”部分用大写罗马数字编排页码，从正文（引言）开始单独编排页码，页码号用阿拉伯数字标注，引言第一页页码为“1”，页码位于页面下方居中无缩进，采用Times New Roman字体，五号字。
+//! 2. 内容: 一级目录中文字体为黑体，二级和三级目录中文字体为宋体，英文和数字为Times New Roman字体，小四号，两端对齐，段前0行，段后0行，1.5倍行距。
+//! 一级目录项首行无缩进，左右缩进0字符
+//! 二级目录项首行无缩进，左缩进1字符，右缩进0字符
+//! 三级目录项首行无缩进，左缩进2字符，右缩进0字符
+
+#let outline-page(
   // documentclass 传入参数
   twoside: false,
   fonts: (:),
   // 其他参数
-  depth: 4,
+  depth: 3,
   title: "目　　录",
-  outlined: false,
-  title-vspace: 0pt,
+  outlined: true,
+  title-vspace: 24pt,
   title-text-args: auto,
   // 引用页数的字体，这里用于显示 Times New Roman
   reference-font: auto,
   reference-size: fonts_size.小四,
   // 字体与字号
   font: auto,
-  size: (fonts_size.四号, fonts_size.小四),
+  size: (fonts_size.小四, fonts_size.小四),
   // 垂直间距
-  above: (25pt, 14pt),
-  below: (14pt, 14pt),
-  indent: (0pt, 18pt, 28pt),
+  above: (6pt, 2pt),
+  below: (16pt, 16pt),
+  indent: (0pt, 12pt, 12pt),
   // 全都显示点号
   fill: (repeat([.], gap: 0.15em),),
-  gap: .3em,
+  gap: 0.3em,
   ..args,
 ) = {
-  // 1.  默认参数
+  //? 1.  默认参数
   fonts = fonts_family + fonts
   if title-text-args == auto {
-    title-text-args = (font: fonts.宋体, size: fonts_size.三号, weight: "bold")
+    title-text-args = (font: fonts.黑体, size: fonts_size.三号, weight: "bold")
   }
-  // 引用页数的字体，这里用于显示 Times New Roman
+  //? 引用页数的字体，这里用于显示 Times New Roman
   if reference-font == auto {
     reference-font = fonts.宋体
   }
-  // 字体与字号
+  //? 字体与字号
   if font == auto {
     font = (fonts.黑体, fonts.宋体)
   }
 
-  // 2.  正式渲染
+  //? 2.  正式渲染
   pagebreak(weak: true, to: if twoside { "odd" })
 
-  // 默认显示的字体
+  //? 默认显示的字体
   set text(font: reference-font, size: reference-size)
 
   {
     set align(center)
+    set par(leading: 1.5em)
+    v(48pt)
     text(..title-text-args, title)
-    // 标记一个不可见的标题用于目录生成
+    //* 标记一个不可见的标题用于目录生成
     invisible-heading(level: 1, outlined: outlined, title)
   }
 
   v(title-vspace)
 
-  // 目录样式
+  //? 目录样式
   set outline(indent: level => indent.slice(0, calc.min(level + 1, indent.len())).sum())
   show outline.entry: entry => block(
     above: above.at(entry.level - 1, default: above.last()),

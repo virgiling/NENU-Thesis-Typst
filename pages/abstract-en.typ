@@ -15,8 +15,8 @@
   info: (:),
   // 其他参数
   keywords: (),
-  outline-title: "ABSTRACT",
-  outlined: false,
+  outline-title: "Abstract",
+  outlined: true,
   anonymous-info-keys: ("author-en", "supervisor-en", "supervisor-ii-en"),
   leading: 1.5em,
   spacing: 1.5em,

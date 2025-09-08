@@ -1,3 +1,4 @@
+//! Reference: https://github.com/nju-lug/modern-nju-thesis
 #let fonts_size = (
   初号: 42pt,
   小初: 36pt,

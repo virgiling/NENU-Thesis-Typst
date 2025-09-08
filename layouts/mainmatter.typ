@@ -4,8 +4,13 @@
 #import "../utils/custom-heading.typ": active-heading, current-heading, heading-display
 #import "../utils/unpairs.typ": unpairs
 
+//! 正文
+//! 一级标题：中文字体为黑体，西文字体为Times New Roman，三号，大纲级别1级，居中对齐，无缩进，段前48磅，段后24磅，1.5倍行距。每一章另起一页。
+//! 二级标题：中文字体为黑体，西文字体为Times New Roman，四号，大纲级别2级，两端对齐无缩进，段前6磅，段后0行，1.5倍行距。
+//! 三级标题: 中文采用宋体，英文和数字采用Times New Roman字体，均为小四号加粗，大纲级别3级，两端对齐，段前6磅，段后0磅，1.5倍行距。
+//! 四级标题: 中文采用宋体，英文和数字采用Times New Roman字体，均为小四号，大纲级别4级，两端对齐，段前0行，段后0行，1.5倍行距。
 #let mainmatter(
-  // documentclass 传入参数
+  // thesis 传入参数
   twoside: false,
   fonts: (:),
   // 其他参数
@@ -13,15 +18,15 @@
   spacing: 1.5 * 15.6pt - 0.7em,
   justify: true,
   first-line-indent: (amount: 2em, all: true),
-  numbering: custom-numbering.with(first-level: "第一章 ", depth: 4, "1.1 "),
+  numbering: custom-numbering.with(first-level: "1 ", depth: 3, "1.1 "),
   // 正文字体与字号参数
   text-args: auto,
   // 标题字体与字号
   heading-font: auto,
-  heading-size: (fonts_size.四号,),
-  heading-weight: ("regular",),
-  heading-above: (2 * 15.6pt - 0.7em, 2 * 15.6pt - 0.7em),
-  heading-below: (2 * 15.6pt - 0.7em, 1.5 * 15.6pt - 0.7em),
+  heading-size: (fonts_size.三号, fonts_size.四号, fonts_size.小四),
+  heading-weight: ("regular", "regular", "bold", "regular"),
+  heading-above: (0pt, 2 * 15.6pt - 0.7em),
+  heading-below: (48pt, 1.5 * 15.6pt - 0.7em),
   heading-pagebreak: (true, false),
   heading-align: (center, auto),
   // 页眉
@@ -67,8 +72,9 @@
     arr.at(calc.min(pos, arr.len()) - 1)
   }
 
-  // 3.  设置基本样式
-  // 3.1 文本和段落样式
+  //* 3.  设置基本样式
+  //! 3.1 文本和段落样式
+  //! 正文：中文字体为宋体，英文和数字为Times New Roman字体，小四号，大纲级别正文文本，两端对齐，首行缩进2字符，段前0行，段后0行，1.5倍行距。引文内容可使用楷体。
   set text(..text-args)
   set par(
     leading: leading,
@@ -77,8 +83,10 @@
     spacing: spacing,
   )
   show raw: set text(font: fonts.等宽)
-  // 3.2 脚注样式
-  show footnote.entry: set text(font: fonts.宋体, size: fonts_size.五号)
+  //! 3.2 脚注样式
+  //! 在需要注释处标明序号，序号加圆圈放在加注处右上角，“上标”字体标注，如①。脚注中文采用宋体，英文和数字采用Times New Roman字体,小五号字，左对齐，无缩进，段前0行，段后0行，单倍行距。每页重新编号，注释序号均从①开始
+  set footnote(numbering: "①")
+  show footnote.entry: set text(font: fonts.宋体, size: fonts_size.小五)
   // 3.3 设置 figure 的编号
   show heading: i-figured.reset-counters
   show figure: show-figure
@@ -129,60 +137,69 @@
   }
 
   // 5.  处理页眉
-  set page(..(
-    if display-header {
-      (
-        header: context {
-          // 重置 footnote 计数器
-          if reset-footnote {
-            counter(footnote).update(0)
-          }
-          let loc = here()
-          // 5.1 获取当前页面的一级标题
-          let cur-heading = current-heading(level: 1)
-          // 5.2 如果当前页面没有一级标题，则渲染页眉
-          if not skip-on-first-level or cur-heading == none {
-            if header-render == auto {
-              // 一级标题和二级标题
-              let first-level-heading = if not twoside or calc.rem(loc.page(), 2) == 0 {
-                heading-display(active-heading(level: 1, loc))
-              } else { "" }
-              let second-level-heading = if not twoside or calc.rem(loc.page(), 2) == 2 {
-                heading-display(active-heading(level: 2, prev: false, loc))
-              } else { "" }
-              set text(font: fonts.楷体, size: fonts_size.五号)
-              stack(
-                first-level-heading + h(1fr) + second-level-heading,
-                v(0.25em),
-                if first-level-heading != "" or second-level-heading != "" {
-                  line(length: 100%, stroke: stroke-width + black)
-                },
-              )
-            } else {
-              header-render(loc)
+  set page(
+    ..(
+      if display-header {
+        (
+          header: context {
+            // 重置 footnote 计数器
+            if reset-footnote {
+              counter(footnote).update(0)
             }
-            v(header-vspace)
-          }
-        },
-      )
-    } else {
-      (
-        header: {
-          // 重置 footnote 计数器
-          if reset-footnote {
-            counter(footnote).update(0)
-          }
-        },
-      )
-    }
-  ))
-  context {
-    if calc.even(here().page()) {
-      set page(numbering: "I", header: none)
-      // counter(page).update(1)
-      pagebreak() + " "
-    }
-  }
+            let loc = here()
+            // 5.1 获取当前页面的一级标题
+            let cur-heading = current-heading(level: 1)
+            // 5.2 如果当前页面没有一级标题，则渲染页眉
+            if not skip-on-first-level or cur-heading == none {
+              if header-render == auto {
+                // 一级标题和二级标题
+                let first-level-heading = if not twoside or calc.rem(loc.page(), 2) == 0 {
+                  heading-display(active-heading(level: 1, loc))
+                } else { "" }
+                let second-level-heading = if not twoside or calc.rem(loc.page(), 2) == 2 {
+                  heading-display(active-heading(level: 2, prev: false, loc))
+                } else { "" }
+                set text(font: fonts.楷体, size: fonts_size.五号)
+                stack(
+                  first-level-heading + h(1fr) + second-level-heading,
+                  v(0.25em),
+                  if first-level-heading != "" or second-level-heading != "" {
+                    line(length: 100%, stroke: stroke-width + black)
+                  },
+                )
+              } else {
+                header-render(loc)
+              }
+              v(header-vspace)
+            }
+          },
+        )
+      } else {
+        (
+          header: {
+            // 重置 footnote 计数器
+            if reset-footnote {
+              counter(footnote).update(0)
+            }
+          },
+        )
+      }
+    ),
+    footer: [
+      #set align(center)
+      #set text(font: fonts_family.宋体, size: fonts_size.五号)
+      #context counter(page).display("1")
+    ],
+  )
+
+  // context {
+  //   if calc.even(here().page()) {
+  //     set page(numbering: "I", header: none)
+  //     // counter(page).update(1)
+  //     pagebreak() + " "
+  //   }
+  // }
+
   counter(page).update(1)
 
   it

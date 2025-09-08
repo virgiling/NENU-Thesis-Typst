@@ -1,5 +1,10 @@
-// Authors: csimide, OrangeX4
-// Tested only on GB-7714-2015-Numeric
+#import "style.typ": fonts_family, fonts_size
+
+//! Reference: https://github.com/nju-lug/modern-nju-thesis
+//! Authors: csimide, OrangeX4
+//! Tested only on GB-7714-2015-Numeric
+//! 1. 标题: 三号黑体字，居中无缩进，大纲级别1级，段前48磅，段后24磅，1.5倍行距。
+//! 2. 参考文献表，正文部分中文采用宋体，英文和数字采用Times New Roman体，均为小四号，两端对齐，大纲级别正文文本，段前0行，段后0行，单倍行距。编号1-9悬挂缩进0.6厘米，编号10-99悬挂缩进0.74厘米，编号100以上悬挂缩进0.9厘米。参考文献的著录格式以及在正文中的标注方法详见《附件8东北师范大学参考文献著录格式要求》。（GB/T 7714—2015）
 #let bilingual-bibliography(
   bibliography: none,
   title: "参考文献",
@@ -15,13 +20,16 @@
 
   // Please fill in the remaining mapping table here
   mapping = (
-    //"等": "et al",
-    "卷": "Vol.",
-    "册": "Bk.",
-    // "译": ", tran",
-    // "等译": "et al. tran",
-    // 注: 请见下方译者数量判断部分。
-  ) + mapping
+    (
+      //"等": "et al",
+      "卷": "Vol.",
+      "册": "Bk.",
+      // "译": ", tran",
+      // "等译": "et al. tran",
+      // 注: 请见下方译者数量判断部分。
+    )
+      + mapping
+  )
 
   let to-string(content) = {
     if content.has("text") {
@@ -98,11 +106,12 @@
         // 我想让上面这一行匹配变成非贪婪的，但加问号后没啥效果？
         let comma-in-itt = itt.text.replace(regex(",?\s?译"), "").matches(",")
         if (
-          type(comma-in-itt) == array and 
-          comma-in-itt.len() >= (
-              if allow-comma-in-name {2} else {1}
-            )
-          ) {
+          type(comma-in-itt) == array
+            and comma-in-itt.len()
+              >= (
+                if allow-comma-in-name { 2 } else { 1 }
+              )
+        ) {
           if extra-comma-before-et-al-trans {
             itt.text.replace(regex(",?\s?译"), ", tran")
           } else {
@@ -142,9 +151,23 @@
     }
   }
 
-  set text(lang: "zh")
+  set text(lang: "zh", font: fonts_family.宋体, size: fonts_size.小四)
+  set par(
+    leading: 1em,
+    justify: true,
+  )
+
+  {
+    pagebreak()
+    set align(center)
+    set par(leading: 1.5em)
+    v(48pt)
+    text(font: fonts_family.黑体, size: fonts_size.三号, weight: "bold", title)
+    v(24pt)
+  }
+
   bibliography(
-    title: title,
+    title: none,
     full: full,
     style: style,
   )

@@ -1,3 +1,4 @@
+//! Reference: https://github.com/nju-lug/modern-nju-thesis
 // 双端对齐一段小文本，常用于表格的中文 key
 #let justify-text(with-tail: false, tail: "：", body) = {
   if with-tail and tail != "" {

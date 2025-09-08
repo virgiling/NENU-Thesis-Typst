@@ -1,5 +1,5 @@
 #import "../utils/datetime-display.typ": datetime-display-without-day
-#import "../utils/style.typ": 字体, 字号
+#import "../utils/style.typ": fonts_family, fonts_size
 
 //! 本科生封面
 #let bachelor-cover(
@@ -23,7 +23,7 @@
   datetime-display: datetime-display-without-day,
 ) = {
   //! 1.  默认参数
-  fonts = 字体 + fonts
+  fonts = fonts_family + fonts
   info = (
     (
       title: "基于 Typst 的毕业论文中文题目",
@@ -59,7 +59,7 @@
       stroke: none,
       text(
         font: fonts.at(info-key-font, default: "宋体"),
-        size: 字号.三号,
+        size: fonts_size.三号,
         body,
       ),
     )
@@ -73,7 +73,7 @@
       stroke: (bottom: stoke-width + black),
       text(
         font: fonts.at(info-value-font, default: "宋体"),
-        size: 字号.三号,
+        size: fonts_size.三号,
         weight: if key in bold-info-keys { bold-level } else { "regular" },
         bottom-edge: "descender",
         body,
@@ -100,10 +100,10 @@
     #grid(
       columns: (1fr, 1fr),
       column-gutter: 9em,
-      text(size: 字号.小四, font: fonts.宋体)[
+      text(size: fonts_size.小四, font: fonts.宋体)[
         *学校代码：#info.school-code*
       ],
-      text(size: 字号.小四, font: fonts.宋体)[
+      text(size: fonts_size.小四, font: fonts.宋体)[
         *学号：#info.student-id*
       ],
     )
@@ -120,12 +120,12 @@
   pad(image("../assets/nenu-title.svg", width: 126pt), top: 0cm, bottom: -0.8cm)
 
 
-  text(size: 字号.小一, font: fonts.黑体, weight: "medium")[本科毕业论文]
+  text(size: fonts_size.小一, font: fonts.黑体, weight: "medium")[本科毕业论文]
 
   v(30pt)
 
   //! 标题
-  text(size: 字号.二号, font: fonts.隶书, weight: "bold")[
+  text(size: fonts_size.二号, font: fonts.隶书, weight: "bold")[
     #for line in info.title {
       line
     }
@@ -133,7 +133,7 @@
 
   v(3pt)
 
-  text(size: 字号.三号, font: fonts.宋体)[
+  text(size: fonts_size.三号, font: fonts.宋体)[
     #info.title-en
   ]
 
@@ -160,10 +160,10 @@
   grid(
     rows: 2,
     row-gutter: 10pt,
-    text(size: 字号.小三, font: fonts.宋体)[
+    text(size: fonts_size.小三, font: fonts.宋体)[
       东北师范大学
     ],
-    text(size: 字号.小三, font: fonts.宋体)[
+    text(size: fonts_size.小三, font: fonts.宋体)[
       #info.submit-date
     ],
   )

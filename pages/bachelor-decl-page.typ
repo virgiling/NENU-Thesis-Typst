@@ -1,4 +1,4 @@
-#import "../utils/style.typ": 字体, 字号
+#import "../utils/style.typ": fonts_family, fonts_size
 #import "../utils/datetime-display.typ": datetime-display
 
 //! 本科生声明页
@@ -14,7 +14,7 @@
   }
 
   // 1.  默认参数
-  fonts = 字体 + fonts
+  fonts = fonts_family + fonts
 
   // 2.  正式渲染
   pagebreak(weak: true, to: if twoside { "odd" })
@@ -26,7 +26,7 @@
     center,
     text(
       font: fonts.宋体,
-      size: 字号.三号,
+      size: fonts_size.三号,
       weight: "bold",
       "独   创   性   声   明\n",
     ),
@@ -34,7 +34,7 @@
 
   //! 扉页内容
   block[
-    #set text(font: fonts.宋体, size: 字号.四号)
+    #set text(font: fonts.宋体, size: fonts_size.四号)
     #set par(justify: true, first-line-indent: (amount: 2em, all: true), leading: 1em)
     #v(.5em)
 
@@ -43,7 +43,7 @@
 
   //! 签名与日期
   //TODO 加入自动识别是否存在签名的 `pdf` 或 `png`，在签名处自动填充
-  set text(font: fonts.宋体, size: 字号.四号)
+  set text(font: fonts.宋体, size: fonts_size.四号)
   [
     #set par(justify: true, first-line-indent: (amount: 2em, all: true), leading: 1em)
     #v(2em)

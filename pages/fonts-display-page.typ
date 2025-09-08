@@ -1,15 +1,15 @@
-#import "../utils/style.typ": 字号, 字体
+#import "../utils/style.typ": fonts_family, fonts_size
 #import "../utils/hline.typ": hline
 
 // 字体显示测试页
 #let fonts-display-page(
   twoside: false,
   fonts: (:),
-  size: 字号.小四,
+  size: fonts_size.小四,
   lang: "zh",
 ) = {
   // 1. 默认参数
-  fonts = 字体 + fonts
+  fonts = fonts_family + fonts
 
   // 2. 辅助函数
   let display-font(cjk-name, latin-name) = [
@@ -18,7 +18,7 @@
     #cjk-name (#latin-name CJK Regular): 落霞与孤鹜齐飞，秋水共长天一色。
 
     #cjk-name (#latin-name Latin Regular): The fanfare of birds announces the morning.
-    
+
     *#cjk-name (#latin-name CJK Bold): 落霞与孤鹜齐飞，秋水共长天一色。*
 
     *#cjk-name (#latin-name Latin Bold): The fanfare of birds announces the morning.*

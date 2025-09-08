@@ -1,7 +1,7 @@
 #import "@preview/i-figured:0.2.4"
-#import "../utils/style.typ": 字号, 字体
+#import "../utils/style.typ": fonts_family, fonts_size
 #import "../utils/custom-numbering.typ": custom-numbering
-#import "../utils/custom-heading.typ": heading-display, active-heading, current-heading
+#import "../utils/custom-heading.typ": active-heading, current-heading, heading-display
 #import "../utils/unpairs.typ": unpairs
 
 #let mainmatter(
@@ -18,7 +18,7 @@
   text-args: auto,
   // 标题字体与字号
   heading-font: auto,
-  heading-size: (字号.四号,),
+  heading-size: (fonts_size.四号,),
   heading-weight: ("regular",),
   heading-above: (2 * 15.6pt - 0.7em, 2 * 15.6pt - 0.7em),
   heading-below: (2 * 15.6pt - 0.7em, 1.5 * 15.6pt - 0.7em),
@@ -35,7 +35,7 @@
   separator: "  ",
   // caption 样式
   caption-style: strong,
-  caption-size: 字号.五号,
+  caption-size: fonts_size.五号,
   // figure 计数
   show-figure: i-figured.show-figure,
   // equation 计数
@@ -47,18 +47,20 @@
   set page(numbering: "1")
 
   // 1.  默认参数
-  fonts = 字体 + fonts
+  fonts = fonts_family + fonts
   if text-args == auto {
-    text-args = (font: fonts.宋体, size: 字号.小四)
+    text-args = (font: fonts.宋体, size: fonts_size.小四)
   }
   // 1.1 字体与字号
   if heading-font == auto {
     heading-font = (fonts.黑体,)
   }
   // 1.2 处理 heading- 开头的其他参数
-  let heading-text-args-lists = args.named().pairs()
-    .filter((pair) => pair.at(0).starts-with("heading-"))
-    .map((pair) => (pair.at(0).slice("heading-".len()), pair.at(1)))
+  let heading-text-args-lists = args
+    .named()
+    .pairs()
+    .filter(pair => pair.at(0).starts-with("heading-"))
+    .map(pair => (pair.at(0).slice("heading-".len()), pair.at(1)))
 
   // 2.  辅助函数
   let array-at(arr, pos) = {
@@ -76,7 +78,7 @@
   )
   show raw: set text(font: fonts.等宽)
   // 3.2 脚注样式
-  show footnote.entry: set text(font: fonts.宋体, size: 字号.五号)
+  show footnote.entry: set text(font: fonts.宋体, size: fonts_size.五号)
   // 3.3 设置 figure 的编号
   show heading: i-figured.reset-counters
   show figure: show-figure
@@ -84,11 +86,11 @@
   show math.equation.where(block: true): show-equation
   // 3.5 表格表头置顶 + 不用冒号用空格分割 + 样式
   show figure.where(
-    kind: table
+    kind: table,
   ): set figure.caption(position: top)
   set figure.caption(separator: separator)
   show figure.caption: caption-style
-  show figure.caption: set text(font: fonts.宋体, size: 字号.五号)
+  show figure.caption: set text(font: fonts.宋体, size: fonts_size.五号)
   // 3.6 优化列表显示
   //     术语列表 terms 不应该缩进
   show terms: set par(first-line-indent: 0pt)
@@ -102,8 +104,7 @@
       font: array-at(heading-font, it.level),
       size: array-at(heading-size, it.level),
       weight: array-at(heading-weight, it.level),
-      ..unpairs(heading-text-args-lists
-        .map((pair) => (pair.at(0), array-at(pair.at(1), it.level))))
+      ..unpairs(heading-text-args-lists.map(pair => (pair.at(0), array-at(pair.at(1), it.level)))),
     )
     set block(
       above: array-at(heading-above, it.level),
@@ -128,52 +129,60 @@
   }
 
   // 5.  处理页眉
-  set page(..(if display-header {
-    (
-      header: context {
-        // 重置 footnote 计数器
-        if reset-footnote {
-          counter(footnote).update(0)
-        }
-        let loc = here()
-        // 5.1 获取当前页面的一级标题
-        let cur-heading = current-heading(level: 1)
-        // 5.2 如果当前页面没有一级标题，则渲染页眉
-        if not skip-on-first-level or cur-heading == none {
-          if header-render == auto {
-            // 一级标题和二级标题
-            let first-level-heading = if not twoside or calc.rem(loc.page(), 2) == 0 { heading-display(active-heading(level: 1, loc)) } else { "" }
-            let second-level-heading = if not twoside or calc.rem(loc.page(), 2) == 2 { heading-display(active-heading(level: 2, prev: false, loc)) } else { "" }
-            set text(font: fonts.楷体, size: 字号.五号)
-            stack(
-              first-level-heading + h(1fr) + second-level-heading,
-              v(0.25em),
-              if first-level-heading != "" or second-level-heading != "" { line(length: 100%, stroke: stroke-width + black) },
-            )
-          } else {
-            header-render(loc)
+  set page(..(
+    if display-header {
+      (
+        header: context {
+          // 重置 footnote 计数器
+          if reset-footnote {
+            counter(footnote).update(0)
           }
-          v(header-vspace)
-        }
-      }
-    )
-  } else {
-    (
-      header: {
-        // 重置 footnote 计数器
-        if reset-footnote {
-          counter(footnote).update(0)
-        }
-      }
-    )
-  }))
+          let loc = here()
+          // 5.1 获取当前页面的一级标题
+          let cur-heading = current-heading(level: 1)
+          // 5.2 如果当前页面没有一级标题，则渲染页眉
+          if not skip-on-first-level or cur-heading == none {
+            if header-render == auto {
+              // 一级标题和二级标题
+              let first-level-heading = if not twoside or calc.rem(loc.page(), 2) == 0 {
+                heading-display(active-heading(level: 1, loc))
+              } else { "" }
+              let second-level-heading = if not twoside or calc.rem(loc.page(), 2) == 2 {
+                heading-display(active-heading(level: 2, prev: false, loc))
+              } else { "" }
+              set text(font: fonts.楷体, size: fonts_size.五号)
+              stack(
+                first-level-heading + h(1fr) + second-level-heading,
+                v(0.25em),
+                if first-level-heading != "" or second-level-heading != "" {
+                  line(length: 100%, stroke: stroke-width + black)
+                },
+              )
+            } else {
+              header-render(loc)
+            }
+            v(header-vspace)
+          }
+        },
+      )
+    } else {
+      (
+        header: {
+          // 重置 footnote 计数器
+          if reset-footnote {
+            counter(footnote).update(0)
+          }
+        },
+      )
+    }
+  ))
   context {
-  if calc.even(here().page()){
-    set page(numbering: "I",header: none)
-    // counter(page).update(1)
-  pagebreak() + " "
-}
-}
+    if calc.even(here().page()) {
+      set page(numbering: "I", header: none)
+      // counter(page).update(1)
+      pagebreak() + " "
+    }
+  }
   counter(page).update(1)
 
   it

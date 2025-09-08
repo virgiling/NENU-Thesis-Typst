@@ -1,50 +1,84 @@
-#import "../utils/style.typ": 字号, 字体
+#import "../utils/style.typ": 字体, 字号
+#import "../utils/distr.typ": distr
 
-// 研究生声明页
-#let master-decl-page(
-  anonymous: false,
-  twoside: false,
-  fonts: (:),
+#let declare(
+  info: (:),
+  fonts: (),
 ) = {
-  // 0. 如果需要匿名则短路返回
-  if anonymous {
-    return
-  }
+  let font-family = 字体
+  let font-size = 字号
+  fonts = font-family + fonts
+  let originality-title-font = fonts.宋体
+  let originality-title-size = font-size.三号
+  let originality-content-font = fonts.宋体
+  let originality-content-size = font-size.小四
+  box(
+    stroke: 0.5pt + black,
+    height: 100%,
+    width: 100%,
+  )[
+    #set text(
+      font: originality-content-font,
+      size: originality-content-size,
+    )
+    #set par(first-line-indent: 2em, leading: 1.5em)
+    #set box(height: 1.5em, width: 7em, stroke: (bottom: 0.5pt + black))
 
-  // 1.  默认参数
-  fonts = 字体 + fonts
+    #text(font: originality-title-font, size: originality-title-size, weight: "bold")[
+      #v(3em)
+      #set par(spacing: 2em)
+      #set align(center)
+      独　创　性　声　明
+    ]
 
-  // 2.  正式渲染
-  pagebreak(weak: true, to: if twoside { "odd" })
+    #text()[
+      本人郑重声明：所提交的学位论文是本人在导师指导下独立进行研究工作所取得的成果。据我所知，除了特别加以标注和致谢的地方外，论文中不包含其他人已经发表或撰写过的研究成果。对本人的研究做出重要贡献的个人和集体，均已在文中作了明确的说明。本声明的法律结果由本人承担。
 
-  v(25pt)
+      论文作者签名：#box()[#info.author-sign]
+      #h(2em)日期：#box()[#info.originality-datetime]
+    ]
 
-  align(
-    center,
-    text(
-      font: fonts.黑体,
-      size: 字号.四号,
+    #v(10em)
+
+    #text(
+      font: originality-title-font,
+      size: originality-title-size,
       weight: "bold",
-      "南京大学学位论文原创性声明",
-    ),
-  )
+    )[
+      #v(3em)
+      #set par(spacing: 2em)
+      #set align(center)
+      #set align(center)
+      学位论文使用授权书
+    ]
 
-  v(46pt)
+    #text()[
+      本学位论文作者完全了解东北师范大学有关保留、使用学位论文的规定，即：东北师范大学有权保留并向国家有关部门或机构送交学位论文的复印件和电子版，允许论文被查阅和借阅。本人授权东北师范大学可以将学位论文的全部或部分内容编入有关数据库进行检索，可以采用影印、缩印或其它复制手段保存、汇编本学位论文。
 
-  block[
-    #set text(font: fonts.宋体, size: 字号.小四)
-    #set par(justify: true, first-line-indent: (amount: 2em, all: true), leading: 1.2em)
+      （保密的学位论文在解密后适用本授权书）
 
-    本人郑重声明，所提交的学位论文是本人在导师指导下独立进行科学研究工作所取得的成果。除本论文中已经注明引用的内容外，本论文不包含其他个人或集体已经发表或撰写过的研究成果，也不包含为获得南京大学或其他教育机构的学位证书而使用过的材料。对本文的研究做出重要贡献的个人和集体，均已在论文的致谢部分明确标明。本人郑重申明愿承担本声明的法律责任。    
-  ]
-
-  v(143pt)
-
-  align(right)[
-    #set text(font: fonts.黑体, size: 字号.小四)
-    
-    研究生签名：#h(5.8em)
-
-    日期：#h(5.8em)
+      #pad(x: 2em)[
+        #grid(
+          columns: (0.7fr, 1fr) * 2,
+          inset: 0pt,
+          // stroke: 0.5pt + black,
+          align: center + horizon,
+          [#distr("论文作者签名：")], [#box()[#info.author-sign]], [#distr("指导教师签名：")], [#box()[#info.supervisor-sign]],
+          [#distr("日期：")], [#box()[#info.author-originality-datetime]], [#distr("日期：")], [#box()[#info.supervisor-originality-datetime]],
+        )
+      ]
+    ]
   ]
 }
+
+
+#declare(
+  fonts: (:),
+  info: (
+    author-sign: [],
+    originality-datetime: [],
+    supervisor-sign: [],
+    author-originality-datetime: [],
+    supervisor-originality-datetime: [],
+  ),
+)

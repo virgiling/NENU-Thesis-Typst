@@ -1,7 +1,7 @@
 #import "../utils/style.typ": fonts_family, fonts_size
 #import "../utils/justify-text.typ": justify-text
 
-#let committee(
+#let master-comm-page(
   info: (
     title: "论文题目",
     author: "作者姓名",
@@ -22,6 +22,8 @@
     ),
   ),
   fonts: (:),
+  anonymous: false,
+  twoside: false,
   long_cell_height: 3em,
   cell_height: 2.7em,
   title_size: fonts_size.三号,
@@ -38,6 +40,11 @@
   grid_cell_align: center + horizon,
   label_col_grid_cell_inset: (top: 1em, bottom: 1em),
 ) = {
+  if anonymous {
+    return
+  }
+  pagebreak(weak: true, to: if twoside { "odd" })
+
   fonts = fonts_family + fonts
   let title_font = fonts.黑体
   let cell_font = fonts.宋体
@@ -115,7 +122,7 @@
 }
 
 
-#committee(
+#master-comm-page(
   info: (
     title: "论文题目",
     author: "作者姓名",

@@ -1,7 +1,7 @@
 #import "../utils/style.typ": fonts_family, fonts_size
 #import "../utils/justify-text.typ": justify-text
 
-#let declare(
+#let master-decl-page(
   info: (
     author-sign: [],
     originality-datetime: [],
@@ -10,6 +10,8 @@
     supervisor-originality-datetime: [],
   ),
   fonts: (:),
+  anonymous: false,
+  twoside: false,
   title-font-size: fonts_size.三号,
   content-font-size: fonts_size.小四,
   box-inset: 0.5em,
@@ -28,6 +30,11 @@
   grid-row-gutter: 0em,
   grid-column-gutter: (0em, 3em, 0em),
 ) = {
+  if anonymous {
+    return
+  }
+  pagebreak(weak: true, to: if twoside { "odd" })
+
   fonts = fonts_family + fonts
   let title-font = fonts.宋体
   let content-font = fonts.宋体
@@ -105,7 +112,7 @@
   ]
 }
 
-#declare(
+#master-decl-page(
   info: (
     author-sign: [],
     originality-datetime: [],

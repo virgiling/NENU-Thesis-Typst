@@ -109,19 +109,20 @@
 #outline-page()
 
 // 插图目录
-// #list-of-figures()
+#list-of-figures()
 
 // 表格目录
-// #list-of-tables()
+#list-of-tables()
+
+// 符号表
+#notation[
+  / DFT: 密度泛函理论 (Density functional theory)
+  / DMRG: 密度矩阵重正化群密度矩阵重正化群密度矩阵重正化群 (Density-Matrix Reformation-Group)
+]
 
 // 正文
 #show: mainmatter
 
-// 符号表
-// #notation[
-//   / DFT: 密度泛函理论 (Density functional theory)
-//   / DMRG: 密度矩阵重正化群密度矩阵重正化群密度矩阵重正化群 (Density-Matrix Reformation-Group)
-// ]
 
 = 导　论
 
@@ -143,12 +144,14 @@
 
 === 术语列表
 
-/ 术语一: 术语解释
+/ 术语一: 术语解释#footnote[脚注1]
 / 术语二: 术语解释
+
+#pagebreak()
 
 == 图表
 
-引用@tbl:timing，引用@tbl:timing-tlt，以及@fig:nju-logo。引用图表时，表格和图片分别需要加上 `tbl:`和`fig:` 前缀才能正常显示编号。
+引用@tbl:timing，引用@tbl:timing-tlt，以及@fig:nju-logo。引用图表时，表格和图片分别需要加上 `tbl:`和`fig:` 前缀才能正常显示编号。#footnote[脚注2]
 
 #align(center, (
   stack(dir: ltr)[
@@ -238,25 +241,16 @@ $ F_n = floor(1 / sqrt(5) phi.alt^n) $
 // 默认使用 gb-7714-2015-numeric 样式
 #bilingual-bibliography(full: true)
 
-// 致谢
-#acknowledgement[
-  感谢 NJU-LUG，感谢 NJUThesis LaTeX 模板。
-]
-
-// 手动分页
-#if twoside {
-  pagebreak() + " "
-}
-
-
 // 附录
 #show: appendix
 
-= 附录
+= 附录标题
 
-== 附录子标题
+第一个附录，引用@app:appendixB
 
-=== 附录子子标题
+= 第二个附录<app:appendixB>
+
+附录不允许有子标题
 
 附录内容，这里也可以加入图片，例如@fig:appendix-img。
 
@@ -264,3 +258,10 @@ $ F_n = floor(1 / sqrt(5) phi.alt^n) $
   image("fig/ida-star-2.png", width: 20%),
   caption: [图片测试],
 ) <appendix-img>
+
+// 后记
+#acknowledgement[
+  #kouhu(builtin-text: "zhufu", length: 200)
+
+  #kouhu(builtin-text: "zhufu", length: 100)
+]

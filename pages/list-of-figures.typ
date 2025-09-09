@@ -2,28 +2,30 @@
 #import "../utils/invisible-heading.typ": invisible-heading
 #import "../utils/style.typ": fonts_family, fonts_size
 
-// 表格目录生成
+//! 插图目录
+//! 1. 标题: 黑体，三号，居中无缩进，大纲级别一级，段前48磅，段后24磅，1.5倍行距。
+//! 2. 目录内容: 中文字体为宋体，英文和数字为Times New Roman字体，小四号，两端对齐无缩进，段前0行，段后0行，1.5倍行距。
 #let list-of-figures(
-  // documentclass 传入参数
+  // thesis 传入参数
   twoside: false,
   fonts: (:),
   // 其他参数
   title: "插图目录",
-  outlined: false,
-  title-vspace: 32pt,
+  outlined: true,
+  title-vspace: 24pt,
   title-text-args: auto,
   // 字体与字号
   font: auto,
   size: fonts_size.小四,
   // 垂直间距
-  above: 14pt,
-  below: 14pt,
+  above: 6pt,
+  below: 16pt,
   ..args,
 ) = {
   // 1.  默认参数
   fonts = fonts_family + fonts
   if title-text-args == auto {
-    title-text-args = (font: fonts.宋体, size: fonts_size.三号, weight: "bold")
+    title-text-args = (font: fonts.黑体, size: fonts_size.三号, weight: "bold")
   }
   // 字体与字号
   if font == auto {
@@ -38,6 +40,8 @@
 
   {
     set align(center)
+    set par(leading: 1.5em)
+    v(48pt)
     text(..title-text-args, title)
     // 标记一个不可见的标题用于目录生成
     invisible-heading(level: 1, outlined: outlined, title)

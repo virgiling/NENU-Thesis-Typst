@@ -13,7 +13,7 @@
 #import "pages/master-decl-page.typ": master-decl-page
 #import "pages/abstract.typ": abstract
 #import "pages/abstract-en.typ": abstract-en
-#import "pages/bachelor-outline-page.typ": bachelor-outline-page
+#import "pages/outline.typ": outline-page
 #import "pages/list-of-figures.typ": list-of-figures
 #import "pages/list-of-tables.typ": list-of-tables
 #import "pages/notation.typ": notation
@@ -208,7 +208,7 @@
     },
     // 目录页
     outline-page: (..args) => {
-      bachelor-outline-page(
+      outline-page(
         twoside: twoside,
         ..args,
         fonts: fonts + args.named().at("fonts", default: (:)),

@@ -8,6 +8,7 @@
 #import "@preview/cetz:0.3.1"
 
 #import "../utils/style.typ": fonts_family, fonts_size
+#import "../utils/justify-text.typ": justify-text
 
 // 中文缩进
 #let indent = h(2em)
@@ -44,16 +45,10 @@
     )
   }
 }
+#let justify-block(w: auto, body) = block(width: w, justify-text(body))
 
 #let datetime-display-cn-declare(date) = {
   date.display("[year] 年  [month]  月  [day]  日")
-}
-
-#let distr(s, w: auto) = {
-  block(
-    width: w,
-    stack(dir: ltr, ..s.clusters().map(x => [#x]).intersperse(1fr)),
-  )
 }
 
 #let cover(
@@ -74,23 +69,23 @@
     row-gutter: 1.3em,
     column-gutter: 0em,
     align: (center, left),
-    distr("论文题目", w: 7em), [：#author_info.title],
-    distr("报告人姓名", w: 7em), [：#author_info.name],
-    distr("研究方向", w: 7em), [：#author_info.direction],
-    distr("学科专业", w: 7em), [：#author_info.major],
-    distr("年级", w: 7em), [：#author_info.grade],
-    distr("学历层次", w: 7em),
+    justify-block("论文题目", w: 7em), [：#author_info.title],
+    justify-block("报告人姓名", w: 7em), [：#author_info.name],
+    justify-block("研究方向", w: 7em), [：#author_info.direction],
+    justify-block("学科专业", w: 7em), [：#author_info.major],
+    justify-block("年级", w: 7em), [：#author_info.grade],
+    justify-block("学历层次", w: 7em),
     [：博士生 #checkbox(checked: author_info.level == "博士生")
       #h(1em)硕士生 #checkbox(checked: author_info.level == "硕士生")],
 
-    distr("学位类型", w: 7em),
+    justify-block("学位类型", w: 7em),
     [
       ：学术学位 #checkbox(checked: author_info.type == "学术学位")
       #h(1em)专业学位 #checkbox(checked: author_info.type == "专业学位")
     ],
 
-    distr("指导教师", w: 7em), [：#author_info.supervisor],
-    distr("培养单位", w: 7em), [：#author_info.unit],
+    justify-block("指导教师", w: 7em), [：#author_info.supervisor],
+    justify-block("培养单位", w: 7em), [：#author_info.unit],
   )
   set align(left)
   pagebreak()
@@ -142,7 +137,8 @@
       "{1}.{2}.{3}",
     ),
   )
-  show heading.where(level: 1): it => {
+
+  let heading-style(it) = {
     let title = it.body.text.split("（").first()
     let content = it.body.text.split("（").last()
     if title == "参考文献" {
@@ -169,33 +165,9 @@
       }
     ]
   }
-  show heading.where(level: 2): it => {
-    let title = it.body.text.split("（").first()
-    let content = it.body.text.split("（").last()
-    if title == "参考文献" {
-      content = none
-    }
-    // TODO 优化这部分显示
-    v(0.5em)
-    [
-      #fake-par
-      #set par(leading: 1em, first-line-indent: 0em)
-      #if it.level == 1 {
-        text(font: fonts_family.黑体, size: fonts_size.三号)[
-          #fakebold[#counter(heading).display() #title]
-        ]
-        if content != none {
-          text(font: fonts_family.楷体, size: fonts_size.四号)[
-            （#content
-          ]
-        }
-      } else {
-        text(font: fonts_family.黑体, size: fonts_size.小三)[
-          #counter(heading).display() #title
-        ]
-      }
-    ]
-  }
+
+  show heading.where(level: 1): heading-style
+  show heading.where(level: 2): heading-style
 
 
   //! 3. 图片&表格设置

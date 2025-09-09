@@ -1,38 +1,62 @@
 #import "../utils/style.typ": fonts_family, fonts_size
-#import "../utils/distribute-text.typ": v-distr
+#import "../utils/justify-text.typ": justify-text
 
 #let committee(
-  info: (:),
-  fonts: (),
+  info: (
+    title: "论文题目",
+    author: "作者姓名",
+    supervisor: "指导教师",
+    reviewers: (
+      (name: "张三", workplace: "工作单位", evaluation: "总体评价"),
+      (name: "李四", workplace: "工作单位", evaluation: "总体评价"),
+      (name: "王五", workplace: "工作单位", evaluation: "总体评价"),
+      (name: "赵六", workplace: "工作单位", evaluation: "总体评价"),
+      (name: "孙七", workplace: "工作单位", evaluation: "总体评价"),
+    ),
+    committee-members: (
+      (name: "张三", workplace: "工作单位", title: "职称"),
+      (name: "李四", workplace: "工作单位", title: "职称"),
+      (name: "王五", workplace: "工作单位", title: "职称"),
+      (name: "赵六", workplace: "工作单位", title: "职称"),
+      (name: "孙七", workplace: "工作单位", title: "职称"),
+    ),
+  ),
+  fonts: (:),
+  long_cell_height: 3em,
+  cell_height: 2.7em,
+  title_size: fonts_size.三号,
+  cell_size: fonts_size.小四,
+  weight_style: "bold",
+  // 列宽定义
+  label_col_width: 3em, // 标签列宽度（如"论文题目"、"论文评阅人"等）
+  role_col_width: 0.2fr, // 角色列宽度（主席、委员）
+  name_col_width: 0.8fr, // 姓名列宽度
+  workplace_col_width: 1fr, // 工作单位列宽度
+  evaluation_col_width: 1fr, // 评价/职称列宽度
+  // 网格样式
+  grid_stroke_style: 1pt + black,
+  grid_cell_align: center + horizon,
+  label_col_grid_cell_inset: (top: 1em, bottom: 1em),
 ) = {
   fonts = fonts_family + fonts
-  let long_cell_height = 3em
-  let cell_height = 2.7em
   let title_font = fonts.黑体
-  let title_size = fonts_size.三号
   let cell_font = fonts.宋体
-  let cell_size = fonts_size.小四
-  let weight_style = "bold"
   let num_reviewers = info.reviewers.len()
   let num_committee_members = info.committee-members.len()
+  let justify-text = justify-text.with(with-tail: false, dir: ttb)
+  let get_stroke(sides: ("top", "bottom", "left", "right")) = {
+    let result = (top: none, bottom: none, left: none, right: none)
+    for side in sides {
+      result.insert(side, grid_stroke_style)
+    }
+    result
+  }
 
-  // 列宽定义
-  let label_col_width = 3em // 标签列宽度（如"论文题目"、"论文评阅人"等）
-  let role_col_width = 0.2fr // 角色列宽度（主席、委员）
-  let name_col_width = 0.8fr // 姓名列宽度
-  let workplace_col_width = 1fr // 工作单位列宽度
-  let evaluation_col_width = 1fr // 评价/职称列宽度
-
-  // 网格样式
-  let grid_stroke_style = 1pt + black
-  let grid_cell_align = center + horizon
-  let label_col_grid_cell_inset = (top: 1em, bottom: 1em)
   show grid: it => {
     set text(font: cell_font, size: cell_size)
     set align(grid_cell_align)
     it
   }
-
 
   [
     #set align(center)
@@ -43,13 +67,6 @@
     #v(24pt)
   ]
 
-  let get_stroke(sides: ("top", "bottom", "left", "right")) = {
-    let result = (top: none, bottom: none, left: none, right: none)
-    for side in sides {
-      result.insert(side, grid_stroke_style)
-    }
-    result
-  }
 
   grid(
     rows: (long_cell_height,) * 3 + (cell_height,) * 14,
@@ -61,7 +78,7 @@
 
     grid.cell(rowspan: 6, inset: label_col_grid_cell_inset)[
       #set text(weight: weight_style)
-      #v-distr("论文评阅人")
+      #justify-text("论文评阅人")
     ],
     grid.cell(colspan: 2)[#text(weight: weight_style)[姓 名]],
     grid.cell()[#text(weight: weight_style)[工作单位/职称]],
@@ -75,7 +92,7 @@
     },
     grid.cell(rowspan: 8, inset: label_col_grid_cell_inset)[
       #set text(weight: weight_style)
-      #v-distr("学位论文答辩委员会")
+      #justify-text("学位论文答辩委员会")
     ],
     grid.cell(colspan: 2)[#text(weight: weight_style)[姓 名]],
     grid.cell()[#text(weight: weight_style)[工作单位]],
@@ -118,5 +135,4 @@
       (name: "孙七", workplace: "工作单位", title: "职称"),
     ),
   ),
-  fonts: (:),
 )

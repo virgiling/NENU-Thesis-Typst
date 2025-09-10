@@ -25,7 +25,7 @@
 
   // 3.  基本的样式设置
   set text(fallback: fallback, lang: lang)
-  set page(margin: margin)
+  set page(paper: "a4", margin: margin)
 
   // 4.  PDF 元信息
   set document(

@@ -11,11 +11,12 @@
 //! 四级标题: 中文采用宋体，英文和数字采用Times New Roman字体，均为小四号，大纲级别4级，两端对齐，段前0行，段后0行，1.5倍行距。
 #let mainmatter(
   // thesis 传入参数
+  doctype: "bachelor",
   twoside: false,
   fonts: (:),
   // 其他参数
-  leading: 1.5 * 15.6pt - 0.7em,
-  spacing: 1.5 * 15.6pt - 0.7em,
+  leading: 1.5em,
+  spacing: 1.5em,
   justify: true,
   first-line-indent: (amount: 2em, all: true),
   numbering: custom-numbering.with(first-level: "1 ", depth: 3, "1.1 "),
@@ -25,42 +26,44 @@
   heading-font: auto,
   heading-size: (fonts_size.三号, fonts_size.四号, fonts_size.小四),
   heading-weight: ("regular", "regular", "bold", "regular"),
-  heading-above: (0pt, 2 * 15.6pt - 0.7em),
-  heading-below: (48pt, 1.5 * 15.6pt - 0.7em),
+  heading-above: (48pt, 6pt, 6pt, 0pt),
+  heading-below: (24pt, 0pt),
   heading-pagebreak: (true, false),
   heading-align: (center, auto),
   // 页眉
   header-render: auto,
-  header-vspace: 0em,
-  display-header: false,
+  header-vspace: -.5em,
+  display-header: true,
   skip-on-first-level: true,
-  stroke-width: 0.5pt,
+  stroke-width: .8pt,
   reset-footnote: true,
-  // caption 的 separator
+  //? caption 的 separator
+  //! 图名在图号之后空两个半角空格。图题后不加标点。
   separator: "  ",
-  // caption 样式
-  caption-style: strong,
+  //? caption 样式
+  //! 中文字体为宋体，英文和数字为Times New Roman字体，五号，居中无缩进，段前0行，段后0行，1.5倍行距。
+  caption-style: (leading: 1.5em, justify: true, first-line-indent: 0pt),
   caption-size: fonts_size.五号,
   // figure 计数
   show-figure: i-figured.show-figure,
   // equation 计数
-  show-equation: i-figured.show-equation,
+  show-equation: i-figured.show-equation.with(numbering: "(1-1)"),
   ..args,
   it,
 ) = {
-  // 0.  标志前言结束
+  //! 0.  标志前言结束
   set page(numbering: "1")
 
-  // 1.  默认参数
+  //! 1.  默认参数
   fonts = fonts_family + fonts
   if text-args == auto {
     text-args = (font: fonts.宋体, size: fonts_size.小四)
   }
-  // 1.1 字体与字号
+  //? 1.1 字体与字号
   if heading-font == auto {
     heading-font = (fonts.黑体,)
   }
-  // 1.2 处理 heading- 开头的其他参数
+  //? 1.2 处理 heading- 开头的其他参数
   let heading-text-args-lists = args
     .named()
     .pairs()
@@ -72,9 +75,9 @@
     arr.at(calc.min(pos, arr.len()) - 1)
   }
 
-  //* 3.  设置基本样式
-  //! 3.1 文本和段落样式
-  //! 正文：中文字体为宋体，英文和数字为Times New Roman字体，小四号，大纲级别正文文本，两端对齐，首行缩进2字符，段前0行，段后0行，1.5倍行距。引文内容可使用楷体。
+  //! 3.  设置基本样式
+  //? 3.1 文本和段落样式
+  //? 正文：中文字体为宋体，英文和数字为Times New Roman字体，小四号，大纲级别正文文本，两端对齐，首行缩进2字符，段前0行，段后0行，1.5倍行距。引文内容可使用楷体。
   set text(..text-args)
   set par(
     leading: leading,
@@ -83,30 +86,42 @@
     spacing: spacing,
   )
   show raw: set text(font: fonts.等宽)
-  //! 3.2 脚注样式
+  // FIXME Reference: https://github.com/Dherse/codly/issues/73 由于 Typst 的更新导致的 BUG，后续更新 codly 可以解决
+  show raw.where(block: true): set par(first-line-indent: 0pt)
+  show smartquote: set text(font: fonts.楷体)
+  //? 3.2 脚注样式
   //! 在需要注释处标明序号，序号加圆圈放在加注处右上角，“上标”字体标注，如①。脚注中文采用宋体，英文和数字采用Times New Roman字体,小五号字，左对齐，无缩进，段前0行，段后0行，单倍行距。每页重新编号，注释序号均从①开始
   set footnote(numbering: "①")
   show footnote.entry: set text(font: fonts.宋体, size: fonts_size.小五)
-  // 3.3 设置 figure 的编号
+  //? 3.3 设置 figure 的编号
   show heading: i-figured.reset-counters
   show figure: show-figure
-  // 3.4 设置 equation 的编号和假段落首行缩进
+  //? 3.4 设置 equation 的编号和假段落首行缩进
   show math.equation.where(block: true): show-equation
-  // 3.5 表格表头置顶 + 不用冒号用空格分割 + 样式
+  //? 3.5 表格表头置顶
   show figure.where(
     kind: table,
   ): set figure.caption(position: top)
+  //! 表单元格内容：居中书写（上下居中，左右居中），中文为宋体，英文和数字为Times New Roman字体，五号字，居中无缩进，段前0行，段后0行，单倍行距。
+  show table.cell: set align(center)
+  show table.cell: set par(first-line-indent: 0pt, leading: 1em, spacing: 0pt, justify: true)
+  show table.cell: set text(font: fonts.宋体, size: fonts_size.五号)
+
+  //? 图表样式
+  set figure(gap: leading)
   set figure.caption(separator: separator)
-  show figure.caption: caption-style
+  show figure.caption: set par(..caption-style)
   show figure.caption: set text(font: fonts.宋体, size: fonts_size.五号)
-  // 3.6 优化列表显示
-  //     术语列表 terms 不应该缩进
+
+  //? 3.6 优化列表显示
+  //*     术语列表 terms 不应该缩进
   show terms: set par(first-line-indent: 0pt)
 
-  // 4.  处理标题
-  // 4.1 设置标题的 Numbering
+  //! 4.  处理标题
+  //? 4.1 设置标题的 Numbering
   set heading(numbering: numbering)
-  // 4.2 设置字体字号并加入假段落模拟首行缩进
+  //? 4.2 设置字体字号并加入假段落模拟首行缩进
+  // NOTE 这里的段前段后空的磅数不一定准确，可能需要微调
   show heading: it => {
     set text(
       font: array-at(heading-font, it.level),
@@ -115,15 +130,18 @@
       ..unpairs(heading-text-args-lists.map(pair => (pair.at(0), array-at(pair.at(1), it.level)))),
     )
     set block(
-      above: array-at(heading-above, it.level),
-      below: array-at(heading-below, it.level),
+      above: 1.5em,
+      below: 1.5em,
     )
+    set par(first-line-indent: first-line-indent, leading: leading, spacing: spacing, justify: justify)
+    v(array-at(heading-above, it.level))
     it
+    v(array-at(heading-below, it.level))
   }
-  // 4.3 标题居中与自动换页
+  //? 4.3 标题居中与自动换页
   show heading: it => {
     if array-at(heading-pagebreak, it.level) {
-      // 如果打上了 no-auto-pagebreak 标签，则不自动换页
+      //? 如果打上了 no-auto-pagebreak 标签，则不自动换页
       if "label" not in it.fields() or str(it.label) != "no-auto-pagebreak" {
         pagebreak(weak: true)
       }
@@ -136,7 +154,11 @@
     }
   }
 
-  // 5.  处理页眉
+  //! 5. 页眉
+  //! 论文从正文（引言）开始每页设置页眉，
+  //! 中文论文页眉为“东北师范大学博（硕）士学位论文”，英文论文页眉为“NENU PhD & Masters Dissertation”。
+  //! 中文采用黑体，英文采用Times New Roman字体，均为小四号，居中无缩进。
+  //! 页眉边距1.5厘米，页脚边距1.75厘米。(指代页眉/页脚距离页面边缘的距离)
   set page(
     ..(
       if display-header {
@@ -146,33 +168,18 @@
             if reset-footnote {
               counter(footnote).update(0)
             }
-            let loc = here()
-            // 5.1 获取当前页面的一级标题
-            let cur-heading = current-heading(level: 1)
-            // 5.2 如果当前页面没有一级标题，则渲染页眉
-            if not skip-on-first-level or cur-heading == none {
-              if header-render == auto {
-                // 一级标题和二级标题
-                let first-level-heading = if not twoside or calc.rem(loc.page(), 2) == 0 {
-                  heading-display(active-heading(level: 1, loc))
-                } else { "" }
-                let second-level-heading = if not twoside or calc.rem(loc.page(), 2) == 2 {
-                  heading-display(active-heading(level: 2, prev: false, loc))
-                } else { "" }
-                set text(font: fonts.楷体, size: fonts_size.五号)
-                stack(
-                  first-level-heading + h(1fr) + second-level-heading,
-                  v(0.25em),
-                  if first-level-heading != "" or second-level-heading != "" {
-                    line(length: 100%, stroke: stroke-width + black)
-                  },
-                )
-              } else {
-                header-render(loc)
+            set text(font: fonts.黑体, size: fonts_size.小四)
+            set par(first-line-indent: 0pt, leading: leading, spacing: spacing, justify: true)
+            set align(center)
+            if doctype != "bachelor" {
+              if doctype == "master" { "东北师范大学硕士学位论文" } else if doctype == "doctor" {
+                "东北师范大学博士学位论文"
               }
               v(header-vspace)
+              line(length: 100%, stroke: stroke-width)
             }
           },
+          header-ascent: .25cm,
         )
       } else {
         (
@@ -190,6 +197,7 @@
       #set text(font: fonts_family.宋体, size: fonts_size.五号)
       #context counter(page).display("1")
     ],
+    footer-descent: .25cm,
   )
 
   // context {

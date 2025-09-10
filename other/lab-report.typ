@@ -108,7 +108,8 @@
       student-id: "123456",
       grade: "2024",
       submit-date: datetime.today(),
-    ) + info
+    )
+      + info
   )
 
 
@@ -162,10 +163,8 @@
   set align(center)
 
   let nenu-logo = read("../assets/nenu-logo.svg")
-  nenu-logo = colorize(nenu-logo, blue.darken(30%))
-  image.decode(nenu-logo, width: 7.28cm)
 
-  pad(image("../assets/nenu-title.svg", width: 6.14cm), top: 0cm, bottom: 0cm)
+  pad(image("../assets/nenu-title-blue.svg", width: 6.14cm), top: 0cm, bottom: 0cm)
 
   text(
     font: fonts.黑体,
@@ -194,17 +193,11 @@
         columns: (info-key-width, info-key-width, 1fr),
         column-gutter: info-col-gutter,
         row-gutter: info-row-gutter,
-        info-key("课程名称："),
-        info-long-value("lession", info.lesson),
-        info-key("指导教师："),
+        info-key("课程名称："), info-long-value("lession", info.lesson), info-key("指导教师："),
 
-        info-long-value("major", info.teacher),
-        info-key("学生姓名："),
-        info-long-value("author", info.author),
+        info-long-value("major", info.teacher), info-key("学生姓名："), info-long-value("author", info.author),
 
-        info-key("学   号："),
-        info-long-value("student-id", info.student-id),
-        info-key("年   级："),
+        info-key("学   号："), info-long-value("student-id", info.student-id), info-key("年   级："),
 
         info-long-value("grade", info.grade),
       ),
@@ -233,7 +226,8 @@
       lab-dev: "Intel 13th i5",
       lab-requirement: "实验要求实验要求",
       lab-result: "实验结果与结论，简要概括",
-    ) + lab-info
+    )
+      + lab-info
   )
 
   pagebreak(weak: true)
@@ -265,9 +259,9 @@
     .pairs()
     .filter(pair => pair.at(0).starts-with("heading-"))
     .map(pair => (
-    pair.at(0).slice("heading-".len()),
-    pair.at(1),
-  ))
+      pair.at(0).slice("heading-".len()),
+      pair.at(1),
+    ))
 
 
   let array-at(arr, pos) = {
@@ -417,7 +411,7 @@
             table.hline(stroke: .5pt),
             [11], [5 ms], [3], [0.7],
             [3000], [80 ms], [1111], [0.9],
-            table.hline()
+            table.hline(),
           ),
           caption: [三线表示例],
         )<three-line-table>
@@ -432,19 +426,19 @@
     pseudocode-list(booktabs: true, numbered-title: [Local Search])[
       + $cal(F), "card" arrow.l$ Pre-processing($cal(F)$)
       + *while* elapsed time < cutoff *do*
-        + $sigma^prime arrow.l $ a partial assignment with previous solutions
-        + $sigma arrow.l $ Unit Propagation($cal(F), sigma^prime$)
-        + *while* not_improved $lt $ N *do*
+        + $sigma^prime arrow.l$ a partial assignment with previous solutions
+        + $sigma arrow.l$ Unit Propagation($cal(F), sigma^prime$)
+        + *while* not_improved $lt$ N *do*
           + *if* $sigma "SAT" cal(F)$ *then*
             + *return* $sigma$
-          + $c_i arrow.l $ an unsat clause chosen with $max$ $w_i$
+          + $c_i arrow.l$ an unsat clause chosen with $max$ $w_i$
           + *if* $exists x in c_i "with" max "score"(x)$ *then*
             + $v arrow.l x$
           + *else*
             + $v arrow.l cases(
-              "random variable in " C ",   " p,
-              "with min cost variable in" C ",  " 1-p
-            )$
+                "random variable in " C ",   " p,
+                "with min cost variable in" C ",  " 1-p
+              )$
           + Flip $v$ in $sigma$
           + not_improved $++$
         + *end*

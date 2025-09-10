@@ -16,7 +16,6 @@
   // 其他参数
   stoke-width: 0.5pt,
   min-title-lines: 2,
-  min-reviewer-lines: 5,
   info-inset: (x: 0pt, bottom: 0.5pt),
   info-key-width: 50pt,
   info-column-gutter: 5pt,
@@ -72,9 +71,8 @@
     info.title-en = info.title-en.split("\n")
   }
 
-  //? 2.2 根据 min-title-lines 和 min-reviewer-lines 填充标题和评阅人
+  //? 2.2 根据 min-title-lines  填充标题
   info.title = info.title + range(min-title-lines - info.title.len()).map(it => "　")
-  info.reviewer = info.reviewer + range(min-reviewer-lines - info.reviewer.len()).map(it => "　")
 
   //? 2.3 处理日期
   assert(type(info.submit-date) == datetime, message: "submit-date must be datetime.")
@@ -164,7 +162,7 @@
   let defence-info-value = info-value.with(info-inset: defence-info-inset)
 
 
-  // 4.  正式渲染
+  //! 4.  正式渲染
 
   pagebreak(weak: true, to: if twoside { "odd" })
   v(fonts_size.小四 * 2)

@@ -12,11 +12,9 @@
 ) = {
   if not anonymous {
     pagebreak(weak: true, to: if twoside { "odd" })
-    v(48pt)
     [
       #heading(level: 1, numbering: none, outlined: outlined, title) <no-auto-pagebreak>
     ]
-    v(24pt)
 
     body
   }

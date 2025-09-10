@@ -15,7 +15,7 @@
   twoside: false,
   fonts: (:),
   // 其他参数
-  depth: 3,
+  depth: 4,
   title: "目　　录",
   outlined: true,
   title-vspace: 24pt,

@@ -1,6 +1,8 @@
 //! @Title: 东北师范大学大学学位论文模板
-//! @Author: https://github.com/virgiling
+//! @Author: [@Dian Ling](https://github.com/virgiling)
+//! @Author: [@Lingshu Zeng](https://github.com/zeroDtree)
 //! @Repo: https://github.com/virgiling/NENU-Thesis-Typst
+//! @Reference: https://github.com/nju-lug/modern-nju-thesis
 
 #import "layouts/doc.typ": doc
 #import "layouts/preface.typ": preface
@@ -9,6 +11,7 @@
 #import "pages/fonts-display-page.typ": fonts-display-page
 #import "pages/bachelor-cover.typ": bachelor-cover
 #import "pages/master-cover.typ": master-cover
+#import "pages/master-comm-page.typ": master-comm-page
 #import "pages/bachelor-decl-page.typ": bachelor-decl-page
 #import "pages/master-decl-page.typ": master-decl-page
 #import "pages/abstract.typ": abstract
@@ -18,6 +21,8 @@
 #import "pages/list-of-tables.typ": list-of-tables
 #import "pages/notation.typ": notation
 #import "pages/acknowledgement.typ": acknowledgement
+#import "pages/publication-page.typ": publication
+#import "pages/decision-page.typ": decision
 #import "utils/custom-cuti.typ": *
 #import "utils/bilingual-bibliography.typ": bilingual-bibliography
 #import "utils/custom-numbering.typ": custom-numbering
@@ -25,8 +30,6 @@
 #import "@preview/i-figured:0.2.4": show-equation, show-figure
 #import "utils/style.typ": fonts_family, fonts_size
 #import "@preview/kouhu:0.1.0": kouhu
-#import "@preview/codly:1.1.1": *
-#import "@preview/codly-languages:0.1.1": *
 
 
 #let indent = h(2em)
@@ -35,7 +38,6 @@
 #let thesis(
   doctype: "bachelor", // "bachelor" | "master" | "doctor" | "postdoc"，文档类型，默认为本科生 bachelor
   degree: "academic", // "academic" | "professional"，学位类型，默认为学术型 academic
-  nl-cover: false, // TODO: 是否使用国家图书馆封面，默认关闭
   twoside: false, // 双面模式，会加入空白页，便于打印
   anonymous: false, // 盲审模式
   bibliography: none, // 原来的参考文献函数
@@ -82,15 +84,14 @@
   )
 
   return (
-    // 将传入参数再导出
+    //* 将传入参数再导出
     doctype: doctype,
     degree: degree,
-    nl-cover: nl-cover,
     twoside: twoside,
     anonymous: anonymous,
     fonts: fonts,
     info: info,
-    // 页面布局
+    //* 页面布局
     doc: (..args) => {
       doc(
         ..args,
@@ -106,6 +107,7 @@
     mainmatter: (..args) => {
       if doctype == "master" or doctype == "doctor" {
         mainmatter(
+          doctype: doctype,
           twoside: twoside,
           display-header: true,
           ..args,
@@ -124,7 +126,7 @@
         ..args,
       )
     },
-    // 字体展示页
+    //* 字体展示页
     fonts-display-page: (..args) => {
       fonts-display-page(
         twoside: twoside,
@@ -132,13 +134,12 @@
         fonts: fonts + args.named().at("fonts", default: (:)),
       )
     },
-    // 封面页，通过 type 分发到不同函数
+    //* 封面页，通过 type 分发到不同函数
     cover: (..args) => {
       if doctype == "master" or doctype == "doctor" {
         master-cover(
           doctype: doctype,
           degree: degree,
-          nl-cover: nl-cover,
           anonymous: anonymous,
           twoside: twoside,
           ..args,
@@ -146,7 +147,7 @@
           info: info + args.named().at("info", default: (:)),
         )
       } else if doctype == "postdoc" {
-        panic("postdoc has not yet been implemented.")
+        panic("NOT IMPLEMENTED YET")
       } else {
         bachelor-cover(
           anonymous: anonymous,
@@ -157,7 +158,22 @@
         )
       }
     },
-    // 声明页，通过 type 分发到不同函数
+    //* 委员会页面，硕博专用
+    committee-page: (..args) => {
+      if doctype == "master" or doctype == "doctor" {
+        master-comm-page(
+          info: info,
+          anonymous: anonymous,
+          twoside: twoside,
+          ..args,
+        )
+      } else if doctype == "postdoc" {
+        panic("NOT IMPLEMENTED YET")
+      } else {
+        panic("BACHELOR DO NOT CONATIN COMMITTEE PAGE")
+      }
+    },
+    //* 声明页，通过 type 分发到不同函数
     decl-page: (..args) => {
       if doctype == "master" or doctype == "doctor" {
         master-decl-page(
@@ -178,7 +194,7 @@
         )
       }
     },
-    // 中文摘要页，通过 type 分发到不同函数
+    //* 中文摘要页，通过 type 分发到不同函数
     abstract: (..args) => {
       if doctype == "postdoc" {
         panic("postdoc has not yet been implemented.")
@@ -192,7 +208,7 @@
         )
       }
     },
-    // 英文摘要页，通过 type 分发到不同函数
+    //* 英文摘要页，通过 type 分发到不同函数
     abstract-en: (..args) => {
       if doctype == "postdoc" {
         panic("postdoc has not yet been implemented.")
@@ -206,7 +222,7 @@
         )
       }
     },
-    // 目录页
+    //* 目录页
     outline-page: (..args) => {
       outline-page(
         twoside: twoside,
@@ -214,7 +230,7 @@
         fonts: fonts + args.named().at("fonts", default: (:)),
       )
     },
-    // 插图目录页
+    //* 插图目录页
     list-of-figures: (..args) => {
       list-of-figures(
         twoside: twoside,
@@ -222,7 +238,7 @@
         fonts: fonts + args.named().at("fonts", default: (:)),
       )
     },
-    // 表格目录页
+    //* 表格目录页
     list-of-tables: (..args) => {
       list-of-tables(
         twoside: twoside,
@@ -230,27 +246,50 @@
         fonts: fonts + args.named().at("fonts", default: (:)),
       )
     },
-    // 符号表页
+    //* 符号表页
     notation: (..args) => {
       notation(
         twoside: twoside,
         ..args,
       )
     },
-    // 参考文献页
+    //* 参考文献页
     bilingual-bibliography: (..args) => {
       bilingual-bibliography(
         bibliography: bibliography,
         ..args,
       )
     },
-    // 致谢页
+    //* 致谢页
     acknowledgement: (..args) => {
       acknowledgement(
         anonymous: anonymous,
         twoside: twoside,
         ..args,
       )
+    },
+    //* 成果页
+    publication: (..args) => {
+      if doctype != "bachelor" {
+        publication(
+          anonymous: anonymous,
+          twoside: twoside,
+          ..args,
+        )
+      } else {
+        panic("BACHELOR DO NOT CONTAIN THIS PAGE")
+      }
+    },
+    decision: (..args) => {
+      if doctype == "doctor" {
+        decision(
+          anonymous: anonymous,
+          twoside: twoside,
+          ..args,
+        )
+      } else {
+        panic("DO NOT CONTAIN THIS PAGE")
+      }
     },
   )
 }

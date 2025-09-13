@@ -1,6 +1,6 @@
 // TODO [@Dian Ling](https://github.com/virgiling) 重写这部分内容
 
-#import "../utils/style.typ": fonts_family, fonts_size
+#import "../utils/style.typ": font_family, font_size
 #import "../utils/justify-text.typ": justify-text
 
 #let master-comm-page(
@@ -12,8 +12,8 @@
   //* 其他参数
   long_cell_height: 3em,
   cell_height: 2.7em,
-  title_size: fonts_size.三号,
-  cell_size: fonts_size.小四,
+  title_size: font_size.三号,
+  cell_size: font_size.小四,
   weight_style: "bold",
   // 列宽定义
   label_col_width: 4em, // 标签列宽度（如"论文题目"、"论文评阅人"等）
@@ -60,7 +60,7 @@
 
   pagebreak(weak: true, to: if twoside { "odd" })
 
-  fonts = fonts_family + fonts
+  fonts = font_family + fonts
   let num_reviewers = info.reviewers.len()
   let num_committee_members = info.committee-members.len()
   let justify-text = justify-text.with(with-tail: false, dir: ttb)
@@ -73,14 +73,14 @@
   }
 
   show grid: it => {
-    set text(font: fonts.宋体, size: fonts_size.小四)
+    set text(font: fonts.宋体, size: font_size.小四)
     set align(grid_cell_align)
     it
   }
 
   [
     #set align(center)
-    #set text(font: fonts.黑体, size: fonts_size.三号, weight: "bold")
+    #set text(font: fonts.黑体, size: font_size.三号, weight: "bold")
     #set par(leading: 1.5em)
     #v(48pt)
     学位论文评阅专家及答辩委员会人员信息

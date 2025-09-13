@@ -1,4 +1,4 @@
-#import "../utils/style.typ": fonts_family, fonts_size
+#import "../utils/style.typ": font_family, font_size
 #import "../utils/invisible-heading.typ": invisible-heading
 
 //! 符号和缩略语说明
@@ -20,16 +20,16 @@
   body,
 ) = {
   // 1.  默认参数
-  fonts = fonts_family + fonts
+  fonts = font_family + fonts
   if title-text-args == auto {
-    title-text-args = (font: fonts.黑体, size: fonts_size.三号, weight: "bold")
+    title-text-args = (font: fonts.黑体, size: font_size.三号, weight: "bold")
   }
 
   // 2.  正式渲染
   pagebreak(weak: true, to: if twoside { "odd" })
 
   // 默认显示的字体
-  set text(font: fonts.宋体, size: fonts_size.小四)
+  set text(font: fonts.宋体, size: font_size.小四)
 
   v(48pt)
   {

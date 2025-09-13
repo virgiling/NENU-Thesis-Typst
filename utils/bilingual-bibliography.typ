@@ -1,4 +1,4 @@
-#import "style.typ": fonts_family, fonts_size
+#import "style.typ": font_family, font_size
 
 //! Reference: https://github.com/nju-lug/modern-nju-thesis
 //! Authors: csimide, OrangeX4
@@ -151,7 +151,7 @@
     }
   }
 
-  set text(lang: "zh", font: fonts_family.宋体, size: fonts_size.小四)
+  set text(lang: "zh", font: font_family.宋体, size: font_size.小四)
   set par(
     leading: 1em,
     justify: true,
@@ -162,7 +162,7 @@
     set align(center)
     set par(leading: 1.5em)
     v(48pt)
-    text(font: fonts_family.黑体, size: fonts_size.三号, weight: "bold", title)
+    text(font: font_family.黑体, size: font_size.三号, weight: "bold", title)
     v(24pt)
   }
 

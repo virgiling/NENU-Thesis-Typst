@@ -6,7 +6,7 @@
 #import "@preview/i-figured:0.2.4"
 #import "@preview/lovelace:0.3.0": *
 #import "@preview/cetz:0.3.1"
-#import "../utils/style.typ": fonts_family, fonts_size
+#import "../utils/style.typ": font_family, font_size
 #import "../utils/justify-text.typ": justify-text
 
 // 中文缩进
@@ -55,11 +55,11 @@
   author_info: (:),
 ) = {
   set align(center)
-  set text(size: fonts_size.二号, font: fonts_family.黑体)
+  set text(size: font_size.二号, font: font_family.黑体)
   v(4em)
   fakebold[#title.school #v(.5em) #title.type]
 
-  set text(size: fonts_size.三号, font: fonts_family.楷体)
+  set text(size: font_size.三号, font: font_family.楷体)
   v(3.5em)
 
 
@@ -96,13 +96,13 @@
 
   [
     #set align(center)
-    #set text(size: fonts_size.三号, font: fonts_family.楷体)
+    #set text(size: font_size.三号, font: font_family.楷体)
     #set par(leading: 1em)
     #fakebold[撰写说明]
   ]
 
   v(1em)
-  set text(size: fonts_size.四号)
+  set text(size: font_size.四号)
   set par(leading: 1.5em, first-line-indent: 2em, spacing: 1.5em, justify: true)
   [
     1.文献综述应基于选题领域内具有代表性的文献进行，需满足一定的字数要求。博士生：文科不得少于10000字，理科不得少于6000字。硕士生：文科不得少于5000字，理科不得少于3000字。
@@ -127,7 +127,7 @@
 
 #let doc(it) = {
   set page(margin: (top: 2cm, bottom: 2cm, left: 2.5cm, right: 2.5cm))
-  set text(size: fonts_size.小四, font: fonts_family.宋体, lang: "zh")
+  set text(size: font_size.小四, font: font_family.宋体, lang: "zh")
   set par(leading: 1em, first-line-indent: 2em, justify: true)
   set heading(
     numbering: numbly(
@@ -149,16 +149,16 @@
       #fake-par
       #set par(leading: 1em, first-line-indent: 0em)
       #if it.level == 1 {
-        text(font: fonts_family.黑体, size: fonts_size.三号)[
+        text(font: font_family.黑体, size: font_size.三号)[
           #fakebold[#counter(heading).display() #title]
         ]
         if content != none {
-          text(font: fonts_family.楷体, size: fonts_size.四号)[
+          text(font: font_family.楷体, size: font_size.四号)[
             （#content
           ]
         }
       } else {
-        text(font: fonts_family.黑体, size: fonts_size.小三)[
+        text(font: font_family.黑体, size: font_size.小三)[
           #counter(heading).display() #title
         ]
       }
@@ -177,7 +177,7 @@
   show figure.where(kind: table): set figure.caption(position: top)
   set figure.caption(separator: " ")
   show figure.caption: fakebold
-  show figure.caption: set text(font: fonts_family.宋体, size: fonts_size.五号)
+  show figure.caption: set text(font: font_family.宋体, size: font_size.五号)
 
   //! 4. 公式编号
   show math.equation.where(block: true): i-figured.show-equation
@@ -198,7 +198,7 @@
   ]
   assert(bibliography != none, message: "bibliography 函数不能为空")
 
-  set text(lang: "zh", size: fonts_size.小四, font: fonts_family.宋体)
+  set text(lang: "zh", size: font_size.小四, font: font_family.宋体)
 
   bibliography(
     title: none,

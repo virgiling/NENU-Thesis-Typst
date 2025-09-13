@@ -1,6 +1,6 @@
 // TODO [@Dian Ling](https://github.com/virgiling) 重写这部分内容
 
-#import "../utils/style.typ": fonts_family, fonts_size
+#import "../utils/style.typ": font_family, font_size
 #import "../utils/justify-text.typ": justify-text
 
 #let master-decl-page(
@@ -14,8 +14,8 @@
   fonts: (:),
   anonymous: false,
   twoside: false,
-  title-font-size: fonts_size.三号,
-  content-font-size: fonts_size.小四,
+  title-font-size: font_size.三号,
+  content-font-size: font_size.小四,
   box-inset: 0.5em,
   box-stroke: 0.5pt + black,
   small-box-height: 1.5em,
@@ -37,7 +37,7 @@
   }
   pagebreak(weak: true, to: if twoside { "odd" })
 
-  fonts = fonts_family + fonts
+  fonts = font_family + fonts
   let title-font = fonts.宋体
   let content-font = fonts.宋体
   let justify-text = justify-text.with(with-tail: true, tail: "：")

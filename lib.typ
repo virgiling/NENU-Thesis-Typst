@@ -28,57 +28,94 @@
 #import "utils/custom-numbering.typ": custom-numbering
 #import "utils/custom-heading.typ": active-heading, current-heading, heading-display
 #import "@preview/i-figured:0.2.4": show-equation, show-figure
-#import "utils/style.typ": fonts_family, fonts_size
+#import "utils/style.typ": font_family, font_size
 #import "@preview/kouhu:0.1.0": kouhu
 
 
 #let indent = h(2em)
 
-// 使用函数闭包特性，通过 `thesis` 函数类进行全局信息配置，然后暴露出拥有了全局配置的、具体的 `layouts` 和 `templates` 内部函数。
+/// 论文模板的入口函数，通过获取全局信息配置，分别发放对应参数的模板
 #let thesis(
-  doctype: "bachelor", // "bachelor" | "master" | "doctor" | "postdoc"，文档类型，默认为本科生 bachelor
-  degree: "academic", // "academic" | "professional"，学位类型，默认为学术型 academic
-  twoside: false, // 双面模式，会加入空白页，便于打印
-  anonymous: false, // 盲审模式
-  bibliography: none, // 原来的参考文献函数
-  fonts: (:), // 字体，应传入「宋体」、「黑体」、「楷体」、「仿宋」、「等宽」
+  /// 文档类型
+  ///
+  /// 可选择的值为 "bachelor" | "master" | "doctor"，分别表示 本科 ｜ 硕士 ｜ 博士
+  /// -> str
+  doctype: "bachelor",
+  /// 学位类型
+  ///
+  /// 只有硕士以上的学位才可以选择，值为 "academic" （学术型）| "professional"（专业型）
+  /// -> str
+  degree: "academic",
+  /// 双面模式
+  ///
+  /// 会在每一个部分后加入空白页，便于打印
+  /// -> bool
+  twoside: false,
+  /// 盲审模式
+  ///
+  /// 隐藏学校/作者/导师等一切信息，满足盲审要求
+  /// -> bool
+  anonymous: false,
+  /// 参考文献函数
+  ///
+  /// 一般传入值为 `bibliography.with("ref.bib")`，其中 `ref.bib` 是 biblatex 文件的路径
+  /// -> function
+  bibliography: none,
+  /// 自定义字体
+  /// 在 @@font_size 中我们加入了一些默认值，这里用于添加自定义的字体
+  /// 但注意需要满足 @@font_size 的格式:
+  ///
+  /// `fonts = ( 宋体: ("Times New Romans"), 黑体: ( "Arial"), 楷体: ("KaiTi"), 仿宋: ("FangSong"), 等宽: ("Courier New")`
+  /// -> dictionary
+  fonts: (:),
+  /// 论文以及个人信息
+  /// - title: 论文中文题目
+  /// - title-en: 论文英文题目
+  /// - grade: 年级
+  /// - student-id: 学号
+  /// - author: 作者中文名
+  /// - author-en: 作者英文名
+  /// - secret-level: 密级中文
+  /// - secret-level-en: 密级英文
+  /// - department: 院系中文名
+  /// - department-en: 院系英文名
+  /// - discipline: 一级学科中文名
+  /// - discipline-en: 一级学科英文名
+  /// - major: 二级学科中文名
+  /// - major-en: 二级学科英文名
+  /// - field: 研究方向中文
+  /// - field-en: 研究方向英文
+  /// - supervisor: 导师信息(姓名, 职称)
+  /// - supervisor-en: 导师英文信息
+  /// - submit-date: 提交日期
+  /// - school-code: 学校代码
+  /// -> dictionary
   info: (:),
 ) = {
   // 默认参数
-  fonts = fonts_family + fonts
+  fonts = font_family + fonts
   info = (
     (
-      title: "基于 Typst 的东北师范大学学位论文模板",
-      title-en: "NENU Thesis Template for Typst",
+      title: ("毕业论文中文题目", "有一点长有一点长有一点长有一点长有一点长有一点长"),
+      title-en: "Analysis of the genetic diversity within and between the XX population revealed by AFLP marker",
       grade: "20XX",
       student-id: "1234567890",
       author: "张三",
-      author-en: "Zhang San",
-      department: "某学院",
-      department-en: "XX Department",
-      major: "某专业",
-      major-en: "XX Major",
-      field: "某方向",
-      field-en: "XX Field",
+      author-en: "San Zhang",
+      secret-level: "无",
+      secret-level-en: "Unclassified",
+      department: "信息科学与技术学院",
+      department-en: "School of Information Science and Technology",
+      discipline: "计算机科学与技术",
+      discipline-en: "Computer Science and Technology",
+      major: "计算机科学",
+      major-en: "Computer Science",
+      field: "人工智能",
+      field-en: "Artificial Intelligence",
       supervisor: ("李四", "教授"),
-      supervisor-en: "Professor Li Si",
-      supervisor-ii: (),
-      supervisor-ii-en: "",
+      supervisor-en: "Professor My Supervisor",
       submit-date: datetime.today(),
-      // 以下为研究生项
-      defend-date: datetime.today(),
-      confer-date: datetime.today(),
-      bottom-date: datetime.today(),
-      chairman: "某某某 教授",
-      reviewer: ("某某某 教授", "某某某 教授"),
-      clc: "O643.12",
-      udc: "544.4",
-      secret-level: "公开",
-      supervisor-contact: "南京大学 江苏省南京市栖霞区仙林大道163号",
-      email: "xyz@smail.nju.edu.cn",
       school-code: "10200",
-      degree: auto,
-      degree-en: auto,
     )
       + info
   )

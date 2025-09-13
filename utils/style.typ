@@ -1,5 +1,8 @@
 //! Reference: https://github.com/nju-lug/modern-nju-thesis
-#let fonts_size = (
+/// 字号
+/// 由 Word中的单位映射到磅数
+/// -> dictionary
+#let font_size = (
   初号: 42pt,
   小初: 36pt,
   一号: 26pt,
@@ -19,7 +22,9 @@
   小七: 5pt,
 )
 
-#let fonts_family = (
+/// 字体默认值
+/// -> dictionary
+#let font_family = (
   //! 宋体，属于「有衬线字体」，一般可以等同于英文中的 Serif Font
   //? 这一行分别是「新罗马体（有衬线英文字体）」、「思源宋体（简体）」、「思源宋体」、「宋体（Windows）」、「宋体（MacOS）」
   宋体: (

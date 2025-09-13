@@ -1,15 +1,15 @@
-#import "../utils/style.typ": fonts_family, fonts_size
+#import "../utils/style.typ": font_family, font_size
 #import "../utils/hline.typ": hline
 
 // 字体显示测试页
 #let fonts-display-page(
   twoside: false,
   fonts: (:),
-  size: fonts_size.小四,
+  size: font_size.小四,
   lang: "zh",
 ) = {
   // 1. 默认参数
-  fonts = fonts_family + fonts
+  fonts = font_family + fonts
 
   // 2. 辅助函数
   let display-font(cjk-name, latin-name) = [

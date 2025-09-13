@@ -1,5 +1,5 @@
 #import "@preview/i-figured:0.2.4"
-#import "../utils/style.typ": fonts_family, fonts_size
+#import "../utils/style.typ": font_family, font_size
 #import "../utils/custom-numbering.typ": custom-numbering
 #import "../utils/custom-heading.typ": active-heading, current-heading, heading-display
 #import "../utils/unpairs.typ": unpairs
@@ -24,7 +24,7 @@
   text-args: auto,
   // 标题字体与字号
   heading-font: auto,
-  heading-size: (fonts_size.三号, fonts_size.四号, fonts_size.小四),
+  heading-size: (font_size.三号, font_size.四号, font_size.小四),
   heading-weight: ("regular", "regular", "bold", "regular"),
   heading-above: (48pt, 6pt, 6pt, 0pt),
   heading-below: (24pt, 0pt),
@@ -43,7 +43,7 @@
   //? caption 样式
   //! 中文字体为宋体，英文和数字为Times New Roman字体，五号，居中无缩进，段前0行，段后0行，1.5倍行距。
   caption-style: (leading: 1.5em, justify: true, first-line-indent: 0pt),
-  caption-size: fonts_size.五号,
+  caption-size: font_size.五号,
   // figure 计数
   show-figure: i-figured.show-figure,
   // equation 计数
@@ -55,9 +55,9 @@
   set page(numbering: "1")
 
   //! 1.  默认参数
-  fonts = fonts_family + fonts
+  fonts = font_family + fonts
   if text-args == auto {
-    text-args = (font: fonts.宋体, size: fonts_size.小四)
+    text-args = (font: fonts.宋体, size: font_size.小四)
   }
   //? 1.1 字体与字号
   if heading-font == auto {
@@ -92,7 +92,7 @@
   //? 3.2 脚注样式
   //! 在需要注释处标明序号，序号加圆圈放在加注处右上角，“上标”字体标注，如①。脚注中文采用宋体，英文和数字采用Times New Roman字体,小五号字，左对齐，无缩进，段前0行，段后0行，单倍行距。每页重新编号，注释序号均从①开始
   set footnote(numbering: "①")
-  show footnote.entry: set text(font: fonts.宋体, size: fonts_size.小五)
+  show footnote.entry: set text(font: fonts.宋体, size: font_size.小五)
   //? 3.3 设置 figure 的编号
   show heading: i-figured.reset-counters
   show figure: show-figure
@@ -105,13 +105,13 @@
   //! 表单元格内容：居中书写（上下居中，左右居中），中文为宋体，英文和数字为Times New Roman字体，五号字，居中无缩进，段前0行，段后0行，单倍行距。
   show table.cell: set align(center)
   show table.cell: set par(first-line-indent: 0pt, leading: 1em, spacing: 0pt, justify: true)
-  show table.cell: set text(font: fonts.宋体, size: fonts_size.五号)
+  show table.cell: set text(font: fonts.宋体, size: font_size.五号)
 
   //? 图表样式
   set figure(gap: leading)
   set figure.caption(separator: separator)
   show figure.caption: set par(..caption-style)
-  show figure.caption: set text(font: fonts.宋体, size: fonts_size.五号)
+  show figure.caption: set text(font: fonts.宋体, size: font_size.五号)
 
   //? 3.6 优化列表显示
   //*     术语列表 terms 不应该缩进
@@ -168,7 +168,7 @@
             if reset-footnote {
               counter(footnote).update(0)
             }
-            set text(font: fonts.黑体, size: fonts_size.小四)
+            set text(font: fonts.黑体, size: font_size.小四)
             set par(first-line-indent: 0pt, leading: leading, spacing: spacing, justify: true)
             set align(center)
             if doctype != "bachelor" {
@@ -194,7 +194,7 @@
     ),
     footer: [
       #set align(center)
-      #set text(font: fonts_family.宋体, size: fonts_size.五号)
+      #set text(font: font_family.宋体, size: font_size.五号)
       #context counter(page).display("1")
     ],
     footer-descent: .25cm,

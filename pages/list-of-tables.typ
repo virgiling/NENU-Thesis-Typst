@@ -1,6 +1,6 @@
 #import "@preview/i-figured:0.1.0"
 #import "../utils/invisible-heading.typ": invisible-heading
-#import "../utils/style.typ": fonts_family, fonts_size
+#import "../utils/style.typ": font_family, font_size
 
 //! 附表目录
 //! 1. 标题: 黑体，三号，居中无缩进，大纲级别一级，段前48磅，段后24磅，1.5倍行距。
@@ -17,16 +17,16 @@
   title-text-args: auto,
   // 字体与字号
   font: auto,
-  size: fonts_size.小四,
+  size: font_size.小四,
   // 垂直间距
   above: 6pt,
   below: 16pt,
   ..args,
 ) = {
   // 1.  默认参数
-  fonts = fonts_family + fonts
+  fonts = font_family + fonts
   if title-text-args == auto {
-    title-text-args = (font: fonts.黑体, size: fonts_size.三号, weight: "bold")
+    title-text-args = (font: fonts.黑体, size: font_size.三号, weight: "bold")
   }
   // 字体与字号
   if font == auto {

@@ -1,4 +1,4 @@
-#import "../utils/style.typ": fonts_family, fonts_size
+#import "../utils/style.typ": font_family, font_size
 #import "../utils/invisible-heading.typ": invisible-heading
 //! 成果页
 //! 1. 标题: 黑体三号，居中无缩进，大纲级别1级，段前48磅，段后24磅，1.5倍行距
@@ -34,7 +34,7 @@
       + pubs
   )
 
-  fonts = fonts_family + fonts
+  fonts = font_family + fonts
 
   pagebreak(weak: true, to: if twoside { "odd" })
 
@@ -45,14 +45,14 @@
   {
     // FIXME 这里的 -48 磅需要被修复，大概是因为标题的规则被二次应用了
     v(-48pt)
-    set text(font: fonts.黑体, size: fonts_size.三号)
+    set text(font: fonts.黑体, size: font_size.三号)
     outline-title
   }
 
   //! 表格渲染
 
   show grid.cell: it => {
-    set text(font: fonts.宋体, size: fonts_size.小四)
+    set text(font: fonts.宋体, size: font_size.小四)
     set par(leading: 1.5em, spacing: 1.5em)
     pad(x: 6pt, y: 12pt, it) // 添加水平和垂直内边距
   }

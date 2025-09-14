@@ -106,6 +106,22 @@
   name: "硕博封面",
 )
 
+== 委员会
+
+#module(
+  read("../pages/master-comm-page.typ"),
+  name: "硕博委员会页",
+)
+
+
+== 声明页
+
+#module(
+  read("../pages/master-decl-page.typ"),
+  name: "硕博声明页",
+)
+
+
 
 = 工具函数与变量
 

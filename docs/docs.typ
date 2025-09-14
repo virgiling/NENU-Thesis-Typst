@@ -1,7 +1,7 @@
 #import "@preview/gentle-clues:1.2.0": *
-#import "style.typ": module, project, ref-fn
+#import "style.typ": module, project, ref-fn, tidy
 
-#let current-version = "1.0.0"
+#let current-version = "0.1.0"
 
 #show: project.with(
   color: rgb("#143f85"),
@@ -13,7 +13,7 @@
   signature: "Dian Ling <virgiling7@gmail.com>",
 )
 
-= 简单使用
+= 基础使用
 
 我们通过向 #ref-fn("thesis()") 输入论文的参数，得到对应的返回页面，并通过类似 `React` 的方式将这些页面组装起来，例如：
 
@@ -75,11 +75,44 @@
   - `decision` 只存在于博士论文中
 ]
 
-除去这些特定学位论文才有的页面，其余页面可以根据需求自己选择是否加入到论文中
+除去这些特定学位论文才有的页面，其余页面可以根据需求自己选择是否加入到论文中。
+
+在开始搭配页面前，我们需要明确文档的设置以及页面构成的顺序，这些都需要去阅读论文装订规范。
+
+一般而言，设置的顺序为：
+
++ 页面 & 元数据设置
++ 封面页
++ 扉页
++ 前言设置
++ 摘要
++ 目录
++ 正文设置
++ 参考文献
++ 附录设置
++ 后记
++ ...
+
+== 文档设置 <pdf-setting>
+
+我们在 #ref-fn("doc()") 中可以找到完整的参数信息，在使用时，只需要导入后输入：
+
+```typ
+#show: doc
+```
+
+即可，如果需要对文稿的配置进行修改，例如修改页面边距，那么可以使用：
+
+```typ
+#show: doc.with(margin: (top: 3cm, bottom: 3cm, left: 1.5cm, right: 1.5cm))
+```
+
 
 == 封面
 
 对于本科生封面，其参数我们可以参考 #ref-fn("bachelor-cover()")
+
+但对于我们使用来说，当我们从 #ref-fn("thesis()") 中获得 `cover` 这个函数后，我们即可以通过调用 `#cover()` 来得到封面
 
 #pagebreak()
 
@@ -92,6 +125,13 @@
 #module(
   read("../lib.typ"),
   name: "Lib",
+)
+
+== 文档设置
+
+#module(
+  read("../layouts/doc.typ"),
+  name: "文档与页面设置",
 )
 
 == 封面

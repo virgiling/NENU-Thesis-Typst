@@ -27,7 +27,7 @@
   publication,
   decision,
 ) = thesis(
-  // doctype: "master",
+  doctype: "master",
   degree: "academic",
   anonymous: false,
   twoside: false,
@@ -56,7 +56,7 @@
 )
 
 //* 文稿设置
-#show: doc
+#show: doc.with()
 
 //* 字体展示测试页
 // #fonts-display-page()

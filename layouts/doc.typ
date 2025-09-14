@@ -1,14 +1,17 @@
-// 文稿设置，可以进行一些像页面边距这类的全局设置
+/// 文稿设置
+/// 用于设置 PDF 的全局选项以及元数据
 #let doc(
-  // thesis 传入参数
+  /// 论文与作者信息，通过 @@thesis() 传入
   info: (:),
-  // 其他参数
-  fallback: false, // 字体缺失时使用 fallback，不显示豆腐块
+  /// 字体设置
+  /// 是否在字体缺失时使用 fallback，以防显示豆腐块
+  fallback: false,
+  /// 论文语言设置
   lang: "zh",
+  /// 页面边距设置
   margin: (top: 2cm, bottom: 2cm, left: 2.5cm, right: 2.5cm),
   it,
 ) = {
-  // 1.  默认参数
   info = (
     (
       title: "基于 Typst 的东北师范大学学位论文模板",
@@ -17,17 +20,13 @@
       + info
   )
 
-  // 2.  对参数进行处理
-  // 2.1 如果是字符串，则使用换行符将标题分隔为列表
   if type(info.title) == str {
     info.title = info.title.split("\n")
   }
 
-  // 3.  基本的样式设置
   set text(fallback: fallback, lang: lang)
   set page(paper: "a4", margin: margin)
 
-  // 4.  PDF 元信息
   set document(
     title: (("",) + info.title).sum(),
     author: info.author,

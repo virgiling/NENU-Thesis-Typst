@@ -1,5 +1,6 @@
 #import "@preview/tidy:0.4.3"
 #import "@preview/codly:1.3.0": codly, codly-init, no-codly
+#import "@preview/codly-languages:0.1.1": *
 
 // Color to highlight function names in
 #let function-name-color = rgb("#4b69c6")
@@ -33,6 +34,7 @@
   "dictionary": rgb(248, 224, 255),
   "arguments": rgb(248, 224, 255),
   "selector": rgb(200, 214, 233),
+  "datetime": rgb(200, 214, 233),
   "module": rgb(210, 212, 250),
   "stroke": default-type-color,
   "function": rgb("#f9dfff"),
@@ -121,11 +123,11 @@
         ],
         [],
         [
-          #text(weight: "bold", size: publisher-text-size, font: publisher-font)[
+          #text(weight: "bold", size: publisher-text-size)[
             #if publisher == "" {
               [O RLY#text(fill: color)[#super[?]]]
             } else {
-              publisher
+              emph(publisher)
             }
           ]
           #if signature != "" {
@@ -156,7 +158,7 @@
     )
     tidy.show-module(
       module,
-      first-heading-level: 2,
+      first-heading-level: 3,
       colors: colors,
     )
     pagebreak(weak: true)
@@ -186,7 +188,10 @@
   // Set the document's basic properties.
   set document(author: signature, title: title)
   set page(numbering: "1", number-align: center)
-  set heading(numbering: (first, ..other) => if other.pos().len() == 0 { return first })
+  set heading(numbering: (first, ..other) => {
+    let len = other.pos().len()
+    if len == 0 { return first }
+  })
   show heading: it => {
     set block(below: 1.25em, above: 1.25em)
     it
@@ -221,6 +226,9 @@
   )
 
   // Main body.
+  set text(lang: "zh", font: ("Times New Roman", "Songti SC"))
+  show raw: set text(font: ("Courier New", "Menlo", "Monaco Nerd Font"))
+  show raw.where(block: true): set par(first-line-indent: 0pt)
   set par(justify: true)
   v(7em)
 
@@ -228,8 +236,9 @@
   pagebreak()
 
   show: codly-init.with()
-  codly(
-    fill: white,
-  )
+  codly(languages: codly-languages)
   body
 }
+
+#let ref-fn(name) = link(label(name), raw(name))
+

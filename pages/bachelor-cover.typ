@@ -1,28 +1,37 @@
 #import "../utils/datetime-display.typ": datetime-display-without-day
 #import "../utils/style.typ": font_family, font_size
 
-//! 本科生封面
+/// 渲染本科生封面
+/// -> content
 #let bachelor-cover(
-  //? thesis 传入的参数
+  /// 是否匿名，由 @@thesis() 传入
   anonymous: false,
+  /// 是否启用双面打印, 由 @@thesis() 传入
   twoside: false,
+  /// 自定义字体，由 @@thesis() 传入
   fonts: (:),
+  /// 论文与作者信息，由 @@thesis() 传入
   info: (:),
-  //? 其他参数
+  /// 下划线宽度
   stoke-width: 0.5pt,
-  min-title-lines: 2,
+  /// 标题的最少行数
+  min-title-lines: 1,
+  /// 作者信息值（张三，李四等）与下划线的距离偏移量
   info-inset: (x: 0pt, bottom: 1pt),
+  /// 作者信息键（学生姓名，指导教师等）占的宽度
   info-key-width: 72pt,
+  /// 作者信息键所用字体
   info-key-font: "宋体",
+  /// 作者信息值所用字体
   info-value-font: "宋体",
+  /// 作者信息键值对之间的间隔大小
   column-gutter: -3pt,
+  /// 作者信息中行之间的间隔大小
   row-gutter: 11.5pt,
-  anonymous-info-keys: ("grade", "student-id", "author", "supervisor", "supervisor-ii"),
-  bold-info-keys: ("title",),
-  bold-level: "bold",
+  /// 日期表示形式
+  /// 自定义写法可参考 @@datetime-display() 系列函数
   datetime-display: datetime-display-without-day,
 ) = {
-  //! 1.  默认参数
   fonts = font_family + fonts
   info = (
     (
@@ -39,19 +48,19 @@
       + info
   )
 
-  //! 2.  对参数进行处理
-  //! 2.1 如果是字符串，则使用换行符将标题分隔为列表
+  //* 2.  对参数进行处理
+  //* 2.1 如果是字符串，则使用换行符将标题分隔为列表
   if type(info.title) == str {
     info.title = info.title.split("\n")
   }
-  //! 2.2 根据 min-title-lines 填充标题
+  //* 2.2 根据 min-title-lines 填充标题
   info.title = info.title + range(min-title-lines - info.title.len()).map(it => "　")
-  //! 2.3 处理提交日期
+  //* 2.3 处理提交日期
   if type(info.submit-date) == datetime {
     info.submit-date = datetime-display(info.submit-date)
   }
 
-  //! 3.  内置辅助函数
+  //* 3.  内置辅助函数
   let info-key(body) = {
     rect(
       width: 100%,
@@ -74,7 +83,7 @@
       text(
         font: fonts.at(info-value-font, default: "宋体"),
         size: font_size.三号,
-        weight: if key in bold-info-keys { bold-level } else { "regular" },
+        weight: "regular",
         bottom-edge: "descender",
         body,
       ),
@@ -92,7 +101,7 @@
     ))
   }
 
-  // 4.  正式渲染
+  //* 4.  正式渲染
 
   pagebreak(weak: true, to: if twoside { "odd" })
 
@@ -114,7 +123,7 @@
 
   set align(center)
 
-  //! 校徽 & 校名 & 类型
+  //* 校徽 & 校名 & 类型
   image("../assets/nenu-logo-blue.svg", width: 90pt, format: "svg")
 
   pad(image("../assets/nenu-title.svg", width: 126pt), top: 0cm, bottom: -0.8cm)
@@ -124,7 +133,7 @@
 
   v(30pt)
 
-  //! 标题
+  //* 标题
   text(size: font_size.二号, font: fonts.隶书, weight: "bold")[
     #for line in info.title {
       line
@@ -139,7 +148,7 @@
 
   v(40pt)
 
-  //! 作者信息
+  //* 作者信息
   pad(
     left: 20pt,
     block(width: 318pt, grid(

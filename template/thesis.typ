@@ -7,13 +7,11 @@
 #codly(languages: codly-languages)
 
 #let (
-  //* 布局函数
   twoside,
   doc,
   preface,
   mainmatter,
   appendix,
-  //* 页面函数
   fonts-display-page,
   cover,
   committee-page,
@@ -29,17 +27,10 @@
   publication,
   decision,
 ) = thesis(
-  //* "bachelor" | "master" | "doctor" | "postdoc", 文档类型，默认为本科生 bachelor
-  doctype: "master",
-  //* "academic" | "professional", 学位类型，默认为学术型 academic
-  degree: "professional",
-  //* 盲审模式
+  // doctype: "master",
+  degree: "academic",
   anonymous: false,
-  //* 双面模式，会加入空白页，便于打印
   twoside: false,
-  // 你可以自定义字体消除警告，先英文字体后中文字体，应传入「宋体」、「黑体」、「楷体」、「仿宋」、「等宽」
-  // fonts: (楷体: (name: "Times New Roman", covers: "latin-in-cjk"), "FZKai-Z03S"),
-  //* 论文与个人信息
   info: (
     title: ("毕业论文中文题目", "有一点长有一点长有一点长有一点长有一点长有一点长"),
     title-en: "Analysis of the genetic diversity within and between the XX population revealed by AFLP marker",
@@ -61,7 +52,6 @@
     supervisor-en: "Professor My Supervisor",
     submit-date: datetime.today(),
   ),
-  //* 参考文献源
   bibliography: bibliography.with("ref.bib"),
 )
 
@@ -75,7 +65,7 @@
 #cover()
 
 //* 委员会页
-#committee-page()
+// #committee-page()
 
 //* 声明页
 #decl-page()

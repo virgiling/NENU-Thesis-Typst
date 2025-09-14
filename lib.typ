@@ -35,6 +35,7 @@
 #let indent = h(2em)
 
 /// 论文模板的入口函数，通过获取全局信息配置，分别发放对应参数的模板
+/// -> function
 #let thesis(
   /// 文档类型
   ///
@@ -92,7 +93,6 @@
   /// -> dictionary
   info: (:),
 ) = {
-  // 默认参数
   fonts = font_family + fonts
   info = (
     (
@@ -135,12 +135,14 @@
         info: info + args.named().at("info", default: (:)),
       )
     },
+    //* 正文前格式
     preface: (..args) => {
       preface(
         twoside: twoside,
         ..args,
       )
     },
+    //* 正文格式
     mainmatter: (..args) => {
       if doctype == "master" or doctype == "doctor" {
         mainmatter(
@@ -158,12 +160,13 @@
         )
       }
     },
+    //* 附录
     appendix: (..args) => {
       appendix(
         ..args,
       )
     },
-    //* 字体展示页
+    //* 字体展示页（测试用）
     fonts-display-page: (..args) => {
       fonts-display-page(
         twoside: twoside,
@@ -171,7 +174,7 @@
         fonts: fonts + args.named().at("fonts", default: (:)),
       )
     },
-    //* 封面页，通过 type 分发到不同函数
+    //* 封面页
     cover: (..args) => {
       if doctype == "master" or doctype == "doctor" {
         master-cover(
@@ -195,7 +198,7 @@
         )
       }
     },
-    //* 委员会页面，硕博专用
+    //* 委员会页面（硕博专用）
     committee-page: (..args) => {
       if doctype == "master" or doctype == "doctor" {
         master-comm-page(
@@ -210,7 +213,7 @@
         panic("BACHELOR DO NOT CONATIN COMMITTEE PAGE")
       }
     },
-    //* 声明页，通过 type 分发到不同函数
+    //* 声明页
     decl-page: (..args) => {
       if doctype == "master" or doctype == "doctor" {
         master-decl-page(
@@ -231,7 +234,7 @@
         )
       }
     },
-    //* 中文摘要页，通过 type 分发到不同函数
+    //* 中文摘要页
     abstract: (..args) => {
       if doctype == "postdoc" {
         panic("postdoc has not yet been implemented.")
@@ -245,7 +248,7 @@
         )
       }
     },
-    //* 英文摘要页，通过 type 分发到不同函数
+    //* 英文摘要页
     abstract-en: (..args) => {
       if doctype == "postdoc" {
         panic("postdoc has not yet been implemented.")
@@ -317,6 +320,7 @@
         panic("BACHELOR DO NOT CONTAIN THIS PAGE")
       }
     },
+    //* 导师与委员会评价页
     decision: (..args) => {
       if doctype == "doctor" {
         decision(

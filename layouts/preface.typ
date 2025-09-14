@@ -2,7 +2,7 @@
 #import "../utils/style.typ": font_family, font_size
 
 #let preface(
-  // documentclass 传入的参数
+  // thesis 传入的参数
   twoside: false,
   ..args,
   it,

@@ -11,7 +11,7 @@
 //! 三级目录项首行无缩进，左缩进2字符，右缩进0字符
 
 #let outline-page(
-  // documentclass 传入参数
+  // thesis 传入参数
   twoside: false,
   fonts: (:),
   // 其他参数

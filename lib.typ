@@ -90,6 +90,14 @@
   /// - supervisor-en: 导师英文信息
   /// - submit-date: 提交日期
   /// - school-code: 学校代码
+  /// - reviewers: 论文评阅人
+  ///   - name: 姓名
+  ///   - workplace: 工作单位/职称
+  ///   - evaluation: 总体评价
+  /// - committee-members: 答辩委员会成员
+  ///   - name: 姓名
+  ///   - workplace: 工作单位/职称
+  ///   - title: 总体评价
   /// -> dictionary
   info: (:),
 ) = {
@@ -116,6 +124,20 @@
       supervisor-en: "Professor My Supervisor",
       submit-date: datetime.today(),
       school-code: "10200",
+      reviewers: (
+        (name: "张三", workplace: "工作单位", evaluation: "总体评价"),
+        (name: "李四", workplace: "工作单位", evaluation: "总体评价"),
+        (name: "王五", workplace: "工作单位", evaluation: "总体评价"),
+        (name: "赵六", workplace: "工作单位", evaluation: "总体评价"),
+        (name: "孙七", workplace: "工作单位", evaluation: "总体评价"),
+      ),
+      committee-members: (
+        (name: "张三", workplace: "工作单位", title: "职称"),
+        (name: "李四", workplace: "工作单位", title: "职称"),
+        (name: "王五", workplace: "工作单位", title: "职称"),
+        (name: "赵六", workplace: "工作单位", title: "职称"),
+        (name: "孙七", workplace: "工作单位", title: "职称"),
+      ),
     )
       + info
   )

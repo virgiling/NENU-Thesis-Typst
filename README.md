@@ -20,8 +20,14 @@
 
 ## 使用方法
 
-> [!NOTE]
-> 模板暂时只支持本地编译使用，且需要下载[隶书字体](https://github.com/dolbydu/font/blob/master/unicode/Lisu.TTF)（如果使用 MacOS/Linux）
+模板可以下载到本地使用，也可以通过导入包使用：
+
+```typ
+#import "@preview/nenu-thesis:0.1.0"
+```
+
+> [!IMPORTANT]
+> 需要下载[隶书字体](https://github.com/dolbydu/font/blob/master/unicode/Lisu.TTF)（如果使用 MacOS/Linux）
 
 ### 本地使用
 

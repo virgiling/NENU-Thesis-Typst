@@ -2,25 +2,13 @@
 
 #import "../utils/style.typ": font_family, font_size
 #import "../utils/justify-text.typ": justify-text
+#import "../utils/datetime-display.typ": datetime-display
 
 
 /// 硕博委员会页
 /// -> content
 #let master-decl-page(
-  /// 声明页需要填充的签名和日期
-  /// - author-sign: 独创性声明-论文作者签名
-  /// - originality-datetime: 独创性声明-论文作者签名日期
-  /// - supervisor-sign: 学位论文使用授权书-指导教师签名
-  /// - author-originality-datetime: 学位论文使用授权书-论文作者签名日期
-  /// - supervisor-originality-datetime: 学位论文使用授权书-指导教师签名日期
-  /// -> dictionary
-  info: (
-    author-sign: [],
-    originality-datetime: [],
-    supervisor-sign: [],
-    author-originality-datetime: [],
-    supervisor-originality-datetime: [],
-  ),
+  info: (:),
   /// 自定义字体
   /// 在 @@font_size 中我们加入了一些默认值，这里用于添加自定义的字体
   /// 但注意需要满足 @@font_size 的格式:
@@ -56,7 +44,7 @@
   small-box-height: 1.5em,
   /// 签名/日期 框的宽度
   /// -> length
-  small-box-width: 7em,
+  small-box-width: 9.5em,
   /// 签名/日期 框的边框样式
   /// -> none | length | color | gradient | stroke | tiling | dictionary
   small-box-stroke: 0.5pt + black,
@@ -71,7 +59,7 @@
   par-spacing: 2em,
   /// 网格（签名key、签名value、日期key、日期value）的x方向外边距
   /// -> ralative
-  pad-x: 2em,
+  pad-x: 1em,
   /// 粗体的样式
   /// -> str|int
   weight-style: "bold",
@@ -80,7 +68,7 @@
   info-value-cell-inset: (bottom: 5pt),
   /// 网格（签名key、签名value、日期key、日期value）的列宽数组
   /// -> array
-  grid-columns: (0.7fr, 1fr) * 2,
+  grid-columns: (0.7fr, 1fr, 0.4fr, 1.2fr),
   /// 网格（签名key、签名value、日期key、日期value）的内边距
   /// -> relative | array | dictionary | function
   grid-inset: 0pt,
@@ -89,8 +77,16 @@
   grid-row-gutter: 0em,
   /// 网格（签名key、签名value、日期key、日期value）的列间距
   /// -> auto|int|relative|fraction|array
-  grid-column-gutter: (0em, 3em, 0em),
+  grid-column-gutter: (0em, 1.5em, 0em),
+  datetime-display: datetime-display,
 ) = {
+  info = (
+    (
+      submit-date: datetime.today(),
+    )
+      + info
+  )
+
   if anonymous {
     return
   }
@@ -113,9 +109,6 @@
   set grid(
     align: center + horizon,
     inset: grid-inset,
-    columns: grid-columns,
-    row-gutter: grid-row-gutter,
-    column-gutter: grid-column-gutter,
   )
   set text(
     font: content-font,
@@ -138,11 +131,14 @@
 
       #pad(
         grid(
-          grid.cell()[#justify-text("论文作者签名")],
-          info-value-cell()[#box()[#info.author-sign]],
-          grid.cell()[#justify-text("日期")],
-          info-value-cell()[#box()[#info.originality-datetime]
-          ],
+          columns: grid-columns,
+          row-gutter: grid-row-gutter,
+          column-gutter: grid-column-gutter,
+          grid.cell(justify-text("论文作者签名")),
+          info-value-cell(box()),
+          grid.cell(justify-text("日期")),
+          info-value-cell(box(datetime-display(info.submit-date)))
+          ,
         ),
       )
     ]
@@ -156,29 +152,28 @@
 
       （保密的学位论文在解密后适用本授权书）
 
-      #pad()[
-        #grid(
-          grid.cell()[#justify-text("论文作者签名")],
-          info-value-cell()[#box()[#info.author-sign]],
-          grid.cell()[#justify-text("指导教师签名")],
-          info-value-cell()[#box()[#info.supervisor-sign]],
+      #pad(
+        grid(
+          columns: (.7fr, 1fr, .7fr, 1fr),
+          column-gutter: (0em, 1em, 0em),
+          grid.cell(justify-text("论文作者签名")),
+          info-value-cell(box()),
+          grid.cell(justify-text("指导教师签名")),
+          info-value-cell(box()),
+        ),
+      )
 
-          grid.cell()[#justify-text("日期")],
-          info-value-cell()[#box()[#info.author-originality-datetime]],
-          grid.cell()[#justify-text("日期")],
-          info-value-cell()[#box()[#info.supervisor-originality-datetime]],
-        )
-      ]
+      #pad(
+        grid(
+          columns: (.7fr, 1fr, .7fr, 1fr),
+          column-gutter: (0em, 1em, 0em),
+          grid.cell(justify-text("日期")),
+          info-value-cell(box(datetime-display(info.submit-date))),
+          grid.cell(justify-text("日期")),
+          info-value-cell(box(datetime-display(info.submit-date))),
+        ),
+      )
     ]
   ]
 }
 
-#master-decl-page(
-  info: (
-    author-sign: [],
-    originality-datetime: [],
-    supervisor-sign: [],
-    author-originality-datetime: [],
-    supervisor-originality-datetime: [],
-  ),
-)

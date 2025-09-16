@@ -1,5 +1,5 @@
 #import "../utils/invisible-heading.typ": invisible-heading
-#import "../utils/style.typ": font_family, font_size
+#import "../utils/style.typ": font-family, font-size
 
 //! 目录
 //! 目录为学位论文各章节标题的顺序列表。目录另起一页，每行均由标题名称和页码组成，列至三级标题。目录从中文摘要开始，至论文结束。目录标题要求简明扼要，概括阐述内容的重点，无标点符号。
@@ -22,10 +22,10 @@
   title-text-args: auto,
   // 引用页数的字体，这里用于显示 Times New Roman
   reference-font: auto,
-  reference-size: font_size.小四,
+  reference-size: font-size.小四,
   // 字体与字号
   font: auto,
-  size: (font_size.小四, font_size.小四),
+  size: (font-size.小四, font-size.小四),
   // 垂直间距
   above: (6pt, 2pt),
   below: (16pt, 16pt),
@@ -36,9 +36,9 @@
   ..args,
 ) = {
   //? 1.  默认参数
-  fonts = font_family + fonts
+  fonts = font-family + fonts
   if title-text-args == auto {
-    title-text-args = (font: fonts.黑体, size: font_size.三号, weight: "bold")
+    title-text-args = (font: fonts.黑体, size: font-size.三号, weight: "bold")
   }
   //? 引用页数的字体，这里用于显示 Times New Roman
   if reference-font == auto {

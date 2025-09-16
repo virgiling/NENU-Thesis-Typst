@@ -1,9 +1,9 @@
 #import "@preview/numbly:0.1.0": numbly
-#import "@preview/cuti:0.2.1": fakebold
+#import "@preview/cuti:0.3.0": *
 #import "@preview/i-figured:0.2.4"
 #import "@preview/lovelace:0.3.0": *
-#import "@preview/codly:1.1.1": *
-#import "@preview/codly-languages:0.1.1": *
+#import "@preview/codly:1.3.0": codly, codly-init, no-codly
+#import "@preview/codly-languages:0.1.8": *
 
 #let empty-par = par[#box()]
 #let fake-par = context empty-par + v(-measure(empty-par + empty-par).height)

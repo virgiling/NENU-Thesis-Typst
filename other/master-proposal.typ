@@ -2,11 +2,11 @@
 //! Improved by [@Dian Ling](https://github.com/virgiling)
 
 #import "@preview/numbly:0.1.0": numbly
-#import "@preview/cuti:0.2.1": fakebold
+#import "@preview/cuti:0.3.0": *
 #import "@preview/i-figured:0.2.4"
 #import "@preview/lovelace:0.3.0": *
-#import "@preview/cetz:0.3.1"
-#import "../utils/style.typ": font_family, font_size
+#import "@preview/cetz:0.4.2"
+#import "../utils/style.typ": font-family, font-size
 #import "../utils/justify-text.typ": justify-text
 
 // 中文缩进
@@ -52,14 +52,14 @@
 
 #let cover(
   title: (school: "东北师范大学", type: "研究生学位论文开题报告"),
-  author_info: (:),
+  author-info: (:),
 ) = {
   set align(center)
-  set text(size: font_size.二号, font: font_family.黑体)
+  set text(size: font-size.二号, font: font-family.黑体)
   v(4em)
   fakebold[#title.school #v(.5em) #title.type]
 
-  set text(size: font_size.三号, font: font_family.楷体)
+  set text(size: font-size.三号, font: font-family.楷体)
   v(3.5em)
 
 
@@ -68,23 +68,23 @@
     row-gutter: 1.3em,
     column-gutter: 0em,
     align: (center, left),
-    justify-block("论文题目", w: 7em), [：#author_info.title],
-    justify-block("报告人姓名", w: 7em), [：#author_info.name],
-    justify-block("研究方向", w: 7em), [：#author_info.direction],
-    justify-block("学科专业", w: 7em), [：#author_info.major],
-    justify-block("年级", w: 7em), [：#author_info.grade],
+    justify-block("论文题目", w: 7em), [：#author-info.title],
+    justify-block("报告人姓名", w: 7em), [：#author-info.name],
+    justify-block("研究方向", w: 7em), [：#author-info.direction],
+    justify-block("学科专业", w: 7em), [：#author-info.major],
+    justify-block("年级", w: 7em), [：#author-info.grade],
     justify-block("学历层次", w: 7em),
-    [：博士生 #checkbox(checked: author_info.level == "博士生")
-      #h(1em)硕士生 #checkbox(checked: author_info.level == "硕士生")],
+    [：博士生 #checkbox(checked: author-info.level == "博士生")
+      #h(1em)硕士生 #checkbox(checked: author-info.level == "硕士生")],
 
     justify-block("学位类型", w: 7em),
     [
-      ：学术学位 #checkbox(checked: author_info.type == "学术学位")
-      #h(1em)专业学位 #checkbox(checked: author_info.type == "专业学位")
+      ：学术学位 #checkbox(checked: author-info.type == "学术学位")
+      #h(1em)专业学位 #checkbox(checked: author-info.type == "专业学位")
     ],
 
-    justify-block("指导教师", w: 7em), [：#author_info.supervisor],
-    justify-block("培养单位", w: 7em), [：#author_info.unit],
+    justify-block("指导教师", w: 7em), [：#author-info.supervisor],
+    justify-block("培养单位", w: 7em), [：#author-info.unit],
   )
   set align(left)
   pagebreak()
@@ -96,13 +96,13 @@
 
   [
     #set align(center)
-    #set text(size: font_size.三号, font: font_family.楷体)
+    #set text(size: font-size.三号, font: font-family.楷体)
     #set par(leading: 1em)
     #fakebold[撰写说明]
   ]
 
   v(1em)
-  set text(size: font_size.四号)
+  set text(size: font-size.四号)
   set par(leading: 1.5em, first-line-indent: 2em, spacing: 1.5em, justify: true)
   [
     1.文献综述应基于选题领域内具有代表性的文献进行，需满足一定的字数要求。博士生：文科不得少于10000字，理科不得少于6000字。硕士生：文科不得少于5000字，理科不得少于3000字。
@@ -127,7 +127,7 @@
 
 #let doc(it) = {
   set page(margin: (top: 2cm, bottom: 2cm, left: 2.5cm, right: 2.5cm))
-  set text(size: font_size.小四, font: font_family.宋体, lang: "zh")
+  set text(size: font-size.小四, font: font-family.宋体, lang: "zh")
   set par(leading: 1em, first-line-indent: 2em, justify: true)
   set heading(
     numbering: numbly(
@@ -149,16 +149,16 @@
       #fake-par
       #set par(leading: 1em, first-line-indent: 0em)
       #if it.level == 1 {
-        text(font: font_family.黑体, size: font_size.三号)[
+        text(font: font-family.黑体, size: font-size.三号)[
           #fakebold[#counter(heading).display() #title]
         ]
         if content != none {
-          text(font: font_family.楷体, size: font_size.四号)[
+          text(font: font-family.楷体, size: font-size.四号)[
             （#content
           ]
         }
       } else {
-        text(font: font_family.黑体, size: font_size.小三)[
+        text(font: font-family.黑体, size: font-size.小三)[
           #counter(heading).display() #title
         ]
       }
@@ -177,7 +177,7 @@
   show figure.where(kind: table): set figure.caption(position: top)
   set figure.caption(separator: " ")
   show figure.caption: fakebold
-  show figure.caption: set text(font: font_family.宋体, size: font_size.五号)
+  show figure.caption: set text(font: font-family.宋体, size: font-size.五号)
 
   //! 4. 公式编号
   show math.equation.where(block: true): i-figured.show-equation
@@ -198,7 +198,7 @@
   ]
   assert(bibliography != none, message: "bibliography 函数不能为空")
 
-  set text(lang: "zh", size: font_size.小四, font: font_family.宋体)
+  set text(lang: "zh", size: font-size.小四, font: font-family.宋体)
 
   bibliography(
     title: none,
@@ -208,18 +208,18 @@
 }
 
 // [!FIXME] 增加 dx, dy 偏移量参数，使得签名能够放在恰当的位置上
-#let teacher-sign(sign_image: none, date: datetime) = {
+#let teacher-sign(sign-image: none, date: datetime) = {
   place(right + bottom)[
-    指导教师签字：#h(5em) #box(sign_image, height: 1.15em) \
+    指导教师签字：#h(5em) #box(sign-image, height: 1.15em) \
     #datetime-display-cn-declare(date)
     #h(3em)
   ]
 }
 
-#let review_conclusion(teachers, sign_image: none, date: datetime) = {
-  let teacher_table_rows = ()
+#let review-conclusion(teachers, sign-image: none, date: datetime) = {
+  let teacher-table-rows = ()
   for teacher in teachers {
-    teacher_table_rows += (teacher.name, teacher.title, teacher.workplace)
+    teacher-table-rows += (teacher.name, teacher.title, teacher.workplace)
   }
   set table(stroke: (x, y) => {
     if y == 0 {
@@ -248,7 +248,7 @@
       align: center,
       table.cell(colspan: 3)[审查小组意见],
       table.cell(colspan: 3)[开题报告审查小组成员名单], [姓 名], [职 称], [工 作 单 位],
-      ..teacher_table_rows,
+      ..teacher-table-rows,
     )
     #set table(stroke: (x, y) => {
       (top: 0.5pt, bottom: 0.5pt, left: 0.5pt, right: 0.5pt)
@@ -280,7 +280,7 @@
           columns: 2,
           rows: 2,
           gutter: 2em,
-          [组长签字：], [#box(sign_image)],
+          [组长签字：], [#box(sign-image)],
           grid.cell(colspan: 2)[
             单位公章：#h(2em)
             #datetime-display-cn-declare(date)
@@ -298,7 +298,7 @@
 
 #cover(
   title: (school: "东北师范大学", type: "研究生学位论文开题报告"),
-  author_info: (
+  author-info: (
     title: "这是开题报告的模板",
     name: "张三",
     direction: "深度学习理论",
@@ -347,7 +347,7 @@
 
 #pagebreak()
 
-#review_conclusion(
+#review-conclusion(
   (
     (
       name: "张三",

@@ -28,8 +28,7 @@
 #import "utils/custom-numbering.typ": custom-numbering
 #import "utils/custom-heading.typ": active-heading, current-heading, heading-display
 #import "@preview/i-figured:0.2.4": show-equation, show-figure
-#import "utils/style.typ": font_family, font_size
-#import "@preview/kouhu:0.1.0": kouhu
+#import "utils/style.typ": font-family, font-size
 
 
 #let indent = h(2em)
@@ -101,7 +100,7 @@
   /// -> dictionary
   info: (:),
 ) = {
-  fonts = font_family + fonts
+  fonts = font-family + fonts
   info = (
     (
       title: ("毕业论文中文题目", "有一点长有一点长有一点长有一点长有一点长有一点长"),

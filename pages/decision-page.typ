@@ -1,4 +1,4 @@
-#import "../utils/style.typ": font_family, font_size
+#import "../utils/style.typ": font-family, font-size
 #import "../utils/invisible-heading.typ": invisible-heading
 #import "../utils/justify-text.typ": justify-text
 //! 成果页
@@ -42,7 +42,7 @@
       + comments
   )
 
-  fonts = font_family + fonts
+  fonts = font-family + fonts
 
   if type(info.title) == str {
     info.title = info.title.split("\n")
@@ -58,14 +58,14 @@
   {
     // FIXME 这里的 -48 磅需要被修复，大概是因为标题的规则被二次应用了
     v(-48pt)
-    set text(font: fonts.黑体, size: font_size.三号)
+    set text(font: fonts.黑体, size: font-size.三号)
     outline-title.at(0)
   }
 
   //! 表格渲染
 
   show grid.cell: it => {
-    set text(font: fonts.宋体, size: font_size.小四)
+    set text(font: fonts.宋体, size: font-size.小四)
     set par(leading: 1.5em, spacing: 1.5em)
     pad(x: 6pt, y: 12pt, it) // 添加水平和垂直内边距
   }
@@ -96,7 +96,7 @@
   {
     // FIXME 这里的 -48 磅需要被修复，大概是因为标题的规则被二次应用了
     v(-48pt)
-    set text(font: fonts.黑体, size: font_size.三号)
+    set text(font: fonts.黑体, size: font-size.三号)
     outline-title.at(1)
   }
 

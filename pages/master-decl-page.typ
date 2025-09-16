@@ -1,6 +1,6 @@
 // TODO [@Dian Ling](https://github.com/virgiling) 重写这部分内容
 
-#import "../utils/style.typ": font_family, font_size
+#import "../utils/style.typ": font-family, font-size
 #import "../utils/justify-text.typ": justify-text
 #import "../utils/datetime-display.typ": datetime-display
 
@@ -10,8 +10,8 @@
 #let master-decl-page(
   info: (:),
   /// 自定义字体
-  /// 在 @@font_size 中我们加入了一些默认值，这里用于添加自定义的字体
-  /// 但注意需要满足 @@font_size 的格式:
+  /// 在 @@font-size 中我们加入了一些默认值，这里用于添加自定义的字体
+  /// 但注意需要满足 @@font-size 的格式:
   ///
   /// `fonts = ( 宋体: ("Times New Romans"), 黑体: ( "Arial"), 楷体: ("KaiTi"), 仿宋: ("FangSong"), 等宽: ("Courier New")`
   /// -> dictionary
@@ -28,11 +28,11 @@
   twoside: false,
   // * 其他参数
   /// 标题的字号
-  /// -> font_size
-  title-font-size: font_size.三号,
+  /// -> font-size
+  title-font-size: font-size.三号,
   /// 内容的字号
-  /// -> font_size
-  content-font-size: font_size.小四,
+  /// -> font-size
+  content-font-size: font-size.小四,
   /// 整个页面的大边框的内边距
   /// -> relative | dictionary
   box-inset: 0.5em,
@@ -50,10 +50,10 @@
   small-box-stroke: 0.5pt + black,
   /// 段落首行缩进
   /// -> length | dictionary
-  par_indent: 2em,
+  par-indent: 2em,
   /// 段落行距
   /// -> length
-  par_leading: 1.5em,
+  par-leading: 1.5em,
   /// 段落间距
   /// -> length
   par-spacing: 2em,
@@ -87,12 +87,13 @@
       + info
   )
 
+
   if anonymous {
     return
   }
   pagebreak(weak: true, to: if twoside { "odd" })
 
-  fonts = font_family + fonts
+  fonts = font-family + fonts
   let title-font = fonts.宋体
   let content-font = fonts.宋体
   let justify-text = justify-text.with(with-tail: true, tail: "：")
@@ -114,7 +115,7 @@
     font: content-font,
     size: content-font-size,
   )
-  set par(first-line-indent: par_indent, leading: par_leading)
+  set par(first-line-indent: par-indent, leading: par-leading)
 
   box(
     stroke: box-stroke,

@@ -1,5 +1,5 @@
 [package]
-name = "nenu-thesis"
+name = "modern-nenu-thesis"
 version = "0.1.0"
 entrypoint = "lib.typ"
 authors = ["Virgil <virgiling7@gmail.com>"]

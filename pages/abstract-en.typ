@@ -1,5 +1,5 @@
 #import "../utils/custom-cuti.typ": fakebold
-#import "../utils/style.typ": font_family, font_size
+#import "../utils/style.typ": font-family, font-size
 #import "../utils/double-underline.typ": double-underline
 #import "../utils/invisible-heading.typ": invisible-heading
 
@@ -23,7 +23,7 @@
   body,
 ) = {
   // 1.  默认参数
-  fonts = font_family + fonts
+  fonts = font-family + fonts
 
   // 2.  正式渲染
   [
@@ -34,12 +34,12 @@
 
     #align(center)[
       #v(48pt)
-      #set text(size: font_size.三号, weight: "bold")
+      #set text(size: font-size.三号, weight: "bold")
       #v(24pt)
       Abstract
     ]
 
-    #set text(font: fonts.宋体, size: font_size.小四)
+    #set text(font: fonts.宋体, size: font-size.小四)
     #set par(leading: leading, justify: true, spacing: spacing, first-line-indent: (amount: 2em, all: true))
 
     #body

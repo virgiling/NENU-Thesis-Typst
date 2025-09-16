@@ -1,6 +1,6 @@
 #import "../utils/datetime-display.typ": datetime-display-without-day, datetime-en-display
 #import "../utils/justify-text.typ": justify-text
-#import "../utils/style.typ": font_family, font_size
+#import "../utils/style.typ": font-family, font-size
 #import "../utils/custom-cuti.typ": fakebold
 
 //! 硕士研究生封面
@@ -44,7 +44,7 @@
   datetime-en-display: datetime-en-display,
 ) = {
   //? 1.  默认参数
-  fonts = font_family + fonts
+  fonts = font-family + fonts
   info = (
     (
       title: "基于 Typst 的东北师范大学学位论文模板",
@@ -90,7 +90,7 @@
   let info-key(body, info-inset: info-inset, is-meta: false, is-chinese: true) = {
     set text(
       font: fonts.宋体,
-      size: if is-meta { font_size.五号 } else { font_size.小四 },
+      size: if is-meta { font-size.五号 } else { font-size.小四 },
       weight: "regular",
     )
     if is-meta {
@@ -126,7 +126,7 @@
         stroke: if no-stroke { none } else { (bottom: stoke-width + black) },
         text(
           font: fonts.宋体,
-          size: if is-meta { font_size.五号 } else { font_size.小四 },
+          size: if is-meta { font-size.五号 } else { font-size.小四 },
           weight: "regular",
           bottom-edge: "descender",
           if anonymous and (key in anonymous-info-keys) {
@@ -156,19 +156,19 @@
   //! 4.  正式渲染
 
   pagebreak(weak: true, to: if twoside { "odd" })
-  v(font_size.小四 * 2)
+  v(font-size.小四 * 2)
 
   // 居中对齐
   set align(center)
 
   [
-    #set text(font: fonts.宋体, size: font_size.四号)
+    #set text(font: fonts.宋体, size: font-size.四号)
     #v(4.55pt)
     #if doctype == "doctor" { "博士研究生学位论文" } else { "硕士研究生学位论文" }
   ]
 
   [
-    #set text(font: fonts.宋体, size: font_size.五号)
+    #set text(font: fonts.宋体, size: font-size.五号)
     #v(4pt)
     #block(
       width: 30em,
@@ -211,7 +211,7 @@
   //? 标题
   [
     #set par(leading: 1.11em)
-    #set text(font: fonts.黑体, size: font_size.三号, weight: "bold")
+    #set text(font: fonts.黑体, size: font-size.三号, weight: "bold")
 
     #info.title.intersperse("\n").sum()
   ]
@@ -253,7 +253,7 @@
   //? 底部信息
   [
     #set par(leading: 24.75pt)
-    #set text(font: fonts.宋体, size: font_size.五号)
+    #set text(font: fonts.宋体, size: font-size.五号)
     #box(
       image("../assets/nenu-title-blue.svg", height: 0.64cm, width: 3.12cm),
     )
@@ -265,27 +265,27 @@
   [
     #v(1pt)
     #set par(leading: 0.91pt)
-    #set text(font: fonts.宋体, size: font_size.四号)
+    #set text(font: fonts.宋体, size: font-size.四号)
     #datetime-display-without-day(info.submit-date)
   ]
 
   //* 英文封面
   pagebreak(weak: true)
 
-  v(font_size.小四 * 2)
+  v(font-size.小四 * 2)
 
   // 居中对齐
   set align(center)
 
   [
-    #set text(font: fonts.宋体, size: font_size.四号)
+    #set text(font: fonts.宋体, size: font-size.四号)
     #v(4.55pt)
     // #if doctype == "doctor" { "A Thesis" } else { "A Dissertation" }
     A Thesis
   ]
 
   [
-    #set text(font: fonts.宋体, size: font_size.五号)
+    #set text(font: fonts.宋体, size: font-size.五号)
     #v(4pt)
     #block(
       width: 32em,
@@ -328,7 +328,7 @@
   //? 标题
   [
     #set par(leading: 1.11em)
-    #set text(font: fonts.黑体, size: font_size.三号, weight: "bold")
+    #set text(font: fonts.黑体, size: font-size.三号, weight: "bold")
 
     #info.title-en.intersperse("\n").sum()
   ]
@@ -371,7 +371,7 @@
   //? 底部信息
   [
     #set par(leading: 24.75pt)
-    #set text(font: fonts.宋体, size: font_size.小四)
+    #set text(font: fonts.宋体, size: font-size.小四)
     Northeast Normal University Academic Degree Evaluation Committee
   ]
 
@@ -379,7 +379,7 @@
   [
     #v(1pt)
     #set par(leading: 0.91pt)
-    #set text(font: fonts.宋体, size: font_size.四号)
+    #set text(font: fonts.宋体, size: font-size.四号)
     #datetime-en-display(info.submit-date)
   ]
 }

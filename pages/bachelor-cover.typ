@@ -1,5 +1,5 @@
 #import "../utils/datetime-display.typ": datetime-display-without-day
-#import "../utils/style.typ": font_family, font_size
+#import "../utils/style.typ": font-family, font-size
 
 /// 渲染本科生封面
 /// -> content
@@ -32,7 +32,7 @@
   /// 自定义写法可参考 @@datetime-display() 系列函数
   datetime-display: datetime-display-without-day,
 ) = {
-  fonts = font_family + fonts
+  fonts = font-family + fonts
   info = (
     (
       title: "基于 Typst 的毕业论文中文题目",
@@ -68,7 +68,7 @@
       stroke: none,
       text(
         font: fonts.at(info-key-font, default: "宋体"),
-        size: font_size.三号,
+        size: font-size.三号,
         body,
       ),
     )
@@ -82,7 +82,7 @@
       stroke: (bottom: stoke-width + black),
       text(
         font: fonts.at(info-value-font, default: "宋体"),
-        size: font_size.三号,
+        size: font-size.三号,
         weight: "regular",
         bottom-edge: "descender",
         body,
@@ -109,10 +109,10 @@
     #grid(
       columns: (1fr, 1fr),
       column-gutter: 9em,
-      text(size: font_size.小四, font: fonts.宋体)[
+      text(size: font-size.小四, font: fonts.宋体)[
         *学校代码：#info.school-code*
       ],
-      text(size: font_size.小四, font: fonts.宋体)[
+      text(size: font-size.小四, font: fonts.宋体)[
         *学号：#info.student-id*
       ],
     )
@@ -129,12 +129,12 @@
   pad(image("../assets/nenu-title.svg", width: 126pt), top: 0cm, bottom: -0.8cm)
 
 
-  text(size: font_size.小一, font: fonts.黑体, weight: "medium")[本科毕业论文]
+  text(size: font-size.小一, font: fonts.黑体, weight: "medium")[本科毕业论文]
 
   v(30pt)
 
   //* 标题
-  text(size: font_size.二号, font: fonts.隶书, weight: "bold")[
+  text(size: font-size.二号, font: fonts.隶书, weight: "bold")[
     #for line in info.title {
       line
     }
@@ -142,7 +142,7 @@
 
   v(3pt)
 
-  text(size: font_size.三号, font: fonts.宋体)[
+  text(size: font-size.三号, font: fonts.宋体)[
     #info.title-en
   ]
 
@@ -169,10 +169,10 @@
   grid(
     rows: 2,
     row-gutter: 10pt,
-    text(size: font_size.小三, font: fonts.宋体)[
+    text(size: font-size.小三, font: fonts.宋体)[
       东北师范大学
     ],
-    text(size: font_size.小三, font: fonts.宋体)[
+    text(size: font-size.小三, font: fonts.宋体)[
       #info.submit-date
     ],
   )

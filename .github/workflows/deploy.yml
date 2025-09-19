@@ -36,8 +36,8 @@ jobs:
       - name: Download font assets
         run: |
           git submodule update --init --recursive
-          apt-get update
-          apt-get install -y fonts-noto-cjk
+          sudo apt-get update
+          sudo apt-get install -y fonts-noto-cjk
       - name: Download & install shiroa
         run: curl --proto '=https' --tlsv1.2 -LsSf https://github.com/Myriad-Dreamin/shiroa/releases/download/v0.3.1-rc3/shiroa-installer.sh | sh
       - name: Build Book

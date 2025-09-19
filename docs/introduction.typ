@@ -12,7 +12,7 @@
 
 #figure(
   image(
-    "./assets/thumbnail.png",
+    "/docs/assets/thumbnail.png",
     width: 80%,
   ),
 )

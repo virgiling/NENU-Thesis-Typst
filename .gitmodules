@@ -1,0 +1,4 @@
+[submodule "fonts/typst-fonts"]
+	path = fonts/typst-fonts
+	url = git@github.com:typst-doc-cn/fonts.git
+	branch = typst-v0.10.0

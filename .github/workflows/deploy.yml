@@ -33,18 +33,13 @@ jobs:
           submodules: recursive
       - name: Install Rust
         uses: dtolnay/rust-toolchain@stable
-      - name: Install Artifact Cache
-        uses: Swatinem/rust-cache@v2
       - name: Download font assets
-        # use fonts in stable releases
-        run: |
-          mkdir -p assets/fonts/
-          curl -L https://github.com/Myriad-Dreamin/shiroa/releases/download/v0.1.2/font-assets.tar.gz | tar -xvz -C assets/fonts
+        run: git submodule update --init --recursive
       - name: Download & install shiroa
         run: cargo install --git https://github.com/Myriad-Dreamin/shiroa --locked shiroa
       - name: Build Book
         run: |
-          shiroa build --font-path ./assets/typst-fonts/ --path-to-root /NENU-Thesis-Typst/ -w . docs/
+          shiroa build --font-path ./fonts/typst-fonts/ --path-to-root /NENU-Thesis-Typst/ -w . docs/
       - name: Setup Pages
         uses: actions/configure-pages@v5
       - name: Upload artifact

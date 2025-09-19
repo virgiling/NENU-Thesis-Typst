@@ -1,14 +1,7 @@
 // This is important for shiroa to produce a responsive layout
 // and multiple targets.
 #import "@preview/shiroa:0.2.3": (
-  get-page-width,
-  target,
-  is-web-target,
-  is-pdf-target,
-  is-html-target,
-  plain-text,
-  shiroa-sys-target,
-  templates,
+  get-page-width, is-html-target, is-pdf-target, is-web-target, plain-text, shiroa-sys-target, target, templates,
 )
 #import templates: *
 
@@ -237,7 +230,7 @@
     font: main-font,
     size: main-size,
     fill: main-color,
-    lang: "en",
+    lang: "zh",
   )
 
 

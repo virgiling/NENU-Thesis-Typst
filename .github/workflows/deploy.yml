@@ -33,16 +33,19 @@ jobs:
           submodules: recursive
       - name: Install Rust
         uses: dtolnay/rust-toolchain@stable
-      # TODO add build shiroa steps
-      - name: Set Node.js 22.x
-        uses: actions/setup-node@v3
-        with:
-          node-version: 22.x
       - name: Install Artifact Cache
         uses: Swatinem/rust-cache@v2
-      - name: Build shiroa
+      - name: Download font assets
+        # use fonts in stable releases
         run: |
-          cargo run --release --bin shiroa -- build --path-to-root /NENU-Thesis-Typst/ -w ../ docs/
+          mkdir -p assets/fonts/
+          curl -L https://github.com/Myriad-Dreamin/shiroa/releases/download/v0.1.2/font-assets.tar.gz | tar -xvz -C assets/fonts
+      - name: Download & install shiroa
+        run: |
+          curl --proto '=https' --tlsv1.2 -LsSf https://github.com/Myriad-Dreamin/shiroa/releases/download/v0.3.1-rc3/shiroa-installer.sh | sh
+      - name: Build Book
+        run: |
+          shiroa build --font-path ./assets/typst-fonts/ --path-to-root /NENU-Thesis-Typst/ -w ../ docs/
       - name: Setup Pages
         uses: actions/configure-pages@v5
       - name: Upload artifact

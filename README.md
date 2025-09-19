@@ -1,6 +1,6 @@
 # NENU-Thesis-Typst-Template
 
-东北师范大学毕业论文的 `Typst` 模板，可以在 [`template/thesis.typ`](./template/thesis.typ) 查看使用方法与生成的效果
+东北师范大学毕业论文的 `Typst` 模板，可以在 [在线文档](https://virgiling.wiki/NENU-Thesis-Typst/) 中查看使用方法与生成的效果
 
 ![Editor](./images/editor.png)
 
@@ -19,6 +19,8 @@
 > 需要注意的是，这些文件会使用 `other` 和 `asset` 中的一些资源文件，请一并下载
 
 ## 使用方法
+
+首先你需要学会如何用 `Typst` 来书写（不需要书写函数），这十分简单，可以参考 [教程](https://typst-doc-cn.github.io/docs/tutorial/writing-in-typst/) 来简单学习。
 
 模板可以下载到本地使用，也可以通过导入包使用：
 

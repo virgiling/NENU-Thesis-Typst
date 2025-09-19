@@ -62,8 +62,8 @@
   /// -> function
   bibliography: none,
   /// 自定义字体
-  /// 在 @@font_size 中我们加入了一些默认值，这里用于添加自定义的字体
-  /// 但注意需要满足 @@font_size 的格式:
+  /// 在模板中我们加入了一些默认值，这里用于添加自定义的字体
+  /// 但注意需要满足以下格式:
   ///
   /// `fonts = ( 宋体: ("Times New Romans"), 黑体: ( "Arial"), 楷体: ("KaiTi"), 仿宋: ("FangSong"), 等宽: ("Courier New")`
   /// -> dictionary

@@ -21,6 +21,8 @@
     - #chapter("guide/decompose.typ")[多文件书写]
     = 参考文档
     - #chapter("reference/info.typ")[info 选项说明]
+    - #chapter("reference/pubs.typ")[pubs 选项说明]
+    - #chapter("reference/comments.typ")[comments 选项说明]
     - #chapter("reference/thesis.typ")[lib.typ]
   ],
 )

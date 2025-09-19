@@ -41,8 +41,7 @@ jobs:
           mkdir -p assets/fonts/
           curl -L https://github.com/Myriad-Dreamin/shiroa/releases/download/v0.1.2/font-assets.tar.gz | tar -xvz -C assets/fonts
       - name: Download & install shiroa
-        run: |
-          curl --proto '=https' --tlsv1.2 -LsSf https://github.com/Myriad-Dreamin/shiroa/releases/download/v0.3.1-rc3/shiroa-installer.sh | sh
+        run: cargo install --git https://github.com/Myriad-Dreamin/shiroa --locked shiroa
       - name: Build Book
         run: |
           shiroa build --font-path ./assets/typst-fonts/ --path-to-root /NENU-Thesis-Typst/ -w . docs/

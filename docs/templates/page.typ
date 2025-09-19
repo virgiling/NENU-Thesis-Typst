@@ -8,7 +8,7 @@
 /// The site theme to use. If we renders to static HTML, it is suggested to use `starlight`.
 /// otherwise, since `starlight` with dynamic SVG HTML is not supported, `mdbook` is used.
 /// The `is-html-target(exclude-wrapper: true)` is currently a bit internal so you shouldn't use it other place.
-#let web-theme = if is-html-target() { "starlight" } else { "mdbook" }
+#let web-theme = if is-html-target(exclude-wrapper: true) { "starlight" } else { "mdbook" }
 #let is-starlight-theme = web-theme == "starlight"
 
 // Metadata

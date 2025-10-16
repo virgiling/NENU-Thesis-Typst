@@ -21,6 +21,17 @@
   /// 隐藏学校/作者/导师等一切信息，满足盲审要求
   /// -> bool
   anonymous: false,
+  anonymous-info-keys: (
+    "student-id",
+    "author",
+    "author-en",
+    "supervisor",
+    "supervisor-en",
+    "supervisor-ii",
+    "supervisor-ii-en",
+    "chairman",
+    "reviewer",
+  ),
   /// 双面模式
   ///
   /// 会在每一个部分后加入空白页，便于打印
@@ -108,10 +119,6 @@
   }
 
 
-  if anonymous {
-    return
-  }
-
   pagebreak(weak: true, to: if twoside { "odd" })
 
   fonts = font-family + fonts
@@ -132,15 +139,22 @@
     it
   }
 
+  let info_value = (key, body) => {
+    if anonymous and (key in anonymous-info-keys) {
+      "         "
+    } else {
+      body
+    }
+  }
+
   [
     #set align(center)
     #set text(font: fonts.黑体, size: font-size.三号, weight: "bold")
     #set par(leading: 1.5em)
     #v(48pt)
     学位论文评阅专家及答辩委员会人员信息
-    #v(24pt)
+    #v(-48pt)
   ]
-
 
   grid(
     rows: (long-cell-height,) * 3 + (cell-height,) * 14,
@@ -148,9 +162,10 @@
     stroke: get-stroke(sides: ("top", "left", "right", "bottom")),
     grid.cell(text(weight: weight-style)[论  文 #linebreak() 题 目]),
     grid.cell(colspan: 4, info.title.intersperse("\n").sum()),
-    grid.cell(text(weight: weight-style)[作 者 #linebreak() 姓 名]), grid.cell(colspan: 4, info.author),
+    grid.cell(text(weight: weight-style)[作 者 #linebreak() 姓 名]),
+    grid.cell(colspan: 4, info_value("author", info.author)),
     grid.cell(text(weight: weight-style)[指导 #linebreak() 教师]),
-    grid.cell(colspan: 4, info.supervisor.intersperse(" ").sum()),
+    grid.cell(colspan: 4, info_value("supervisor", info.supervisor.intersperse(" ").sum())),
 
     grid.cell(rowspan: 6, inset: label-col-grid-cell-inset)[
       #text(weight: weight-style, justify-text("论文评阅人"))
@@ -160,9 +175,9 @@
     grid.cell(text(weight: weight-style)[总体评价]),
     ..for i in range(0, num-reviewers) {
       (
-        grid.cell(colspan: 2, info.reviewers.at(i).name),
-        grid.cell(info.reviewers.at(i).workplace),
-        grid.cell(info.reviewers.at(i).evaluation),
+        grid.cell(colspan: 2, info_value("reviewer", info.reviewers.at(i).name)),
+        grid.cell(info_value("reviewer", info.reviewers.at(i).workplace)),
+        grid.cell(info_value("reviewer", info.reviewers.at(i).evaluation)),
       )
     },
     grid.cell(rowspan: 8, inset: label-col-grid-cell-inset)[
@@ -173,16 +188,16 @@
     grid.cell(text(weight: weight-style)[职 称]),
 
     grid.cell(text(weight: weight-style)[主#linebreak()席]),
-    grid.cell(info.committee-members.at(0).name),
-    grid.cell(info.committee-members.at(0).workplace),
-    grid.cell(info.committee-members.at(0).title),
+    grid.cell(info_value("chairman", info.committee-members.at(0).name)),
+    grid.cell(info_value("chairman", info.committee-members.at(0).workplace)),
+    grid.cell(info_value("chairman", info.committee-members.at(0).title)),
     grid.cell(rowspan: 6, text(weight: weight-style)[委#linebreak() 员]),
 
     ..for i in range(1, num-committee-members) {
       (
-        grid.cell(info.committee-members.at(i).name),
-        grid.cell(info.committee-members.at(i).workplace),
-        grid.cell(info.committee-members.at(i).title),
+        grid.cell(info_value("reviewer", info.committee-members.at(i).name)),
+        grid.cell(info_value("reviewer", info.committee-members.at(i).workplace)),
+        grid.cell(info_value("reviewer", info.committee-members.at(i).title)),
       )
     },
   )

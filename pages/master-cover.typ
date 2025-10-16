@@ -130,20 +130,12 @@
           weight: "regular",
           bottom-edge: "descender",
           if anonymous and (key in anonymous-info-keys) {
-            if is-meta { "█████" } else { "██████████" }
+            if is-meta { "    " } else { "       " }
           } else {
             body
           },
         ),
       )
-    }
-  }
-
-  let anonymous-text(key, body) = {
-    if anonymous and (key in anonymous-info-keys) {
-      "██████████"
-    } else {
-      body
     }
   }
 
@@ -184,7 +176,10 @@
         grid(
           columns: 2,
           column-gutter: .1em,
-          meta-info-key("研究生学号: "), meta-info-value("student-id", info.student-id),
+          meta-info-key("研究生学号: "),
+          if not anonymous {
+            meta-info-value("student-id", info.student-id)
+          },
         ),
         grid(
           columns: 2,
@@ -301,7 +296,7 @@
         grid(
           columns: 2,
           column-gutter: .1em,
-          meta-info-key("Student ID: "), meta-info-value("student-id", info.student-id),
+          meta-info-key("Student ID: "), if not anonymous { meta-info-value("student-id", info.student-id) },
         ),
         grid(
           columns: 2,

@@ -88,9 +88,6 @@
   )
 
 
-  if anonymous {
-    return
-  }
   pagebreak(weak: true, to: if twoside { "odd" })
 
   fonts = font-family + fonts
@@ -104,7 +101,13 @@
     set align(center)
     body
   }
-  let info-value-cell = grid.cell.with(inset: info-value-cell-inset)
+  let info-value-cell = body => {
+    if not anonymous {
+      box(grid.cell(inset: info-value-cell-inset, body))
+    } else {
+      box(grid.cell(inset: info-value-cell-inset, "     "))
+    }
+  }
 
   set pad(x: pad-x)
   set grid(
@@ -136,9 +139,9 @@
           row-gutter: grid-row-gutter,
           column-gutter: grid-column-gutter,
           grid.cell(justify-text("论文作者签名")),
-          info-value-cell(box()),
+          info-value-cell("     "),
           grid.cell(justify-text("日期")),
-          info-value-cell(box(datetime-display(info.submit-date)))
+          info-value-cell(datetime-display(info.submit-date))
           ,
         ),
       )
@@ -158,9 +161,9 @@
           columns: (.7fr, 1fr, .7fr, 1fr),
           column-gutter: (0em, 1em, 0em),
           grid.cell(justify-text("论文作者签名")),
-          info-value-cell(box()),
+          info-value-cell("     "),
           grid.cell(justify-text("指导教师签名")),
-          info-value-cell(box()),
+          info-value-cell("     "),
         ),
       )
 
@@ -169,9 +172,9 @@
           columns: (.7fr, 1fr, .7fr, 1fr),
           column-gutter: (0em, 1em, 0em),
           grid.cell(justify-text("日期")),
-          info-value-cell(box(datetime-display(info.submit-date))),
+          info-value-cell(datetime-display(info.submit-date)),
           grid.cell(justify-text("日期")),
-          info-value-cell(box(datetime-display(info.submit-date))),
+          info-value-cell(datetime-display(info.submit-date)),
         ),
       )
     ]

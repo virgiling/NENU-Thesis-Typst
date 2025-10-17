@@ -3,6 +3,7 @@
 #let doc(
   /// 论文与作者信息，通过 @@thesis() 传入
   info: (:),
+  print: false,
   /// 字体设置
   /// 是否在字体缺失时使用 fallback，以防显示豆腐块
   fallback: false,
@@ -25,8 +26,11 @@
   }
 
   set text(fallback: fallback, lang: lang)
-  set page(paper: "a4", margin: margin)
-
+  if print {
+    set page(paper: "a4", margin: (top: 2cm, bottom: 2cm, inside: 0cm, outside: 2.5cm))
+  } else {
+    set page(paper: "a4", margin: margin)
+  }
   set document(
     title: (("",) + info.title).sum(),
     author: info.author,

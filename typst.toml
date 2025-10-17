@@ -1,6 +1,6 @@
 [package]
 name = "modern-nenu-thesis"
-version = "0.1.0"
+version = "0.1.1"
 entrypoint = "lib.typ"
 authors = ["Virgil <virgiling7@gmail.com>"]
 license = "MIT"

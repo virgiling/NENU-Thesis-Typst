@@ -56,6 +56,11 @@
   /// 隐藏学校/作者/导师等一切信息，满足盲审要求
   /// -> bool
   anonymous: false,
+  /// 启用打印选项
+  ///
+  /// 启用后会使用适合打印的页面设置，如页边距等
+  /// -> bool
+  print: false,
   /// 参考文献函数
   ///
   /// 一般传入值为 `bibliography.with("ref.bib")`，其中 `ref.bib` 是 biblatex 文件的路径
@@ -147,6 +152,7 @@
     degree: degree,
     twoside: twoside,
     anonymous: anonymous,
+    print: print,
     fonts: fonts,
     info: info,
     //* 页面布局
@@ -154,6 +160,7 @@
       doc(
         ..args,
         info: info + args.named().at("info", default: (:)),
+        print: print,
       )
     },
     //* 正文前格式

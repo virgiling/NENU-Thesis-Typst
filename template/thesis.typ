@@ -31,6 +31,7 @@
   degree: "academic",
   anonymous: false,
   twoside: false,
+  print: false,
   info: (
     title: ("毕业论文中文题目", "有一点长有一点长有一点长有一点长有一点长有一点长"),
     title-en: "Analysis of the genetic diversity within and between the XX population revealed by AFLP marker",

@@ -19,13 +19,13 @@
   spacing: 1.5em,
   justify: true,
   first-line-indent: (amount: 2em, all: true),
-  numbering: custom-numbering.with(first-level: "1 ", depth: 3, "1.1 "),
+  numbering: custom-numbering.with(first-level: "1 ", depth: 4, "1.1.1"),
   // 正文字体与字号参数
   text-args: auto,
   // 标题字体与字号
   heading-font: auto,
   heading-size: (font-size.三号, font-size.四号, font-size.小四),
-  heading-weight: ("regular", "regular", "bold", "regular"),
+  heading-weight: ("bold", "bold", "bold", "bold"),
   heading-above: (48pt, 6pt, 6pt, 0pt),
   heading-below: (24pt, 0pt),
   heading-pagebreak: (true, false),
@@ -75,6 +75,21 @@
     arr.at(calc.min(pos, arr.len()) - 1)
   }
 
+  //! 引用设置
+
+  show ref: it => {
+    if it.element == none {
+      return it
+    }
+    let f = it.element.func()
+    let h1 = query(heading.where().before(it.target)).last()
+    if f == heading and it.element.level > 1 and it.element.supplement != [附录] {
+      link(it.target, [第 #it 节])
+    } else {
+      it
+    }
+  }
+  show cite: set text(font: "Times New Roman")
   //! 3.  设置基本样式
   //? 3.1 文本和段落样式
   //? 正文：中文字体为宋体，英文和数字为Times New Roman字体，小四号，大纲级别正文文本，两端对齐，首行缩进2字符，段前0行，段后0行，1.5倍行距。引文内容可使用楷体。
@@ -94,14 +109,22 @@
   set footnote(numbering: "①")
   show footnote.entry: set text(font: fonts.宋体, size: font-size.小五)
   //? 3.3 设置 figure 的编号
-  show heading: i-figured.reset-counters
-  show figure: show-figure
+  show heading: i-figured.reset-counters.with(extra-kinds: (
+    "algorithm",
+  ))
+  show figure: show-figure.with(extra-prefixes: (algorithm: "alg:"))
   //? 3.4 设置 equation 的编号和假段落首行缩进
   show math.equation.where(block: true): show-equation
   //? 3.5 表格表头置顶
   show figure.where(
     kind: table,
   ): set figure.caption(position: top)
+  //? 设置算法
+  show figure.where(kind: "algorithm"): set figure(supplement: [算法])
+  show figure.where(kind: "algorithm"): set block(width: 100%)
+  show figure.where(kind: "algorithm"): set align(center)
+  show figure: set text(font: fonts.宋体, size: font-size.小四)
+
   //! 表单元格内容：居中书写（上下居中，左右居中），中文为宋体，英文和数字为Times New Roman字体，五号字，居中无缩进，段前0行，段后0行，单倍行距。
   show table.cell: set align(center)
   show table.cell: set par(first-line-indent: 0pt, leading: 1em, spacing: 0pt, justify: true)
@@ -122,6 +145,7 @@
   set heading(numbering: numbering)
   //? 4.2 设置字体字号并加入假段落模拟首行缩进
   // NOTE 这里的段前段后空的磅数不一定准确，可能需要微调
+  set heading(supplement: [])
   show heading: it => {
     set text(
       font: array-at(heading-font, it.level),

@@ -1,3 +1,5 @@
+#import "../utils/custom-cuti.typ"
+
 /// 文稿设置
 /// 用于设置 PDF 的全局选项以及元数据
 #let doc(
@@ -26,6 +28,9 @@
   }
 
   set text(fallback: fallback, lang: lang)
+
+  show strong: custom-cuti.cn-fakebold
+
   if print {
     set page(paper: "a4", margin: (top: 2cm, bottom: 2cm, inside: 0cm, outside: 2.5cm))
   } else {

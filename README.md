@@ -2,6 +2,9 @@
 
 [English](./READMD.md) | [简体中文](./README_zh.md)
 
+> [!IMPORTANT]
+> SEE THE [ONLINE DOCUMENT](https://virgiling.wiki/NENU-Thesis-Typst/) TO USE THIS TEMPLATE
+
 A Typst template for theses at Northeast Normal University (NENU). Usage instructions and rendered examples are available in the [online documentation](https://virgiling.wiki/NENU-Thesis-Typst/).
 
 ![Editor](./images/editor.png)

@@ -1,0 +1,33 @@
+---
+title: 东北师范大学毕业论文模板
+template: splash # Remove or comment out this line to display the site sidebar on this page.
+hero:
+  tagline: 用 Typst 更简单的完成论文
+  actions:
+    - text: 从这里开始
+      link: /document/startup/introduction
+      icon: right-arrow
+    - text: 插件与集成
+      link: /external/
+      icon: external
+      variant: minimal
+giscus: false
+---
+
+import { Card, CardGrid } from '@astrojs/starlight/components';
+import { ContributorList } from "starlight-contributor-list";
+
+## 下一步
+
+<CardGrid stagger>
+	<Card title="使用模板" icon="rocket">
+		阅读 [安装](./document/startup/install) 文档来使用模板，完成论文
+	</Card>
+	<Card title="汇报 Bug" icon="pencil">
+		通过 [Github](https://github.com/virgiling/NENU-Thesis-Typst) 给我们反馈/一起开发
+	</Card>
+</CardGrid>
+
+# 开发者
+
+<ContributorList githubRepo="virgiling/NENU-Thesis-Typst" />

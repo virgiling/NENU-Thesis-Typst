@@ -1,0 +1,55 @@
+---
+title: 多文件书写
+sidebar:
+    order: 2
+---
+
+# 分章节进行书写
+
+如果你的论文比较长，但是不想全放在 `thesis.typ` 一个文件中，那么可以新建其他 `typ` 文件来将论文的章节进行拆分，但记得将这些文件导入到 `thesis.typ` 中。
+
+例如，我们有以下两个文件 `sample.typ` 与 `thesis.typ`
+
+```typ title="sample.typ"
+= 测试用
+```
+
+```typ title="thesis.typ"
+#show: mainmatter
+#include "sample.typ"
+```
+
+注意，我们需要在合适的位置：
+
+- `#show: mainmatter` 之后（为了保证你导入的内容能够适应论文正文的格式）
+- `#show: appendix` 之前（除非你想添加附录的内容）
+
+并按照章节的出现的顺序，依次 `#include` 上你需要导入的页面
+
+:::
+注意，你并不需要在新建的 `.typ` 文件中写入任何格式相关的配置，这些我们已经为你配置完成。
+
+如果你需要使用其他包，导入即可，一个简单的例子如下：
+
+```typ title="basic.typ" {1-3}
+#import "@preview/drafting:0.2.2": inline-note
+#import "@preview/fletcher:0.5.8" as fletcher: diagram, edge, node
+#import "@preview/lovelace:0.3.0": line-label, pseudocode, pseudocode-list
+```
+
+```typ title="chapter-1.typ" {1}
+#import "basic.typ": *
+
+= Introduction
+```
+
+```typ title="thesis.typ" {1, 4}
+#import "basic.typ": *
+
+#show: mainmatter
+#include "sample.typ"
+#show: appendix 
+```
+:::
+
+

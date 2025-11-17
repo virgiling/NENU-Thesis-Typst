@@ -1,6 +1,10 @@
+.vscode
+.cache
+
 .DS_STORE
 dist/
 .pdf
 
+node_modules
 
 private/

@@ -28,21 +28,15 @@ jobs:
       url: ${{ steps.deployment.outputs.page_url }}
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
         with:
-          submodules: recursive
-      - name: Install Rust
-        uses: dtolnay/rust-toolchain@stable
-      - name: Download font assets
-        run: |
-          git submodule update --init --recursive
-          sudo apt-get update
-          sudo apt-get install -y fonts-noto-cjk
-      - name: Download & install shiroa
-        run: curl --proto '=https' --tlsv1.2 -LsSf https://github.com/Myriad-Dreamin/shiroa/releases/download/v0.3.1-rc3/shiroa-installer.sh | sh
+          depth: 1
+      - uses: oven-sh/setup-bun@v2
+        with:
+          bun-version-file: ".bun-version"
       - name: Build Book
         run: |
-          shiroa build --font-path ./fonts/typst-fonts/ --path-to-root /NENU-Thesis-Typst/ -w . docs/
+          cd docs && bun install && bun run build
       - name: Setup Pages
         uses: actions/configure-pages@v5
       - name: Upload artifact

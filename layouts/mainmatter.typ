@@ -3,6 +3,7 @@
 #import "../utils/custom-numbering.typ": custom-numbering
 #import "../utils/custom-heading.typ": active-heading, current-heading, heading-display
 #import "../utils/unpairs.typ": unpairs
+#import "@preview/itemize:0.2.0" as el
 
 //! 正文
 //! 一级标题：中文字体为黑体，西文字体为Times New Roman，三号，大纲级别1级，居中对齐，无缩进，段前48磅，段后24磅，1.5倍行距。每一章另起一页。
@@ -90,6 +91,7 @@
     }
   }
   show cite: set text(font: "Times New Roman")
+  show: el.default-enum-list
   //! 3.  设置基本样式
   //? 3.1 文本和段落样式
   //? 正文：中文字体为宋体，英文和数字为Times New Roman字体，小四号，大纲级别正文文本，两端对齐，首行缩进2字符，段前0行，段后0行，1.5倍行距。引文内容可使用楷体。
@@ -107,7 +109,7 @@
   //? 3.2 脚注样式
   //! 在需要注释处标明序号，序号加圆圈放在加注处右上角，“上标”字体标注，如①。脚注中文采用宋体，英文和数字采用Times New Roman字体,小五号字，左对齐，无缩进，段前0行，段后0行，单倍行距。每页重新编号，注释序号均从①开始
   set footnote(numbering: "①")
-  show footnote.entry: set text(font: fonts.宋体, size: font-size.小五)
+  show footnote.entry: set text(font: font-family.宋体, size: font-size.小五)
   //? 3.3 设置 figure 的编号
   show heading: i-figured.reset-counters.with(extra-kinds: (
     "algorithm",
@@ -138,7 +140,7 @@
 
   //? 3.6 优化列表显示
   //*     术语列表 terms 不应该缩进
-  show terms: set par(first-line-indent: 0pt)
+  set terms(indent: 2em, hanging-indent: -2em)
 
   //! 4.  处理标题
   //? 4.1 设置标题的 Numbering

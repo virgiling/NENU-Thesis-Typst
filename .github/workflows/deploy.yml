@@ -30,7 +30,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v5
         with:
-          depth: 1
+          fetch-depth: 0
       - uses: oven-sh/setup-bun@v2
         with:
           bun-version-file: ".bun-version"

@@ -30,19 +30,12 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v5
         with:
-          fetch-depth: 0
-      - uses: oven-sh/setup-bun@v2
+          fetch-depth: 1
+      - name: Install, build, and upload your site
+        uses: withastro/action@v3
         with:
-          bun-version-file: ".bun-version"
-      - name: Build Book
-        run: |
-          cd docs && bun install && bun run build
-      - name: Setup Pages
-        uses: actions/configure-pages@v5
-      - name: Upload artifact
-        uses: actions/upload-pages-artifact@v3
-        with:
-          path: "./docs/dist"
+          path: ./docs
+          package-manager: bun@latest
   deploy:
     needs: build
     environment:

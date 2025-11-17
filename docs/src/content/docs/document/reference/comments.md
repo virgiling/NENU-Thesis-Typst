@@ -2,7 +2,7 @@
 title: comments 参数说明
 ---
 
-# 参数
+## 参数
 
 1. comments: dict， 博士论文评语与决议书内容配置参数
 
@@ -11,7 +11,7 @@ title: comments 参数说明
   2. committee: str， 答辩委员会决议书内容
 
 
-# 示例
+## 示例
 
 ```typst
 comments: (

@@ -2,8 +2,6 @@
 title: info 选项解释
 ---
 
-# Info 参数
-
 1. title: str | array, 论文中文题目，当需要换行/过长时可以使用字符数组传入
 
 2. title-en: str, 论文英文题目

@@ -7,7 +7,7 @@ import starlightSidebarTopicsPlugin from 'starlight-sidebar-topics';
 
 // https://astro.build/config
 export default defineConfig({
-	site: "https://virgiling.wiki/NENU-Thesis-Typst/",
+	site: "https://thesis.virgiling.wiki",
 	integrations: [
 		starlight({
 			title: 'NENU 论文模板使用手册',

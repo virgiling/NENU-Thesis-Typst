@@ -4,8 +4,6 @@ sidebar:
     order: 3
 ---
 
-# 基础使用
-
 我们通过向 [thesis](/document/reference/thesis) 输入论文的参数，得到对应的返回页面，并通过类似 `React` 的方式将这些页面组装起来，例如：
 
 ```typ

@@ -7,7 +7,7 @@ title: thesis 参数说明
 有关 `info` 的相关说明，请参考 [info的各个选项说明](/document/reference/info/)
 :::
 
-# thesis 参数说明
+##  参数说明
 
 1. doctype: str, 文档类型，可选择的值为 "bachelor" | "master" | "doctor"，分别表示本科 | 硕士 | 博士
 

@@ -26,7 +26,7 @@ sidebar:
 需要注意的是，这些文件会使用 `other` 和 `asset` 中的一些资源文件，请一并下载
 :::
 
-# 使用前须知
+## 使用前须知
 
 首先你需要学会如何用 `Typst` 来书写（不需要书写函数），这十分简单，可以参考 [教程](https://typst-doc-cn.github.io/docs/tutorial/writing-in-typst/) 来简单学习。
 
@@ -34,7 +34,7 @@ sidebar:
 需要下载 [隶书字体](https://github.com/dolbydu/font/blob/master/unicode/Lisu.TTF)（如果使用 MacOS/Linux）
 :::
 
-## 本地使用
+### 本地使用
 
 1. 安装一个文本编辑器，这里推荐使用 `VS Code`，并安装 [Tinymist Typst](https://github.com/Myriad-Dreamin/tinymist) 插件
 
@@ -42,7 +42,7 @@ sidebar:
 
 3. 打开 `template/thesis.typ` 文件，开始编写你的论文内容，可以按下 `<C-K> V` (Ctrl+K V) 快捷键在 `VS Code` 中打开预览窗口，实时查看你的论文效果
 
-# TODO
+## TODO
 
 - [x] 学士学位论文模板
   - [x] 封面
@@ -65,7 +65,7 @@ sidebar:
 
 - [/] 完善使用文档
 
-# 存在的问题
+## 存在的问题
 
 1. 使用 `subpar` 时，无法正确显示子图的编号，因此暂时不支持使用子图
 
@@ -75,7 +75,7 @@ sidebar:
 
 2. 扉页中作者签名无法直接插入图片/PDF
 
-# 致谢
+## 致谢
 
 - 感谢 [modern-nju-thesis](https://github.com/nju-lug/modern-nju-thesis) 开发的 `Typst` 模板，架构清晰，文档注释详细，本项目在架构上参考良多。
 - 感谢 [SEU-Typst-Template](https://github.com/csimide/SEU-Typst-Template/) 开发的 `Typst` 模板

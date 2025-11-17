@@ -1,5 +1,5 @@
 ---
-title: 如何在论文中引入伪代码
+title: 如何在论文中展示算法
 ---
 
-# LoveLace
+我们推荐使用 LoveLace

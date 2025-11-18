@@ -1,7 +1,6 @@
 // @ts-check
 import { defineConfig } from 'astro/config';
 import starlight from '@astrojs/starlight';
-import starlightGiscus from 'starlight-giscus';
 import starlightViewModes from 'starlight-view-modes';
 import starlightSidebarTopicsPlugin from 'starlight-sidebar-topics';
 
@@ -38,15 +37,19 @@ export default defineConfig({
 				"./src/styles/custom.css"
 			],
 
+			components: {
+				Pagination: "./src/components/Pagination.astro"
+			},
+
 			plugins: [
-				starlightGiscus({
-					repo: "virgiling/NENU-Thesis-Typst",
-					repoId: "R_kgDOMvbOLA",
-					category: "Q&A",
-					categoryId: "DIC_kwDOMvbOLM4Cx438",
-					mapping: "pathname",
-					lazy: true
-				}),
+				// starlightGiscus({
+				// 	repo: "virgiling/NENU-Thesis-Typst",
+				// 	repoId: "R_kgDOMvbOLA",
+				// 	category: "Q&A",
+				// 	categoryId: "DIC_kwDOMvbOLM4Cx438",
+				// 	reactions: true,
+				// 	lazy: true,
+				// }),
 				starlightViewModes(),
 				starlightSidebarTopicsPlugin([
 					{

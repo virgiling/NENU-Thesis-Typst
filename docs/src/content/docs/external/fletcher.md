@@ -2,7 +2,7 @@
 title: 在论文中绘制流程图
 ---
 
-这里我们推荐使用 `fletcher`，可以说是 `CTeZ` 的一个简略版本，在论文中，使用方法如下：
+这里我们推荐使用 `fletcher`，可以说是 `CeTZ` 的一个简略版本，在论文中，使用方法如下：
 
 
 ```typ ins={1} {"使用 fletcher 绘制流程图":3-29}
@@ -41,4 +41,13 @@ title: 在论文中绘制流程图
 
 ![fletcher 效果图](https://virgil-civil-1311056353.cos.ap-shanghai.myqcloud.com/img/20251118012802677.png)
 
+我们如果要引用这个流程图，与正常的引用图片一样：`@fig:cdcl-diagram` 
+
+
+:::note
+除去流程图外，还可以绘制很多其他图片，使用这个主要是比直接用 `CeTZ` 简单，但想要更多自定义的图像的话，还是选用自由度更高的 [CeTZ](https://typst.app/universe/package/cetz)
+:::
+
 更多的内容参考 [文档](https://typst.app/universe/package/fletcher/)
+
+

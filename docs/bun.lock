@@ -10,7 +10,6 @@
         "astro": "^5.6.1",
         "sharp": "^0.34.2",
         "starlight-contributor-list": "^0.3.1",
-        "starlight-giscus": "^0.8.1",
         "starlight-sidebar-topics": "^0.6.2",
         "starlight-view-modes": "^0.11.1",
       },
@@ -818,8 +817,6 @@
     "space-separated-tokens": ["space-separated-tokens@2.0.2", "", {}, "sha512-PEGlAwrG8yXGXRjW32fGbg66JAlOAwbObuqVoJpv/mRgoWDQfgH1wDPvtzWyUSNAXBGSk8h755YDbbcEy3SH2Q=="],
 
     "starlight-contributor-list": ["starlight-contributor-list@0.3.1", "", { "dependencies": { "@11ty/eleventy-fetch": "^4.0.1" }, "peerDependencies": { "@astrojs/starlight": ">=0.30" } }, "sha512-8F3BcnqeCgvI/OcagJCBsp71/XU9/zDiuSmsgAkWrRTxql0H2bG9Z9VXvmwzB/569QVlAsOwK7StAxDxqG6Myw=="],
-
-    "starlight-giscus": ["starlight-giscus@0.8.1", "", { "peerDependencies": { "@astrojs/starlight": ">=0.35.0" } }, "sha512-etgWym6KpHeNSkbggEhpGEPNaLIwypWdvE7BxNFHGUkjiq6EYSJhr5zoMGZ9QfnMdkcj8PqKrJTM88YdCSEiDQ=="],
 
     "starlight-sidebar-topics": ["starlight-sidebar-topics@0.6.2", "", { "dependencies": { "picomatch": "^4.0.2" }, "peerDependencies": { "@astrojs/starlight": ">=0.32.0" } }, "sha512-SNCTUZS/hcVor0ZcaXbaSVU37+V+qtvzNirkvnOg3Mqu/awuGpthkH5+uKpiZqWxLffp6TrOlsv5E5QsxrndNg=="],
 

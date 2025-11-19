@@ -8,3 +8,5 @@ dist/
 node_modules
 
 private/
+
+tinymist.lock

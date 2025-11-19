@@ -16,8 +16,8 @@
   twoside: false,
   fonts: (:),
   // 其他参数
-  leading: 1.5em,
-  spacing: 1.5em,
+  leading: 1.25em,
+  spacing: 1.25em,
   justify: true,
   first-line-indent: (amount: 2em, all: true),
   numbering: custom-numbering.with(first-level: "1 ", depth: 4, "1.1.1"),
@@ -43,7 +43,7 @@
   separator: "  ",
   //? caption 样式
   //! 中文字体为宋体，英文和数字为Times New Roman字体，五号，居中无缩进，段前0行，段后0行，1.5倍行距。
-  caption-style: (leading: 1.5em, justify: true, first-line-indent: 0pt),
+  caption-style: (leading: 1.25em, justify: true, first-line-indent: 0pt),
   caption-size: font-size.五号,
   // figure 计数
   show-figure: i-figured.show-figure,

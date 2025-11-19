@@ -4,6 +4,8 @@ sidebar:
     order: 2
 ---
 
+import { FileTree } from '@astrojs/starlight/components';
+
 ## 分章节进行书写
 
 如果你的论文比较长，但是不想全放在 `thesis.typ` 一个文件中，那么可以新建其他 `typ` 文件来将论文的章节进行拆分，但记得将这些文件导入到 `thesis.typ` 中。
@@ -52,4 +54,21 @@ sidebar:
 ```
 :::
 
+### VSCode 的配置
+
+假定项目结构如下：
+
+<FileTree>
+
+- src
+    - **main.typ**
+    - chapter-1.typ
+    - chapter-2.typ
+    - …
+    - **reb.bib**
+</FileTree>
+
+我们在 `VS Code` 中只需要打开 `main.typ` 然后预览，接着输入 `Ctrl-Shift-P` 打开命令面板后，输入：`Typst: Pin The Main File to the Currently Open Document` 即可绑定
+
+这样，在 `chapter-1.typ` 中也可以使用其他文件的引用（包括参考文献的）
 

@@ -20,6 +20,8 @@ export default defineConfig({
 				baseUrl: "https://github.com/virgiling/NENU-Thesis-Typst/edit/master/docs/"
 			},
 
+			favicon: 'icon.png',
+
 			locales: {
 				root: {
 					label: "简体中文",

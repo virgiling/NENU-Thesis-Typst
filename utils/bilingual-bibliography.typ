@@ -1,4 +1,5 @@
 #import "style.typ": font-family, font-size
+#import "invisible-heading.typ": invisible-heading
 
 //! Reference: https://github.com/nju-lug/modern-nju-thesis
 //! Authors: csimide, OrangeX4
@@ -15,8 +16,11 @@
   // 用于控制多位译者时表现为 `et al. tran`(false) 还是 `et al., tran`(true)
   allow-comma-in-name: false,
   // 如果使用的 CSL 中，英文姓名中会出现逗号，请设置为 true
+  outlined: true,
 ) = {
   assert(bibliography != none, message: "请传入带有 source 的 bibliography 函数。")
+
+  invisible-heading(level: 1, outlined: outlined, title)
 
   // Please fill in the remaining mapping table here
   mapping = (

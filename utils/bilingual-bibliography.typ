@@ -10,7 +10,7 @@
   bibliography: none,
   title: "参考文献",
   full: false,
-  style: "gb-7714-2015-numeric",
+  style: "nenu-cite-format.csl",
   mapping: (:),
   extra-comma-before-et-al-trans: false,
   // 用于控制多位译者时表现为 `et al. tran`(false) 还是 `et al., tran`(true)

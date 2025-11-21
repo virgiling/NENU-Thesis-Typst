@@ -86,4 +86,5 @@
 ## 致谢
 
 - 感谢 [modern-nju-thesis](https://github.com/nju-lug/modern-nju-thesis) 开发的 `Typst` 模板，架构清晰，文档注释详细，本项目在架构上参考良多。
+- 感谢[modern-sjtu-thesis](https://github.com/tzhtaylor/modern-sjtu-thesis) 开发的 `Typst` 模板，在格式化，字体与 CSL 文件方面解答了很多疑惑。
 - 感谢 [SEU-Typst-Template](https://github.com/csimide/SEU-Typst-Template/) 开发的 `Typst` 模板

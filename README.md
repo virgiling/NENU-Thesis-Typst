@@ -85,4 +85,5 @@ Therefore subfigures are currently not supported.
 ## Acknowledgements
 
 - Thanks to the `modern-nju-thesis` Typst template (https://github.com/nju-lug/modern-nju-thesis) for its clear architecture and detailed comments — this project borrows heavily from its structure.
+- Thanks to the `modern-sjtu-thesis` Typst template (https://github.com/tzhtaylor/modern-sjtu-thesis) for the format details.
 - Thanks to the `SEU-Typst-Template` (https://github.com/csimide/SEU-Typst-Template/) for its template contributions.

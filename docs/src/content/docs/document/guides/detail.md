@@ -166,6 +166,20 @@ sidebar:
 
 在这之后书写论文主体内容即可
 
+### 字数显示
+
+我们可以在文档的任意位置通过以下代码来查询正文字数：
+
+```typ
+#context {
+  query(<total-words>).first().value
+}
+```
+
+:::note
+字数统计的代码来源于 [modern-ecnu-thesis](https://github.com/jtchen2k/modern-ecnu-thesis)
+:::
+
 ## 参考文献
 
 参考文献我们不需要进行设置，只需要在传入参数时，指定我们的 `biblatex` 数据库文件名称即可

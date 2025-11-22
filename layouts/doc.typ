@@ -36,6 +36,7 @@
   } else {
     set page(paper: "a4", margin: margin)
   }
+
   set document(
     title: (("",) + info.title).sum(),
     author: info.author,

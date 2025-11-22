@@ -236,5 +236,10 @@
 
   counter(page).update(1)
 
+  context [
+    #metadata(state("total-words-cjk").final()) <total-words>
+    #metadata(state("total-characters").final()) <total-chars>
+  ]
+
   it
 }

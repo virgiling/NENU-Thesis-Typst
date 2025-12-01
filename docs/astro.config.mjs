@@ -57,7 +57,7 @@ export default defineConfig({
 					{
 						label: "文档",
 						icon: 'open-book',
-						link: '/document/',
+						link: '/document/startup/introduction',
 						items: [
 							{
 								label: "从这里开始",

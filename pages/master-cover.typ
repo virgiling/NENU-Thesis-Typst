@@ -94,32 +94,30 @@
       weight: "regular",
     )
     if is-meta {
-      body
+      body + "："
+    } else if is-chinese {
+      rect(
+        width: 100%,
+        inset: info-inset,
+        stroke: none,
+        justify-text(with-tail: is-meta, body),
+      )
     } else {
-      if is-chinese {
-        rect(
-          width: 100%,
-          inset: info-inset,
-          stroke: none,
-          justify-text(with-tail: is-meta, body),
-        )
-      } else {
-        set align(left)
-        rect(
-          width: 100%,
-          inset: info-inset,
-          stroke: none,
-          body,
-        )
-      }
+      set align(left)
+      rect(
+        width: 100%,
+        inset: info-inset,
+        stroke: none,
+        body,
+      )
     }
   }
 
   let info-value(key, body, info-inset: info-inset, is-meta: false, no-stroke: false) = {
-    set align(center)
     if is-meta {
       body
     } else {
+      set align(center)
       rect(
         width: 100%,
         inset: info-inset,
@@ -162,32 +160,21 @@
   [
     #set text(font: fonts.宋体, size: font-size.五号)
     #v(4pt)
-    #block(
-      width: 30em,
-      grid(
-        columns: (.8fr, 1.2fr, .6fr),
-        column-gutter: 1em,
-        row-gutter: 0em,
-        grid(
-          columns: 2,
-          column-gutter: .1em,
-          meta-info-key("学校代码:"), meta-info-value("school-code", info.school-code),
-        ),
-        grid(
-          columns: 2,
-          column-gutter: .1em,
-          meta-info-key("研究生学号: "),
-          if not anonymous {
-            meta-info-value("student-id", info.student-id)
-          },
-        ),
-        grid(
-          columns: 2,
-          column-gutter: .1em,
-          meta-info-key("密级: "), meta-info-value("secret-level", info.secret-level),
-        ),
-      ),
-    )
+
+    #pad()[
+      #grid(
+        columns: 3,
+        column-gutter: 2em,
+        [ #meta-info-key("学校代码") #meta-info-value("school-code", info.school-code)],
+        [
+          #meta-info-key("研究生学号")
+          #if not anonymous { meta-info-value("student-id", info.student-id) }
+        ],
+        [
+          #meta-info-key("密级") #meta-info-value("secret-level", info.secret-level)
+        ],
+      )
+    ]
   ]
 
   line(length: 100%, stroke: .5pt + black)

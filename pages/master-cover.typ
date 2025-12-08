@@ -94,7 +94,7 @@
       weight: "regular",
     )
     if is-meta {
-      body + "："
+      body
     } else if is-chinese {
       rect(
         width: 100%,
@@ -165,13 +165,13 @@
       #grid(
         columns: 3,
         column-gutter: 2em,
-        [ #meta-info-key("学校代码") #meta-info-value("school-code", info.school-code)],
+        [ #meta-info-key("学校代码：") #meta-info-value("school-code", info.school-code)],
         [
-          #meta-info-key("研究生学号")
+          #meta-info-key("研究生学号：")
           #if not anonymous { meta-info-value("student-id", info.student-id) }
         ],
         [
-          #meta-info-key("密级") #meta-info-value("secret-level", info.secret-level)
+          #meta-info-key("密级：") #meta-info-value("secret-level", info.secret-level)
         ],
       )
     ]
@@ -269,29 +269,20 @@
   [
     #set text(font: fonts.宋体, size: font-size.五号)
     #v(4pt)
-    #block(
-      width: 32em,
-      grid(
-        columns: (.6fr, .8fr, .8fr),
-        column-gutter: .2em,
-        row-gutter: 0em,
-        grid(
-          columns: 2,
-          column-gutter: .1em,
-          meta-info-key("School code: "), meta-info-value("school-code", info.school-code),
-        ),
-        grid(
-          columns: 2,
-          column-gutter: .1em,
-          meta-info-key("Student ID: "), if not anonymous { meta-info-value("student-id", info.student-id) },
-        ),
-        grid(
-          columns: 2,
-          column-gutter: .1em,
-          meta-info-key("Security level: "), meta-info-value("secret-level", info.secret-level-en),
-        ),
-      ),
-    )
+    #pad()[
+      #grid(
+        columns: 3,
+        column-gutter: 1.5em,
+        [ #meta-info-key("School code: ") #meta-info-value("school-code", info.school-code)],
+        [
+          #meta-info-key("Student ID: ")
+          #if not anonymous { meta-info-value("student-id", info.student-id) }
+        ],
+        [
+          #meta-info-key("Security level: ") #meta-info-value("secret-level", info.secret-level-en)
+        ],
+      )
+    ]
   ]
 
   line(length: 100%, stroke: .5pt + black)

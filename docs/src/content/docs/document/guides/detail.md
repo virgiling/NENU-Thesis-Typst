@@ -30,6 +30,16 @@ sidebar:
 #show: doc
 ```
 
+:::tip[粗体]
+如果你的系统字体没有粗体（或者 Typst 没有识别到），那么在 `#show: doc` 后加上这段代码：
+
+```typ
+#show: show-cn-fakebold
+```
+
+注意，需要先导入 [`cuti`](https://typst.app/universe/package/cuti/) 这个包
+:::
+
 ## 封面页
 
 :::note[学校论文要求]

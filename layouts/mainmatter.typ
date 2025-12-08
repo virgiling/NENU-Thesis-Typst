@@ -25,7 +25,7 @@
   text-args: auto,
   // 标题字体与字号
   heading-font: auto,
-  heading-size: (font-size.三号, font-size.四号, font-size.小四),
+  heading-size: auto,
   heading-weight: ("bold", "bold", "bold", "bold"),
   heading-above: (48pt, 6pt, 6pt, 0pt),
   heading-below: (24pt, 0pt),
@@ -33,7 +33,7 @@
   heading-align: (center, auto),
   // 页眉
   header-render: auto,
-  header-vspace: -.5em,
+  header-vspace: 0em,
   display-header: true,
   skip-on-first-level: true,
   stroke-width: .8pt,
@@ -58,12 +58,21 @@
   //! 1.  默认参数
   fonts = font-family + fonts
   if text-args == auto {
-    text-args = (font: fonts.宋体, size: font-size.小四)
+    text-args = (
+      font: fonts.宋体,
+      size: font-size.小四,
+      overhang: false,
+      cjk-latin-spacing: none,
+    )
   }
   //? 1.1 字体与字号
   if heading-font == auto {
-    heading-font = (fonts.黑体,)
+    heading-font = (font-family.黑体, font-family.黑体, font-family.宋体)
   }
+  if heading-size == auto {
+    heading-size = (font-size.三号, font-size.四号, font-size.小四)
+  }
+
   //? 1.2 处理 heading- 开头的其他参数
   let heading-text-args-lists = args
     .named()
@@ -77,7 +86,6 @@
   }
 
   //! 引用设置
-
   show ref: it => {
     if it.element == none {
       return it
@@ -90,8 +98,6 @@
       it
     }
   }
-  show cite: set text(font: "Times New Roman")
-  show: el.default-enum-list
   //! 3.  设置基本样式
   //? 3.1 文本和段落样式
   //? 正文：中文字体为宋体，英文和数字为Times New Roman字体，小四号，大纲级别正文文本，两端对齐，首行缩进2字符，段前0行，段后0行，1.5倍行距。引文内容可使用楷体。
@@ -102,8 +108,12 @@
     first-line-indent: first-line-indent,
     spacing: spacing,
   )
-  show raw: set text(font: fonts.等宽)
+  show cite: set text(font: "Times New Roman")
+
+  //! 列表优化
+  show: el.default-enum-list.with(bottom-edge: "baseline")
   // FIXME Reference: https://github.com/Dherse/codly/issues/73 由于 Typst 的更新导致的 BUG，后续更新 codly 可以解决
+  show raw: set text(font: fonts.等宽, size: font-size.小四)
   show raw.where(block: true): set par(first-line-indent: 0pt)
   show smartquote: set text(font: fonts.楷体)
   //? 3.2 脚注样式
@@ -159,13 +169,7 @@
       above: 1.5em,
       below: 1.5em,
     )
-    set par(first-line-indent: first-line-indent, leading: leading, spacing: spacing, justify: justify)
-    v(array-at(heading-above, it.level))
-    it
-    v(array-at(heading-below, it.level))
-  }
-  //? 4.3 标题居中与自动换页
-  show heading: it => {
+    //? 4.3 标题居中与自动换页
     if array-at(heading-pagebreak, it.level) {
       //? 如果打上了 no-auto-pagebreak 标签，则不自动换页
       if "label" not in it.fields() or str(it.label) != "no-auto-pagebreak" {
@@ -174,9 +178,13 @@
     }
     if array-at(heading-align, it.level) != auto {
       set align(array-at(heading-align, it.level))
+      v(array-at(heading-above, it.level))
       it
+      v(array-at(heading-below, it.level))
     } else {
+      v(array-at(heading-above, it.level))
       it
+      v(array-at(heading-below, it.level))
     }
   }
 

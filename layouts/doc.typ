@@ -29,7 +29,8 @@
 
   set text(fallback: fallback, lang: lang)
 
-  show strong: custom-cuti.cn-fakebold
+  // FIXME - 如果系统上存在字体的粗体，不能启用，否则需要启用
+  // show strong: custom-cuti.cn-fakebold
 
   if print {
     set page(paper: "a4", margin: (top: 2cm, bottom: 2cm, inside: 0cm, outside: 2.5cm))

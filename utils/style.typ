@@ -66,7 +66,6 @@
   ),
   //! 隶书
   隶书: (
-    (name: "LiSu", covers: "latin-in-cjk"),
     "LiSu",
   ),
 )

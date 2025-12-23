@@ -35,8 +35,8 @@
     #align(center)[
       #v(48pt)
       #set text(size: font-size.三号, weight: "bold")
-      #v(24pt)
       Abstract
+      #v(24pt)
     ]
 
     #set text(font: fonts.宋体, size: font-size.小四)

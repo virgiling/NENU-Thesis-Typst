@@ -10,6 +10,7 @@
   bibliography: none,
   title: "参考文献",
   full: false,
+  twoside: false,
   style: "nenu-cite-format.csl",
   mapping: (:),
   extra-comma-before-et-al-trans: false,
@@ -18,6 +19,7 @@
   // 如果使用的 CSL 中，英文姓名中会出现逗号，请设置为 true
   outlined: true,
 ) = {
+  pagebreak(weak: true, to: if twoside { "odd" })
   assert(bibliography != none, message: "请传入带有 source 的 bibliography 函数。")
 
   invisible-heading(level: 1, outlined: outlined, title)

@@ -8,7 +8,6 @@
   //? thesis 传入的参数
   doctype: "master",
   degree: "academic",
-  nl-cover: false,
   anonymous: false,
   twoside: false,
   fonts: (:),
@@ -252,7 +251,7 @@
   ]
 
   //* 英文封面
-  pagebreak(weak: true)
+  pagebreak(weak: true, to: if twoside { "odd" })
 
   v(font-size.小四 * 2)
 

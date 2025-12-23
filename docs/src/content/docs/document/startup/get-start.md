@@ -4,6 +4,8 @@ sidebar:
     order: 3
 ---
 
+## 使用须知
+
 我们通过向 [thesis](/document/reference/thesis) 输入论文的参数，得到对应的返回页面，并通过类似 `React` 的方式将这些页面组装起来，例如：
 
 ```typ
@@ -101,3 +103,8 @@ sidebar:
 :::note
 由于这本就是一个二次开发的版本，因此所有设置都遵循了 NENU 的论文标准，这里不提供文档来指引如何进行二次开发，如果有任何问题，请在仓库中提出 [Issue](https://github.com/virgiling/NENU-Thesis-Typst/issues)
 :::
+
+
+## 打印
+
+可以通过 `twoside` 参数来控制双面打印，例如传入 `thesis` 时，设置 `twoside: true` 即可得到双面打印版本的论文

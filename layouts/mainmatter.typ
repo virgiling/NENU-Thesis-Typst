@@ -52,6 +52,8 @@
   ..args,
   it,
 ) = {
+  pagebreak(weak: true, to: if twoside { "odd" })
+
   //! 0.  标志前言结束
   set page(numbering: "1")
 
@@ -119,7 +121,16 @@
   //? 3.2 脚注样式
   //! 在需要注释处标明序号，序号加圆圈放在加注处右上角，“上标”字体标注，如①。脚注中文采用宋体，英文和数字采用Times New Roman字体,小五号字，左对齐，无缩进，段前0行，段后0行，单倍行距。每页重新编号，注释序号均从①开始
   set footnote(numbering: "①")
-  show footnote.entry: set text(font: font-family.宋体, size: font-size.小五)
+  show footnote: set text(
+    font: ((name: "Times New Roman", covers: "latin-in-cjk"), "PingFang SC"),
+    size: font-size.小五,
+  )
+  show footnote.entry: set text(
+    font: ((name: "Times New Roman", covers: "latin-in-cjk"), "PingFang SC"),
+    size: font-size.小五,
+  )
+
+  // show footnote.entry: set text(font: font-family.宋体, size: font-size.小五)
   //? 3.3 设置 figure 的编号
   show heading: i-figured.reset-counters.with(extra-kinds: (
     "algorithm",

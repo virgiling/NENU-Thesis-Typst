@@ -47,7 +47,7 @@
   <macro name="author">
     <names variable="author">
       <name>
-        <name-part name="family" />
+        <name-part name="family"/>
       </name>
       <substitute>
         <names variable="composer"/>
@@ -246,7 +246,7 @@
   <macro name="container-periodical">
     <choose>
       <if type="article-newspaper">
-        <!-- 报纸的出处项：“刊名, 出版日期(版次): 页码[引用日期]” -->
+        <!-- 报纸的出处项："刊名, 出版日期(版次): 页码[引用日期]" -->
         <group delimiter=", ">
           <text variable="container-title"/>
           <text macro="issued-date"/>

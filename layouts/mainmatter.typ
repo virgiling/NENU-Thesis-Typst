@@ -153,10 +153,6 @@
   show table.cell: set par(first-line-indent: 0pt, leading: 1em, spacing: 0pt, justify: true)
   show table.cell: set text(font: fonts.宋体, size: font-size.五号)
 
-  show grid.cell: set align(center)
-  show grid.cell: set par(first-line-indent: 0pt, leading: 1em, spacing: 0pt, justify: true)
-  show grid.cell: set text(font: fonts.宋体, size: font-size.五号) 
-
   //? 图表样式
   set figure(gap: leading)
   set figure.caption(separator: separator)

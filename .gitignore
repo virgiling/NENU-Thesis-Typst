@@ -10,3 +10,5 @@ node_modules
 private/
 
 tinymist.lock
+
+*.pdf

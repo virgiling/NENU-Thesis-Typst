@@ -227,7 +227,47 @@
   caption: [三线表示例],
 )<three-line-table>
 
+#import "../utils/grid-table.typ": three-line-table, highlight-table
+也可使用 `three-line-table`函数创建三线表。
 
+#figure(
+  three-line-table(
+    align: center + horizon,
+    columns: 4,
+    inset: 0.5em,
+    stroke: none,
+    [x], [y], [z], [t],
+    [11], [5 ms], [3], [0.7],
+    [3000], [80 ms], [1111], [0.9],
+  ),
+  caption: [三线表示例2],
+)<three-line-table2>
+
+可使用 `highlight-table` 高亮某些列的最值，示例如下：
+#figure(
+caption: [自动加粗最值示例],
+highlight-table(
+  columns: 4,
+  // 仅配置规则即可：1列取最小值，2列取最大值
+  rules: ("1": "min", "2": "max"),
+  inset: 5pt,
+  [Model],
+  [Vina Score],
+  [QED],
+  [LogP],
+  "DEPACT",
+  (-6.632, 0.18),
+  0.45,
+  2.1,
+  "PocketGen",
+  (-7.135, 0.08),
+  0.78,
+  3.1,
+  "DiffPocket",
+  (-7.599, 0.15),
+  0.60,
+  2.5,
+))
 
 === 图片
 

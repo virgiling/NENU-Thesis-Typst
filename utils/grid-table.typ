@@ -3,7 +3,7 @@
 // ==========================================
 // 1. 基础样式层：控制字体、对齐、段落
 // ==========================================
-#let gtable(..args) = {
+#let grid-table(..args) = {
   set grid.cell(align: center)
   // 设置单元格内文字排版：取消首行缩进，设置行间距
   show grid.cell: set par(first-line-indent: 0pt, leading: 1.2em, spacing: 0pt, justify: true)
@@ -29,7 +29,7 @@
   let header-row = pos-args.slice(0, col-count)
   let body-rows = pos-args.slice(col-count)
 
-  gtable(
+  grid-table(
     ..named-args,
     stroke: none, // 三线表隐藏默认边框
     // 包装表头：支持跨页自动重复

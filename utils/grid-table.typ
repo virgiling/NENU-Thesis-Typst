@@ -36,10 +36,10 @@
     grid.header(
       grid.hline(y: 0, stroke: 1.5pt), // 顶线
       ..header-row.map(h => strong(h)),
-      grid.hline(y: 1, stroke: 1.5pt), // 栏目线
+      grid.hline(y: 1, stroke: 1pt), // 栏目线
     ),
     ..body-rows,
-    grid.hline(stroke: 1pt), // 底线
+    grid.hline(stroke: 1.5pt), // 底线
   )
 }
 

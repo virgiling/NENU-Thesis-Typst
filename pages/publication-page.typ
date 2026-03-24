@@ -14,7 +14,7 @@
   outline-title: "在学期间取得创新性成果情况",
 ) = {
   //! 1.  默认参数
-  pubs = (
+  pubs = if pubs.len() == 0 {
     (
       (
         name: "论文名称1",
@@ -31,8 +31,9 @@
         author-order: "3",
       ),
     )
-      + pubs
-  )
+  } else {
+    pubs
+  }
 
   fonts = font-family + fonts
 
@@ -66,7 +67,7 @@
     "成果名称", "成果类别", "刊物名称/出版社名称", "刊发时间	", "作者次序",
     ..pubs
       .map(pub => (
-        pub.name,
+        if anonymous { "" } else { pub.name },
         pub.class,
         pub.publisher,
         pub.public-time,

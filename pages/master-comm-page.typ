@@ -81,7 +81,7 @@
   /// 表格边框的样式
   ///
   /// -> none|length|color|gradient|array|stroke|tiling|dictionary|function
-  grid-stroke-style: 1pt + black,
+  grid-stroke-style: .5pt + black,
   /// 表格内单元格的对齐方式
   ///
   /// -> alignment

@@ -1,4 +1,5 @@
 #import "../utils/custom-cuti.typ"
+#import "@preview/itemize:0.2.0" as el
 
 /// 文稿设置
 /// 用于设置 PDF 的全局选项以及元数据
@@ -42,6 +43,10 @@
     title: (("",) + info.title).sum(),
     author: info.author,
   )
+
+  //? 多级列表显示
+  set enum(numbering: "(1).(a)")
+  show: el.paragraph-enum-list.with(indent: 2em, hanging-indent: -2em)
 
   it
 }

@@ -112,7 +112,8 @@
   show cite: set text(font: "Times New Roman")
 
   // FIXME Reference: https://github.com/Dherse/codly/issues/73 由于 Typst 的更新导致的 BUG，后续更新 codly 可以解决
-  show raw: set text(font: fonts.等宽, size: font-size.小四)
+  // show raw: set text(font: fonts.等宽, )
+  show raw: set text(font: (name: "Monaco Nerd Font Mono", covers: "latin-in-cjk"), size: font-size.小四)
   show raw.where(block: true): set par(first-line-indent: 0pt)
   show smartquote: set text(font: fonts.楷体)
   //? 3.2 脚注样式
@@ -143,7 +144,6 @@
   show figure.where(kind: "algorithm"): set figure(supplement: [算法])
   show figure.where(kind: "algorithm"): set block(width: 100%)
   show figure.where(kind: "algorithm"): set align(center)
-  show figure: set text(font: fonts.宋体, size: font-size.小四)
 
   //! 表单元格内容：居中书写（上下居中，左右居中），中文为宋体，英文和数字为Times New Roman字体，五号字，居中无缩进，段前0行，段后0行，单倍行距。
   show table.cell: set align(center)

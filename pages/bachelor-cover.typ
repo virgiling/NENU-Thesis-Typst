@@ -31,6 +31,17 @@
   /// 日期表示形式
   /// 自定义写法可参考 @@datetime-display() 系列函数
   datetime-display: datetime-display-without-day,
+  anonymous-info-keys: (
+    "student-id",
+    "author",
+    "author-en",
+    "supervisor",
+    "supervisor-en",
+    "supervisor-ii",
+    "supervisor-ii-en",
+    "chairman",
+    "reviewer",
+  ),
 ) = {
   fonts = font-family + fonts
   info = (

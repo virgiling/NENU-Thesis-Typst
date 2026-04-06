@@ -213,13 +213,11 @@
             set text(font: fonts.黑体, size: font-size.小四)
             set par(first-line-indent: 0pt, leading: leading, spacing: spacing, justify: true)
             set align(center)
-            if doctype != "bachelor" {
-              if doctype == "master" { "东北师范大学硕士学位论文" } else if doctype == "doctor" {
-                "东北师范大学博士学位论文"
-              }
-              v(header-vspace)
-              line(length: 100%, stroke: stroke-width)
-            }
+            if doctype == "master" { "东北师范大学硕士学位论文" } else if doctype == "doctor" {
+              "东北师范大学博士学位论文"
+            } else if doctype == "bachelor" { "东北师范大学学士学位论文" }
+            v(header-vspace)
+            line(length: 100%, stroke: stroke-width)
           },
           header-ascent: .25cm,
         )

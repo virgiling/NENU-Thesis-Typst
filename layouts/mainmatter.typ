@@ -32,7 +32,7 @@
   heading-align: (center, auto),
   // 页眉
   header-render: auto,
-  header-vspace: 0em,
+  header-vspace: -.5em,
   display-header: true,
   skip-on-first-level: true,
   stroke-width: .8pt,
@@ -218,6 +218,7 @@
             } else if doctype == "bachelor" { "东北师范大学学士学位论文" }
             v(header-vspace)
             line(length: 100%, stroke: stroke-width)
+            v(-header-vspace)
           },
           header-ascent: .25cm,
         )

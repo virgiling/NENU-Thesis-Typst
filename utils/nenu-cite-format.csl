@@ -1,5 +1,5 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <!-- Copied And Modified From https://github.com/tzhtaylor/modern-sjtu-thesis/blob/main/utils/shanghai-jiao-tong-university.csl -->
-<?xml version="1.0" encoding="utf-8"?>
 <style xmlns="http://purl.org/net/xbiblio/csl" class="in-text" version="1.0" name-as-sort-order="all" sort-separator=" " demote-non-dropping-particle="never" initialize-with=" " initialize-with-hyphen="false" page-range-format="expanded" default-locale="zh-CN">
   <info>
     <title>GB/T 7714—2015（顺序编码，双语）</title>
@@ -18,6 +18,7 @@
     <category citation-format="numeric"/>
     <category field="generic-base"/>
     <rights license="http://creativecommons.org/licenses/by-sa/3.0/">This work is licensed under a Creative Commons Attribution-ShareAlike 3.0 License</rights>
+    <updated>2026-04-07T00:00:00+08:00</updated>
   </info>
   <locale xml:lang="zh">
     <date form="text">
@@ -328,12 +329,9 @@
           原国标中，电子公告、无出版社的报告、法规等文献都可以作为“纯电子文献”。
         -->
         <choose>
-          <if has-day="issued">
+          <if variable="issued">
             <text macro="issued-date" prefix="(" suffix=")"/>
           </if>
-          <else-if variable="issued">
-            <text macro="issued-year"/>
-          </else-if>
         </choose>
         <text macro="accessed-date"/>
       </else-if>

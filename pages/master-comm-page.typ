@@ -44,7 +44,7 @@
   /// 第四行以及之后的表格高度
   ///
   /// -> length
-  cell-height: 2.7em,
+  cell-height: 3em,
   /// 标题的字号
   /// -> font-size
   title-size: font-size.三号,
@@ -89,7 +89,7 @@
   /// 第一列（如"论文题目"、"论文评阅人"等）的单元格内边距
   ///
   /// -> auto| relative | dictionary
-  label-col-grid-cell-inset: (top: 1em, bottom: 1em),
+  label-col-grid-cell-inset: (top: 1.5em, bottom: 1.5em),
 ) = {
   info = (
     (
@@ -100,8 +100,6 @@
         (name: "张三", workplace: "工作单位", evaluation: "总体评价"),
         (name: "李四", workplace: "工作单位", evaluation: "总体评价"),
         (name: "王五", workplace: "工作单位", evaluation: "总体评价"),
-        (name: "赵六", workplace: "工作单位", evaluation: "总体评价"),
-        (name: "孙七", workplace: "工作单位", evaluation: "总体评价"),
       ),
       committee-members: (
         (name: "张三", workplace: "工作单位", title: "职称"),
@@ -135,7 +133,7 @@
 
   show grid: it => {
     set text(font: fonts.宋体, size: font-size.小四)
-    set align(grid-cell-align)
+    // set align(grid-cell-align)
     it
   }
 
@@ -153,21 +151,23 @@
     #set par(leading: 1.5em)
     #v(48pt)
     学位论文评阅专家及答辩委员会人员信息
-    #v(-48pt)
+    #v(24pt)
   ]
 
+  show grid.cell: set align(center + horizon)
+
   grid(
-    rows: (long-cell-height,) * 3 + (cell-height,) * 14,
+    rows: (long-cell-height,) * 3 + (cell-height,) * (num-reviewers + num-committee-members + 1),
     columns: (label-col-width, role-col-width, name-col-width, workplace-col-width, evaluation-col-width),
     stroke: get-stroke(sides: ("top", "left", "right", "bottom")),
     grid.cell(text(weight: weight-style)[论  文 #linebreak() 题 目]),
     grid.cell(colspan: 4, info.title.intersperse("\n").sum()),
     grid.cell(text(weight: weight-style)[作 者 #linebreak() 姓 名]),
     grid.cell(colspan: 4, info_value("author", info.author)),
-    grid.cell(text(weight: weight-style)[指导 #linebreak() 教师]),
+    grid.cell(text(weight: weight-style)[指 导 #linebreak() 教 师]),
     grid.cell(colspan: 4, info_value("supervisor", info.supervisor.intersperse(" ").sum())),
 
-    grid.cell(rowspan: 6, inset: label-col-grid-cell-inset)[
+    grid.cell(rowspan: num-reviewers + 1, inset: label-col-grid-cell-inset)[
       #text(weight: weight-style, justify-text("论文评阅人"))
     ],
     grid.cell(colspan: 2, text(weight: weight-style)[姓 名]),
@@ -180,7 +180,7 @@
         grid.cell(info_value("reviewer", info.reviewers.at(i).evaluation)),
       )
     },
-    grid.cell(rowspan: 8, inset: label-col-grid-cell-inset)[
+    grid.cell(rowspan: num-committee-members + 1, inset: label-col-grid-cell-inset)[
       #text(weight: weight-style, justify-text("学位论文答辩委员会"))
     ],
     grid.cell(colspan: 2, text(weight: weight-style)[姓 名]),
@@ -191,7 +191,7 @@
     grid.cell(info_value("chairman", info.committee-members.at(0).name)),
     grid.cell(info_value("chairman", info.committee-members.at(0).workplace)),
     grid.cell(info_value("chairman", info.committee-members.at(0).title)),
-    grid.cell(rowspan: 6, text(weight: weight-style)[委#linebreak() 员]),
+    grid.cell(rowspan: num-committee-members - 1, text(weight: weight-style)[委#linebreak() 员]),
 
     ..for i in range(1, num-committee-members) {
       (

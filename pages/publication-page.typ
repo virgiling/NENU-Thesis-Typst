@@ -54,7 +54,7 @@
 
   show grid.cell: it => {
     set text(font: fonts.宋体, size: font-size.小四)
-    set par(leading: 1.5em, spacing: 1.5em)
+    set par(leading: 1.5em, spacing: 1.5em, justify: false, first-line-indent: 0pt)
     pad(x: 6pt, y: 12pt, it) // 添加水平和垂直内边距
   }
 
